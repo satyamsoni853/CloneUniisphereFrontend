@@ -6,11 +6,11 @@ import { Link } from "react-router-dom";
 
 function EduValt() {
   return (
-    <div >
-    <div className="edu-valt-navbar-container">
-    <DesktopNavbar />
-    <Background />
-    </div>
+    <div>
+      <div className="edu-valt-navbar-container">
+        <DesktopNavbar />
+        <Background />
+      </div>
       <div className="edu-valt-section-container">
         <div className="edu-valt-section-card">
           <div className="edu-valt-section-card-container">
@@ -19,7 +19,8 @@ function EduValt() {
               Welcome to <span>EDU-VALT</span>
             </h1>
             <p className="edu-valt-section-subtitle">
-            Explore academic books, novels, notes, references, life lessons, and more to support your learning and personal growth.
+              Explore academic books, novels, notes, references, life lessons,
+              and more to support your learning and personal growth.
             </p>
 
             <div className="edu-valt-section-section">

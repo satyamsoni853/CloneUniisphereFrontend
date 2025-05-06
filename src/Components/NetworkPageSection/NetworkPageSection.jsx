@@ -11,7 +11,6 @@ import redXIcon from "./Close.svg";
 import greenCheckIcon from "./Check.svg";
 import MobileNavbar from "../MobileNavbar/MobileNavbar.jsx";
 
-
 // DUMMY_DATA - Used for testing when API is not available
 const DUMMY_DATA = [
   {
@@ -143,7 +142,8 @@ function NetworkPage() {
             profilePictureUrl: user.profilePictureUrl || ProfilePhoto,
             headline: user.headline || "No headline",
             connections: user.connections || Math.floor(Math.random() * 100),
-            collaborations: user.collaborations || Math.floor(Math.random() * 10),
+            collaborations:
+              user.collaborations || Math.floor(Math.random() * 10),
           }))
         : [];
 
@@ -254,7 +254,8 @@ function NetworkPage() {
           {
             id: acceptedRequest.user1.id,
             username: acceptedRequest.user1.username,
-            profilePictureUrl: acceptedRequest.user1.profilePictureUrl || ProfilePhoto,
+            profilePictureUrl:
+              acceptedRequest.user1.profilePictureUrl || ProfilePhoto,
             headline: acceptedRequest.user1.headline || "No headline",
             connections: Math.floor(Math.random() * 100),
             collaborations: Math.floor(Math.random() * 10),
@@ -282,7 +283,9 @@ function NetworkPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || `HTTP error! status: ${response.status}`);
+        throw new Error(
+          data.message || `HTTP error! status: ${response.status}`
+        );
       }
 
       console.log("Accept request successful:", data);
@@ -409,7 +412,9 @@ function NetworkPage() {
                         >
                           <div className="networkpage-profile-pic-container">
                             <img
-                              src={request.user1?.profilePictureUrl || ProfilePhoto}
+                              src={
+                                request.user1?.profilePictureUrl || ProfilePhoto
+                              }
                               alt={`${request.user1?.username}'s profile`}
                               className="networkpage-profile-pic"
                               onError={(e) => {
@@ -462,7 +467,9 @@ function NetworkPage() {
                             className="networkpage-card"
                             style={{
                               backgroundColor:
-                                backgroundColors[index % backgroundColors.length],
+                                backgroundColors[
+                                  index % backgroundColors.length
+                                ],
                             }}
                           >
                             <div className="networkpage-profile-pic-container">
@@ -475,8 +482,12 @@ function NetworkPage() {
                                 }}
                               />
                             </div>
-                            <h3 className="networkpage-name">{user.username}</h3>
-                            <p className="networkpage-education">ID: {user.id}</p>
+                            <h3 className="networkpage-name">
+                              {user.username}
+                            </h3>
+                            <p className="networkpage-education">
+                              ID: {user.id}
+                            </p>
                             <p className="networkpage-description">
                               {user.headline || "No headline"}
                             </p>
@@ -495,9 +506,13 @@ function NetworkPage() {
                           </div>
                           {!isMobile && (
                             <div className="catchup-container">
-                              <h2 className="catchup-heading">{user.username}</h2>
+                              <h2 className="catchup-heading">
+                                {user.username}
+                              </h2>
                               <p className="catchup-text">
-                                Catch up with {user.username}! Share updates, collaborate on projects, or start a new conversation.
+                                Catch up with {user.username}! Share updates,
+                                collaborate on projects, or start a new
+                                conversation.
                               </p>
                             </div>
                           )}
@@ -515,42 +530,71 @@ function NetworkPage() {
                       <div>Error: {error}</div>
                     ) : connections.length > 0 ? (
                       connections.map((user, index) => (
-                        <div
-                          key={user.id}
-                          className="networkpage-card"
-                          style={{
-                            backgroundColor:
-                              backgroundColors[index % backgroundColors.length],
-                          }}
-                        >
-                          <div className="networkpage-profile-pic-container">
-                            <img
-                              src={user.profilePictureUrl}
-                              alt={`${user.username}'s profile`}
-                              className="networkpage-profile-pic"
-                              onError={(e) => {
-                                e.target.src = ProfilePhoto;
-                              }}
-                            />
-                          </div>
-                          <h3 className="networkpage-name">{user.username}</h3>
-                          <p className="networkpage-education">ID: {user.id}</p>
-                          <p className="networkpage-description">
-                            {user.headline || "No headline"}
-                          </p>
-                          <div className="networkpage-actions">
-                            <div
-                              className="networkpage-connect-icon"
-                              onClick={handleConnectClick}
-                            >
-                              <img src={ConnectSvg} alt="Connect" />
+                        <div className="" key={user.id} >
+                          <div
+                            
+                            className="networkpage-card"
+                            style={{
+                              backgroundColor:
+                                backgroundColors[
+                                  index % backgroundColors.length
+                                ],
+                            }}
+                          >
+                            <div className="networkpage-profile-pic-container">
+                              <img
+                                src={user.profilePictureUrl}
+                                alt={`${user.username}'s profile`}
+                                className="networkpage-profile-pic"
+                                onError={(e) => {
+                                  e.target.src = ProfilePhoto;
+                                }}
+                              />
                             </div>
-                           
+                            <h3 className="networkpage-name">
+                              {user.username}
+                            </h3>
+                            <p className="networkpage-education">
+                              ID: {user.id}
+                            </p>
+                            <p className="networkpage-description">
+                              {user.headline || "No headline"}
+                            </p>
+                            <div className="networkpage-actions">
+                              <div
+                                className="networkpage-connect-icon"
+                                onClick={handleConnectClick}
+                              >
+                                <img src={ConnectSvg} alt="Connect" />
+                              </div>
+                            </div>
+                            <div className="networkpage-stats">
+                              <span>{user.connections} connect</span>
+                              <span>{user.collaborations} collaborate</span>
+                            </div>
                           </div>
-                          <div className="networkpage-stats">
-                            <span>{user.connections} connect</span>
-                            <span>{user.collaborations} collaborate</span>
-                          </div>
+                          
+                          {(isMobile || showCatchUpMode )&& (
+                              <div className="networkpage-mobile-catchup">
+                              
+                              <div
+                                key={user.id}
+                                className="catchup-container mobile"
+                              >
+                                <h2 className="catchup-heading">
+                                  {user.username}
+                                </h2>
+                                <p className="catchup-text">
+                                  Catch up with {user.username}! Share
+                                  updates, collaborate on projects, or start
+                                  a new conversation.
+                                </p>
+                              </div>
+                          
+                        </div>
+                          )}
+                         
+                        
                         </div>
                       ))
                     ) : (
@@ -562,7 +606,7 @@ function NetworkPage() {
                 <div className="networkpage-buttons">
                   <button
                     className="networkpage-action-btn  CATCHUP-Btn "
-                    onClick={() => handleCatchUpClick(null)}
+                    onClick={() => handleCatchUpClick()}
                   >
                     CATCHUP
                   </button>
@@ -583,26 +627,6 @@ function NetworkPage() {
             </div>
 
             {/* Mobile Catch Up Containers */}
-            {isMobile && showCatchUpMode && (
-              <div className="networkpage-mobile-catchup">
-                {connectionsLoading ? (
-                  <div>Loading users...</div>
-                ) : error ? (
-                  <div>Error: {error}</div>
-                ) : connections.length > 0 ? (
-                  connections.map((user, index) => (
-                    <div key={user.id} className="catchup-container mobile">
-                      <h2 className="catchup-heading">{user.username}</h2>
-                      <p className="catchup-text">
-                        Catch up with {user.username}! Share updates, collaborate on projects, or start a new conversation.
-                      </p>
-                    </div>
-                  ))
-                ) : (
-                  <div>No users found</div>
-                )}
-              </div>
-            )}
           </div>
         </div>
       </div>
@@ -616,9 +640,11 @@ function NetworkPage() {
         </div>
       )}
       {isMobile && <MobileFooter />}
+ 
      <div className="Network-right-section" >
      <DesktopRightSection  />
      </div>
+ 
     </div>
   );
 }
