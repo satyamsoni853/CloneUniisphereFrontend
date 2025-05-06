@@ -214,13 +214,17 @@ function MobileFooter() {
               Connection
             </Link>
           </div>
-          <div className="mobile-connections-item">Edu-vault</div>
+          <div className="mobile-connections-item">
+
+         <Link to="/Books" className="connection-link">
+                       Eduvault
+                     </Link></div>
           <div className="mobile-connections-item active">
             <Link to="/HumanLib" className="connection-link">
               Human Library
             </Link>
           </div>
-          <div className="mobile-connections-item">Guidance</div>
+       
           <div className="mobile-connections-item">
             <Link to="/coming-soon" className="connection-link">
               Freelancing

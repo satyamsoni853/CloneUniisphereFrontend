@@ -9,6 +9,7 @@ import UserSignupWithEmailAndPassword from "./Components/UserSignupWithEmailAndP
 import ForgotPassword from "./Components/ForgotPassword/ForgotPassword.jsx";
 import EduValt from "./Components/EduValt/EduValt.jsx";
 import LibBlog from "./Components/Libblog/LibBlog.jsx";
+import CommingSoon from './Components/ComingSoon/ComingSoon.jsx'
 import Guiednest from "./Components/Guiednest/Guiednest.jsx";
 
 
@@ -106,6 +107,7 @@ function App() {
             <Route path="/EduValt" element={<EduValt/>} />
             <Route path="/Guiednest" element={<Guiednest />} />
             <Route path="/libblog" element={< LibBlog />} />
+            <Route path="/coming-soon" element={< CommingSoon />} />
 
           </Routes>
         </Suspense>
