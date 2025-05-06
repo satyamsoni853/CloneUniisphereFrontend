@@ -76,8 +76,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  
-  
+
   justify-content: center;
 }
 
@@ -200,14 +199,13 @@
   padding: 0 20px;
   min-width: 180px;
 }
-.CATCHUP-Btn{
-
+.CATCHUP-Btn {
   background-color: #e5a85e;
 }
-.REQUEST-Btn{
+.REQUEST-Btn {
   background-color: #75d293;
 }
-.NEW-CONNECTION-Btn{
+.NEW-CONNECTION-Btn {
   background-color: #f5f5dc;
 }
 .networkpage-action-btn:hover {
@@ -261,6 +259,8 @@
 /* Mobile Catch Up section */
 .networkpage-mobile-catchup {
   display: flex;
+  margin-top: 20px;
+  background-color: blue;
   flex-direction: column;
   gap: 20px;
   width: 100%;
@@ -304,6 +304,10 @@
   }
   .networkpage-grid:not(.catchup-mode) {
     grid-template-columns: 1fr;
+   
+  }
+  .networkpage-grid {
+    margin: 0 auto;
   }
   .networkpage-card {
     max-width: 90vw;

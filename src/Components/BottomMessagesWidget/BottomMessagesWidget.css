@@ -161,11 +161,14 @@ background: linear-gradient(to bottom, #91f09877,#9cdbf265);
   text-overflow: ellipsis;
 }
 
-
+@media (max-width:768px){
+  .bottom-message-main-container{
+    display: none;
+  }
+}
 @media (width<=480px) {
   .message-section{
     display: none;
- 
   font-size: 20px;
 }
 }
