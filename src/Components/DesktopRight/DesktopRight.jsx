@@ -116,8 +116,6 @@ function DesktopRightSection() {
 
         setSuggestions(fetchedSuggestions);
       } catch (error) {
-        console.error("Error fetching data:", error);
-        setError("Failed to load data");
         setSuggestions(dummySuggestions); // Use dummy data on error
       } finally {
         setLoading(false);
