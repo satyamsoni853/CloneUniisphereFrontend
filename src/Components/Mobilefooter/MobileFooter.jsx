@@ -209,8 +209,8 @@ function MobileFooter() {
       </div>
       {showNetwork && (
         <div className="mobile-connections-card">
-          <div className="mobile-connections-item">
-            <Link to="/NetworkPage" className="connection-link">
+          <div className="mobile-connections-item mobile-connection-connection  ">
+            <Link to="/NetworkPage" className="connection-link  ">
               Connection
             </Link>
           </div>
@@ -221,8 +221,31 @@ function MobileFooter() {
             </Link>
           </div>
           <div className="mobile-connections-item">Guidance</div>
-          <div className="mobile-connections-item">NGOs</div>
-          <div className="mobile-connections-item">Blogs</div>
+          <div className="mobile-connections-item">
+            <Link to="/coming-soon" className="connection-link">
+              Freelancing
+            </Link>
+          </div>
+          <div className="mobile-connections-item">
+            <Link to="/coming-soon" className="connection-link">
+              Skillup
+            </Link>
+          </div>
+          <div className="mobile-connections-item">
+            <Link to="/coming-soon" className="connection-link">
+              Freelancing
+            </Link>
+          </div>
+          <div className="mobile-connections-item">
+            <Link to="/coming-soon" className="connection-link">
+              Intern Zone
+            </Link>
+          </div>
+          <div className="mobile-connections-item">
+            <Link to="/libblog" className="connection-link">
+              Blog
+            </Link>
+          </div>
         </div>
       )}
       {showUploadSection && (
