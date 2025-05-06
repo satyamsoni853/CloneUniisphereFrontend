@@ -108,7 +108,8 @@
 .main-books-eBooks-content {
   display: flex;
   align-items: center;
-  gap: 11rem;
+  gap: 5rem;
+ 
   flex-wrap: nowrap;
   position: relative;
   width: 100%;
