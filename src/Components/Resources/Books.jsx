@@ -47,7 +47,7 @@ const Books = () => {
         );
 
         // Log the full API response
-        console.log("API Response:", {
+        console.log("Books API Response:", {
           data: response.data,
           status: response.status,
           statusText: response.statusText,
@@ -63,7 +63,7 @@ const Books = () => {
         // Transform API response
         const transformedBooks = bookData.map((book) => {
           const imageUrl = book.url || "https://via.placeholder.com/150";
-          console.log(`Book Image URL: ${imageUrl}`); // Debug image URLs
+          // console.log(`Book Image URL: ${imageUrl}`); // Debug image URLs
           return {
             title: book.name || "Untitled Book",
             url: imageUrl,
