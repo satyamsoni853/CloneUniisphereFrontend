@@ -76,8 +76,10 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-
   justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .catchup-heading {
@@ -137,7 +139,6 @@
 
 /* Connect icon */
 .networkpage-connect-icon {
-  /* margin: 10px auto; */
   cursor: pointer;
   width: 120px;
   height: 40px;
@@ -186,7 +187,6 @@
 
 /* Action buttons */
 .networkpage-action-btn {
-  /* background-color: #f5f5dc; */
   color: black;
   font-weight: 600;
   height: 46px;
@@ -270,10 +270,12 @@
 @media (max-width: 1200px) {
   .connection-row {
     flex-direction: column;
+    align-items: center;
   }
   .catchup-container {
-    max-width: 300px;
+    max-width: 400px;
     margin: 0 auto;
+    padding: 15px;
   }
   .networkpage-grid:not(.catchup-mode) {
     grid-template-columns: repeat(3, 1fr);
@@ -283,7 +285,7 @@
 @media (max-width: 992px) {
   .networkpage {
     padding: 15px;
-    margin-top: 60px;
+    margin-top: 80px;
   }
   .networkpage-grid:not(.catchup-mode) {
     grid-template-columns: repeat(2, 1fr);
@@ -294,9 +296,22 @@
   .networkpage-action-btn {
     min-width: 160px;
   }
+  .catchup-container {
+    max-width: 90vw;
+    padding: 15px;
+  }
+  .catchup-heading {
+    font-size: 20px;
+  }
+  .catchup-text {
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 768px) {
+  .Network-right-section {
+    display: none;
+  }
   .networkpage {
     margin-top: 0;
     padding: 10px;
@@ -313,8 +328,18 @@
     max-width: 90vw;
     height: 320px;
   }
-  .catchup-container.mobile {
-    max-width: 90vw;
+  .catchup-container {
+    max-width: 100%;
+    padding: 12px;
+    margin: 0;
+  }
+  .catchup-heading {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .catchup-text {
+    font-size: 13px;
+    line-height: 1.4;
   }
   .networkpage-action-btn {
     min-width: 120px;
@@ -328,6 +353,9 @@
 }
 
 @media (max-width: 480px) {
+  .Network-right-section {
+    display: none;
+  }
   .networkpage {
     padding: 5px;
   }
@@ -367,6 +395,17 @@
     align-items: center;
     gap: 8px;
   }
+  .catchup-container {
+    padding: 10px;
+  }
+  .catchup-heading {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  .catchup-text {
+    font-size: 12px;
+    line-height: 1.3;
+  }
 }
 
 @media (max-width: 320px) {
@@ -377,10 +416,23 @@
     font-size: 9px;
     padding: 3px 6px;
   }
+  .catchup-container {
+    padding: 8px;
+  }
+  .catchup-heading {
+    font-size: 14px;
+  }
+  .catchup-text {
+    font-size: 11px;
+  }
 }
 
 /* Specific styles for Catch Up mode */
 .networkpage-grid.catchup-mode {
   display: flex;
   flex-direction: column;
+ 
+} 
+  
 }
+ 

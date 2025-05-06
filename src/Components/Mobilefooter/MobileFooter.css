@@ -60,11 +60,23 @@
   display: flex;
   align-items: center;
   flex-direction: column;
- gap: 10px;
+  gap: 10px;
+  overflow-y: scroll; /* Allow scrolling */
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
+/* Hide the scrollbar but keep the content scrollable */
+.mobile-connections-card::-webkit-scrollbar {
+  display: none; /* Hide scrollbar in webkit browsers (Chrome, Safari) */
+}
+
+
+
 .mobile-connections-card :nth-child(1) {
-  box-shadow: 0 2px 5px 2px #a7e1eb7b;
+  /* box-shadow: 0 2px 5px 2px #a7e1eb7b; */
+}
+.mobile-connection-connection{
+    box-shadow: 0 2px 5px 2px #a7e1eb7b;
 }
 .mobile-connections-card :nth-child(2) {
   box-shadow: 0 2px 5px 2px rgba(233, 149, 198, 0.429);
@@ -81,6 +93,16 @@
 .mobile-connections-card :nth-child(6) {
   box-shadow: 0 2px 5px 2px #61e3798c;
 }
+.mobile-connections-card :nth-child(7) {
+  box-shadow: 0 2px 5px 2px #61e3798c;
+}
+.mobile-connections-card :nth-child(8) {
+  box-shadow: 0 2px 5px 2px #61e3798c;
+}
+.mobile-connections-card :nth-child(9) {
+  box-shadow: 0 2px 5px 2px #a5bc7c8c;
+}
+
 
 .mobile-connections-item {
   width: 140px;

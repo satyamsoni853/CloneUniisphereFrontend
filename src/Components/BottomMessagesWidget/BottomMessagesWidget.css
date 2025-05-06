@@ -173,4 +173,8 @@ background: linear-gradient(to bottom, #91f09877,#9cdbf265);
 }
 }
 
- 
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+  .bottom-message-main-container{
+    display: none;
+  }
+}

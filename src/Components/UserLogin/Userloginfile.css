@@ -164,20 +164,18 @@
 }
 .unisphere-title-container {
   font-size: 5.2rem;
-  font-weight: 600; 
+  font-weight: 600;
   background-color: white;
   border-radius: 20px;
 }
-.top-menu-icon{
+.top-menu-icon {
   display: none;
-  
 }
-.Succeed-1{
+.Succeed-1 {
   background-color: white;
 }
 .Succeed-1 span {
   font-size: 1.4rem;
-  
 }
 .Login-remember-me {
   display: flex;
@@ -185,27 +183,37 @@
   gap: 8px; /* space between checkbox and label */
   white-space: nowrap;
 }
-.Login-remember-me input{
+.Login-remember-me input {
   margin-top: 10px;
 }
 
-
 @media (max-width: 768px) {
-  .top-menu-icon{
+  .top-menu-icon {
     display: block;
     font-size: 3rem;
     position: relative;
     margin-top: 15px;
   }
-  .top-left-container{
+  .top-left-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 50px;
   }
-  
-
-
+  .mobile-forgot{
+    margin-left: 40px;
+  }
+  #remember{
+    width: 15px;
+    height: 15px;
+    display: flex;
+  }
+  .remember-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+  }
 
   .unisphere-title-container {
     font-size: 3.6rem;
@@ -242,7 +250,6 @@
     width: 100%;
   }
 }
-
 
 /* Show only on mobile */
 .mobile-forgot {
