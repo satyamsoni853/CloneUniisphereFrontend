@@ -586,14 +586,15 @@ function DesktopNavbar() {
         )}
       </div>
       <div className="icon-wrapper">
-        <img
-          src={activeIcon === "clender" ? ClenderWhite : ClenderBlack}
-          alt="Calendar"
-          className="desktop-icon"
-          onClick={handleClenderClick}
-          title="Calendar"
-        />
-      </div>
+  <Link to="/coming-soon" className="connection-link">
+    <img
+      src={activeIcon === "clender" ?   ClenderBlack:ClenderWhite}
+      alt="Calendar"
+      className="desktop-icon"
+      title="Calendar"
+    />
+  </Link>
+</div>
 
       {/* User Dropdown */}
       <div className="user-icon-container">

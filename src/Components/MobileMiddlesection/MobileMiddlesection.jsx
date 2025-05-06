@@ -9,6 +9,7 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoSendOutline } from "react-icons/io5";
+import { FcLike } from "react-icons/fc";
 import Background from "../Background/Background";
 import profilePhoto from "./profilephoto.png";
 import ShareIcon from "./Share.svg";
@@ -27,10 +28,10 @@ function MobileMiddleSection() {
   const [showComment, setShowComment] = useState(false);
   const [showCommentOptions, setShowCommentOptions] = useState(false);
   const [showShare, setShowShare] = useState(false);
-  const [showImageModal, setShowImageModal] = useState(false); // For image modal
-  const [selectedImage, setSelectedImage] = useState(null); // For image modal
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0); // For image modal slider
-  const [selectedImages, setSelectedImages] = useState([]); // For image modal slider
+  const [showImageModal, setShowImageModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [selectedImages, setSelectedImages] = useState([]);
   const [activeOptionsPostId, setActiveOptionsPostId] = useState(null);
   const [activeCommentPostIndex, setActiveCommentPostIndex] = useState(null);
   const [activeSharePostIndex, setActiveSharePostIndex] = useState(null);
@@ -49,7 +50,7 @@ function MobileMiddleSection() {
   const optionsRef = useRef(null);
   const commentModalRef = useRef(null);
   const shareModalRef = useRef(null);
-  const imageModalRef = useRef(null); // For image modal click outside
+  const imageModalRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
   const [showToast, setShowToast] = useState(false);
@@ -765,11 +766,19 @@ function MobileMiddleSection() {
                     onClick={() => handleLike(index)}
                   >
                     <span className="mobile-middle-icon-count">{post.likes}</span>
-                    <img
-                      src={LikeIcon}
-                      className={`mobile-middle-icon ${post.isLiked ? "liked" : ""}`}
-                      alt="Like"
-                    />
+                    {post.isLiked ? (
+                      <FcLike
+                        className="mobile-middle-icon liked"
+                        style={{ fontSize: "24px" }}
+                        alt="Like"
+                      />
+                    ) : (
+                      <img
+                        src={LikeIcon}
+                        className="mobile-middle-icon"
+                        alt="Like"
+                      />
+                    )}
                   </div>
                   <div
                     className="mobile-middle-icon-container"
@@ -799,23 +808,21 @@ function MobileMiddleSection() {
 
               <div className="mobile-middle-post-text">
                 <div className="mobile-middle-post-text-content">
-                  
                   <span className="mobile-middle-post-caption">
-                  <span className="mobile-middle-post-author">
-                    {post.authorName}
-                  </span>{" "}
+                    <span className="mobile-middle-post-author">
+                      {post.authorName}
+                    </span>{" "}
                     {renderCaption(post.caption, index)}
                     {post.caption && post.caption.length > 100 && (
-                  <span
-                    className="mobile-middle-see-more"
-                    onClick={() => toggleSeeMore(index)}
-                  >
-                    {seeMore[index] ? "....See Less" : "...See More"}
-                  </span>
-                )}
+                      <span
+                        className="mobile-middle-see-more"
+                        onClick={() => toggleSeeMore(index)}
+                      >
+                        {seeMore[index] ? "....See Less" : "...See More"}
+                      </span>
+                    )}
                   </span>
                 </div>
-               
               </div>
             </div>
           );
