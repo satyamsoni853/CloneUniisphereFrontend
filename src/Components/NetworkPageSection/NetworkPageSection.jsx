@@ -616,7 +616,9 @@ function NetworkPage() {
         </div>
       )}
       {isMobile && <MobileFooter />}
-      <DesktopRightSection/>
+     <div className="Network-right-section" >
+     <DesktopRightSection  />
+     </div>
     </div>
   );
 }
