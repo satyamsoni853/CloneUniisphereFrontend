@@ -390,12 +390,12 @@ function AfterOtpSection1() {
       console.log("Profile data being sent:", logData);
 
       const response = await axios.post(
-        "https://uniisphere-backend-latest.onrender.com/auth/completeProfile",
+        "https://uniisphere-backend-latest.onrender.com/api/auth/completeProfile",
         userData,
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token.trim()}`,
           },
           timeout: 30000,
         }
@@ -403,18 +403,17 @@ function AfterOtpSection1() {
 
       console.log("Profile completion successful:", response.data);
 
-      // Extract userId from response if provided, W to username
-      const returnedUserId =
-        response.data.userId || response.data.id || username;
+      // Extract userId from response if provided
+      const returnedUserId = response.data?.user?.id || response.data?.userId || username;
       setUserId(returnedUserId);
 
       alert("Profile completed successfully!");
 
-      // Pass token and userId to the next page
+      // Navigate with the correct token and userId
       navigate("/view", {
         state: {
-          userToken: response.data.token, // Make sure this matches what you're looking for
-          userId: response.data.user.id, // Make sure this matches what you're looking for
+          userToken: token, // Use the existing token we already have
+          userId: returnedUserId,
         },
       });
     } catch (err) {

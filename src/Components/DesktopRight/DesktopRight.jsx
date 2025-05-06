@@ -8,38 +8,7 @@ import ConnectAndCollaborateSvg from "./connectAndCollaborate.svg";
 import BottomMessagesWidget from "../BottomMessagesWidget/BottomMessagesWidget";
 
 // Dummy data for suggestions in case API fails
-const dummySuggestions = [
-  {
-    img: ProfileImage,
-    name: "Ajay Pratap",
-    university: "BHU (Banaras Hindu University)",
-  },
-  {
-    img: ProfileImage,
-    name: "Ravi Sharma",
-    university: "IIT Delhi",
-  },
-  {
-    img: ProfileImage,
-    name: "Priya Singh",
-    university: "JNU (Jawaharlal Nehru University)",
-  },
-  {
-    img: ProfileImage,
-    name: "Priya Singh",
-    university: "JNU (Jawaharlal Nehru University)",
-  },
-  {
-    img: ProfileImage,
-    name: "Priya Singh",
-    university: "JNU (Jawaharlal Nehru University)",
-  },
-  {
-    img: ProfileImage,
-    name: "Priya Singh",
-    university: "JNU (Jawaharlal Nehru University)",
-  },
-];
+const dummySuggestions = [];
 
 function DesktopRightSection() {
   const [connect, setConnect] = useState(0);
