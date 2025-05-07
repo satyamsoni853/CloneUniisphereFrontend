@@ -260,7 +260,7 @@
 .networkpage-mobile-catchup {
   display: flex;
   margin-top: 20px;
-  background-color: blue;
+  
   flex-direction: column;
   gap: 20px;
   width: 100%;
@@ -317,10 +317,14 @@
     padding: 10px;
     min-height: calc(100vh - 60px);
   }
-  .networkpage-grid:not(.catchup-mode) {
-    grid-template-columns: 1fr;
+  
+  .new-connection-mode{
+    row-gap: 20px;
+    column-gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+   }
    
-  }
   .networkpage-grid {
     margin: 0 auto;
   }
@@ -434,5 +438,5 @@
  
 } 
   
-}
+
  

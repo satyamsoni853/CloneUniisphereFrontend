@@ -504,7 +504,7 @@ function NetworkPage() {
                               <span>{user.collaborations} collaborate</span>
                             </div>
                           </div>
-                          {!isMobile && (
+                          {!isMobile  && (
                             <div className="catchup-container">
                               <h2 className="catchup-heading">
                                 {user.username}
@@ -523,7 +523,7 @@ function NetworkPage() {
                     )}
                   </div>
                 ) : (
-                  <div className="networkpage-grid">
+                  <div className="networkpage-grid new-connection-mode">
                     {connectionsLoading ? (
                       <div>Loading users...</div>
                     ) : error ? (
@@ -533,7 +533,7 @@ function NetworkPage() {
                         <div className="" key={user.id} >
                           <div
                             
-                            className="networkpage-card"
+                            className="networkpage-card "
                             style={{
                               backgroundColor:
                                 backgroundColors[
