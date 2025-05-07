@@ -49,7 +49,7 @@ function Feature() {
           setIsSubmitted(false); // Reset submission state when toggling
         }}
       >
-        <span className="feature-messages-text">Feature</span>
+        <span className="feature-messages-text">FeedBack</span>
         <span className="feature-icon">
           {isOpen ? <ChevronUp /> : <ChevronDown />}
         </span>
