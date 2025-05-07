@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Background from "../Background/Background";
 import Unispherelogo from "./Unispherelogo.png";
 import "./UserSignupWithEmailAndPassword.css";
+import { useEffect } from "react";
 
 function UserSignupwithemailandpass() {
   const [email, setEmail] = useState("");
@@ -11,6 +12,9 @@ function UserSignupwithemailandpass() {
   const [otp, setOtp] = useState(Array(6).fill("")); // Array to store 6 digits
   const [step, setStep] = useState(1);
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState(""); // For success messages
+  const [isResendDisabled, setIsResendDisabled] = useState(false); // For resend button cooldown
+  const [cooldownTime, setCooldownTime] = useState(0); // For countdown timer
   const navigate = useNavigate();
   const inputRefs = useRef([]); // Refs for OTP input boxes
 
@@ -18,6 +22,7 @@ function UserSignupwithemailandpass() {
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
+    setSuccessMessage("");
 
     try {
       const response = await axios.post(
@@ -26,6 +31,7 @@ function UserSignupwithemailandpass() {
       );
       console.log("OTP sent:", response.data);
       setStep(2);
+      setSuccessMessage("OTP sent to your email!");
     } catch (err) {
       setError(
         err.response?.data?.message ||
@@ -38,12 +44,13 @@ function UserSignupwithemailandpass() {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     setError("");
+    setSuccessMessage("");
 
     const otpString = otp.join(""); // Combine OTP digits
     try {
       const response = await axios.post(
         "https://uniisphere-backend-latest.onrender.com/api/auth/verifyOtp",
-        { email, otp }
+        { email, otp: otpString }
       );
       console.log("OTP verified:", response.data);
 
@@ -62,6 +69,58 @@ function UserSignupwithemailandpass() {
       setError(err.response?.data?.error || "Invalid OTP. Please try again.");
     }
   };
+
+  // Handle Resend OTP
+  const handleResendOtp = async (e) => {
+    e.preventDefault();
+    setError("");
+    setSuccessMessage("");
+
+    if (!email) {
+      setError("Email is required to resend OTP.");
+      return;
+    }
+
+    try {
+      setIsResendDisabled(true);
+      setCooldownTime(30); // Set 30-second cooldown
+
+      const response = await axios.post(
+        "https://uniisphere-backend-latest.onrender.com/api/auth/resendOtp",
+        { email }
+      );
+      console.log("OTP resent:", response.data);
+
+      // Reset OTP input fields
+      setOtp(Array(6).fill(""));
+      inputRefs.current[0]?.focus(); // Focus on first OTP input
+
+      setSuccessMessage("New OTP sent to your email!");
+    } catch (err) {
+      console.error("Resend OTP error:", err);
+      setError(
+        err.response?.data?.message ||
+          "Failed to resend OTP. Please try again."
+      );
+    }
+  };
+
+  // Handle cooldown timer
+  useEffect(() => {
+    let timer;
+    if (isResendDisabled && cooldownTime > 0) {
+      timer = setInterval(() => {
+        setCooldownTime((prev) => {
+          if (prev <= 1) {
+            setIsResendDisabled(false);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [isResendDisabled, cooldownTime]);
 
   // Handle OTP input change
   const handleOtpChange = (e, index) => {
@@ -183,6 +242,14 @@ function UserSignupwithemailandpass() {
               <button className="login-singup-button" type="submit">
                 Continue
               </button>
+              <button
+                className="login-singup-button"
+                onClick={handleResendOtp}
+                disabled={isResendDisabled}
+                style={{ marginTop: "10px" }}
+              >
+                {isResendDisabled ? `Resend OTP (${cooldownTime}s)` : "Resend OTP"}
+              </button>
             </form>
           )}
           <div className="Login-here-sentence">
@@ -196,6 +263,7 @@ function UserSignupwithemailandpass() {
               us and our parents. You can change your preference anytime.
             </p>
           </div>
+          {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
           {error && <p style={{ color: "red" }}>{error}</p>}
         </div>
       </div>

@@ -71,8 +71,8 @@ function MobileNavbar() {
     ? [
         ...filteredRecentSearches,
         ...searchResults.filter(
-          (user) =>
-            !filteredRecentSearches.some((search) => search.id === user.id)
+          (result) =>
+            !filteredRecentSearches.some((search) => search.id === result.id)
         ),
       ]
     : recentSearches;
@@ -193,6 +193,16 @@ function MobileNavbar() {
     }
   };
 
+  // Handle logo click
+  const handleLogoClick = () => {
+    if (!userId || userId === "your-user-id-here") {
+      console.error("User ID not found in localStorage");
+      setError("Please log in to access your profile");
+      return;
+    }
+    navigate(`/ProfileEditSection/${userId}`);
+  };
+
   // Initial load - fetch all profiles
   useEffect(() => {
     fetchProfiles();
@@ -203,7 +213,13 @@ function MobileNavbar() {
       <Background />
       <div className="mobile-navbar">
         {/* Logo */}
-        <img src={Usericon} alt="Logo" className="mobile-navbar-logo" />
+        <img
+          src={Usericon}
+          alt="Logo"
+          className="mobile-navbar-logo"
+          onClick={handleLogoClick}
+          style={{ cursor: "pointer" }}
+        />
 
         {/* Search Bar with Results */}
         <div className="mobile-navbar-search-container" ref={searchContainerRef}>

@@ -17,15 +17,18 @@ function AfterOtpSection1() {
     token: passedToken,
   } = location.state || {};
 
-  // Debug token presence
+  // Debug location.state
   useEffect(() => {
+    console.log("location.state:", location.state);
     if (!passedToken) {
       console.warn("Warning: No token received from previous page");
     } else {
       console.log("Token received successfully:", passedToken);
     }
-  }, [passedToken]);
+    console.log("passedUsername:", passedUsername);
+  }, [passedToken, passedUsername]);
 
+  // State declarations
   const [step, setStep] = useState(1);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,10 +36,15 @@ function AfterOtpSection1() {
   const [userId, setUserId] = useState(null); // Added to store userId from backend if available
 
   // State for Step 1 (Pre-filled with passed data)
-  const [username, setUsername] = useState(passedUsername || "");
-  const [email, setEmail] = useState(passedEmail || "");
+  const [username, setUsername] = useState(passedUsername ?? "");
+  const [email, setEmail] = useState(passedEmail ?? "");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
+
+  // Debug username state
+  useEffect(() => {
+    console.log("username state:", username);
+  }, [username]);
 
   // State for Step 2 (Basic Personal Info)
   const [firstName, setFirstName] = useState("");
@@ -55,7 +63,7 @@ function AfterOtpSection1() {
   const [startYear, setStartYear] = useState("");
   const [endYear, setEndYear] = useState("");
 
-  // State for Step 4 (Interests)
+  // State for Step sec4 (Interests)
   const [searchInterest, setSearchInterest] = useState("");
   const [selectedInterests, setSelectedInterests] = useState([]);
   const interestSuggestions = [
@@ -84,7 +92,6 @@ function AfterOtpSection1() {
     "Video Editing",
     "Public Speaking"
   ];
-  
 
   // State for Step 5 (Skills)
   const [searchSkill, setSearchSkill] = useState("");
@@ -146,7 +153,7 @@ function AfterOtpSection1() {
     "Agile/Scrum",
     "Data Structures & Algorithms"
   ];
-  
+
   // State for Step 6 (About, Location)
   const [About, setAbout] = useState("");
   const [userLocation, setUserLocation] = useState("");
@@ -154,6 +161,11 @@ function AfterOtpSection1() {
   // State for Step 8 (Profile Picture Upload)
   const [profilePicture, setProfilePicture] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
+
+  // Debug step changes
+  useEffect(() => {
+    console.log("Current step:", step);
+  }, [step]);
 
   // Step Handlers
   const handleFirstStepSubmit = (e) => {
@@ -403,7 +415,7 @@ function AfterOtpSection1() {
 
       console.log("Profile completion successful:", response.data);
 
-      // Extract userId from response if provided, W to username
+      // Extract userId from response if provided, fallback to username
       const returnedUserId =
         response.data.userId || response.data.id || username;
       setUserId(returnedUserId);
@@ -413,8 +425,8 @@ function AfterOtpSection1() {
       // Pass token and userId to the next page
       navigate("/view", {
         state: {
-          userToken: response.data.token, // Make sure this matches what you're looking for
-          userId: response.data.user.id, // Make sure this matches what you're looking for
+          userToken: response.data.token,
+          userId: response.data.user.id,
         },
       });
     } catch (err) {
@@ -641,6 +653,7 @@ function AfterOtpSection1() {
       </Form.Group>
       <Form.Group controlId="degree" className="mb-3">
         <Form.Label>Degree</Form.Label>
+ presupuesto
         <Form.Control
           type="text"
           placeholder="Enter your degree (e.g., B.Tech)"
@@ -837,7 +850,8 @@ function AfterOtpSection1() {
 
   const renderSixthStep = () => (
     <Form onSubmit={handleSixthStepSubmit}>
-      <Form.Group control XSS="About" className="mb-3">
+      {console.log("Rendering Step 6, isSubmitting:", isSubmitting)}
+      <Form.Group controlId="About" className="mb-3">
         <Form.Label>About*</Form.Label>
         <Form.Control
           as="textarea"
@@ -873,7 +887,11 @@ function AfterOtpSection1() {
       <Button
         variant="secondary"
         className="otp-btn mt-2"
-        onClick={() => setStep(5)}
+        onClick={(e) => {
+          e.preventDefault();
+          console.log("Back button clicked, setting step to 5");
+          setStep(5);
+        }}
         disabled={isSubmitting}
       >
         Back
@@ -883,6 +901,7 @@ function AfterOtpSection1() {
 
   const renderSeventhStep = () => (
     <Form onSubmit={handleSeventhStepSubmit}>
+      {console.log("Rendering Step 7, isSubmitting:", isSubmitting)}
       <p>Review your information before proceeding.</p>
       {error && (
         <p className="error-text" style={{ color: "red" }}>
@@ -900,7 +919,11 @@ function AfterOtpSection1() {
       <Button
         variant="secondary"
         className="otp-btn mt-2"
-        onClick={() => setStep(6)}
+        onClick={(e) => {
+          e.preventDefault();
+          console.log("Back button clicked, setting step to 6");
+          setStep(6);
+        }}
         disabled={isSubmitting}
       >
         Back
@@ -942,19 +965,20 @@ function AfterOtpSection1() {
       >
         {isSubmitting ? "Processing..." : "Next"}
       </Button>
-      <Button
+      {/* <Button
         variant="secondary"
         className="otp-btn mt-2"
         onClick={() => setStep(7)}
         disabled={isSubmitting}
       >
         Back
-      </Button>
+      </Button> */}
     </Form>
   );
 
   const renderNinthStep = () => (
     <Form onSubmit={handleNinthStepSubmit}>
+      {console.log("Rendering Step 9, isSubmitting:", isSubmitting)}
       <p>Final step: Submit your profile.</p>
       {error && (
         <p className="error-text" style={{ color: "red" }}>
@@ -980,7 +1004,11 @@ function AfterOtpSection1() {
       <Button
         variant="secondary"
         className="otp-btn mt-2"
-        onClick={() => setStep(8)}
+        onClick={(e) => {
+          e.preventDefault();
+          console.log("Back button clicked, setting step to 8");
+          setStep(8);
+        }}
         disabled={isSubmitting}
       >
         Back

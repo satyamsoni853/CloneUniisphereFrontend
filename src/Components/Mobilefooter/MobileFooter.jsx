@@ -267,7 +267,7 @@ function MobileFooter() {
                   className="upload-button"
                   onClick={() => inputRef.current.click()}
                 >
-                  Upload from computer
+                  Upload 
                 </button>
               </div>
             )}
