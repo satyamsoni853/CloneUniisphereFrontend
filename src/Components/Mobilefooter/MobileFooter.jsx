@@ -194,12 +194,15 @@ function MobileFooter() {
           className="mobile-footer-add-icon"
           onClick={() => setShowUploadSection(true)}
         />
-        <img
-          src={CalendarIcon}
-          alt="Calendar"
-          className="mobile-footer-icon"
-          aria-disabled="true"
-        />
+       
+<Link to="/coming-soon">
+  <img
+    src={CalendarIcon}
+    alt="Calendar"
+    className="mobile-footer-icon"
+    aria-disabled="true"
+  />
+</Link>
         <img
           src={NetworkIcon}
           onClick={() => setShowNetwork(!showNetwork)}
@@ -215,16 +218,16 @@ function MobileFooter() {
             </Link>
           </div>
           <div className="mobile-connections-item">
-
-         <Link to="/Books" className="connection-link">
-                       Eduvault
-                     </Link></div>
+            <Link to="/Books" className="connection-link">
+              Eduvault
+            </Link>
+          </div>
           <div className="mobile-connections-item active">
             <Link to="/HumanLib" className="connection-link">
               Human Library
             </Link>
           </div>
-       
+
           <div className="mobile-connections-item">
             <Link to="/coming-soon" className="connection-link">
               Freelancing
@@ -267,7 +270,7 @@ function MobileFooter() {
                   className="upload-button"
                   onClick={() => inputRef.current.click()}
                 >
-                  Upload 
+                  Upload
                 </button>
               </div>
             )}
