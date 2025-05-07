@@ -247,7 +247,7 @@ function DesktopNavbar() {
     }
     try {
       const response = await axios.get(
-        "https://uniisphere-1.onrender.com/posts",
+        "https://uniisphere-1.onrender.com/api/posts",
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -447,7 +447,7 @@ function DesktopNavbar() {
       formData.append("location", location || "");
       formData.append("tags", "");
       const postResponse = await axios.post(
-        "https://uniisphere-1.onrender.com/posts",
+        "https://uniisphere-1.onrender.com/api/posts",
         formData,
         { headers: { Authorization: `Bearer ${authToken}` } }
       );
