@@ -36,7 +36,7 @@ export default defineConfig({
           ],
           'messaging': [
             '@components/MessageFinalClass/MessageFinalClass', // Fixed casing
-            '@components/MessageFinalClass-2/MessageFinalClass2',
+            '@components/MessageFinalClass2/MessageFinalClass2',
             '@components/BottomMessagesWidget/BottomMessagesWidget',
             '@components/MessageMobileInbox/MessageMobileInbox',
           ],
