@@ -1,14 +1,15 @@
 import axios from "axios";
 import debounce from "lodash/debounce";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { FiSearch } from "react-icons/fi";
-import { IoHome, IoHomeOutline } from "react-icons/io5";
-import { IoMdNotificationsOutline } from "react-icons/io";
-import { IoNotifications } from "react-icons/io5";
+
 import { Link, useNavigate } from "react-router-dom";
 import "./DesktopNavbar.css";
 
 // Icons
+import { FiSearch } from "react-icons/fi";
+import { IoHome, IoHomeOutline } from "react-icons/io5";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { IoNotifications } from "react-icons/io5";
 import AddBlack from "./AddBlackIcon.svg";
 import AddWhite from "./AddWhiteIcon.svg";
 import BackIcon from "./BackIcon.svg";

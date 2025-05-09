@@ -116,3 +116,37 @@
   align-items: center;
 }
 
+
+
+
+
+
+.mobile-footer-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  background-color: #fff; /* Adjust based on your theme */
+  border-top: 1px solid #e0e0e0;
+}
+
+.mobile-footer-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  color: #000; /* Default color for React Icons */
+}
+
+.mobile-footer-add-icon {
+  width: 28px; /* Slightly larger for the add icon */
+  height: 28px;
+  cursor: pointer;
+}
+
+.mobile-footer-icon.active {
+  color: #000; /* Black for active React Icons */
+  /* Optional: Add background or border for emphasis */
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  padding: 4px;
+}

@@ -268,9 +268,11 @@ const Blog = () => {
 
   return (
     <>
+    <MobileNavbar />
       <div className="blog-container">
+        
         <div className="blog-container-nav">
-          <MobileNavbar />
+          
         </div>
         <div className="blog-container-background">
           <Background />
@@ -365,8 +367,9 @@ const Blog = () => {
         )}
 
         <div className="blog-container-footer">
-          <MobileFooter />
+          
         </div>
+        <MobileFooter />
       </div>
 
       {/* Desktop Section */}

@@ -2,11 +2,13 @@ import React from 'react';
 import './CommingSoon.css';
 import { Link } from 'react-router-dom';
 import DesktopNavbar from '../DesktopNavbar/DesktopNavbar';
+import Background from '../Background/Background';
 
 function ComingSoon() {
   return (
   <div>
     <DesktopNavbar/>
+    <Background/>
       <div className="coming-soon-container">
       <h1 className="coming-soon-title">Coming Soon!</h1>
       <p className="coming-soon-message">

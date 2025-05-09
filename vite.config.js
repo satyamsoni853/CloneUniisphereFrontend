@@ -1,47 +1,54 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { splitVendorChunkPlugin } from 'vite'
-import path from 'path'
+// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { splitVendorChunkPlugin } from 'vite';
+import path from 'path';
 
-// https://vite.dev/config/
 export default defineConfig({
+  server: {
+    host: '0.0.0.0',
+    port: 5173, // Explicit port for clarity
+    fs: {
+      strict: true, // Enforce strict file system access for security
+    },
+  },
   base: '/',
   plugins: [react(), splitVendorChunkPlugin()],
   resolve: {
     alias: {
-      'Components': path.resolve(__dirname, './src/Components')
-    }
+      '@components': path.resolve(__dirname, './src/Components'), // Specific alias
+    },
   },
   build: {
     rollupOptions: {
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-components': [
-            'Components/UserLogin/UserLogin',
-            'Components/ForgotPassword/ForgotPassword',
-            'Components/UserSignupWithEmailAndPassword/UserSignupWithEmailAndPassword'
+          'auth-components': [
+            '@components/UserLogin/UserLogin',
+            '@components/ForgotPassword/ForgotPassword',
+            '@components/UserSignupWithEmailAndPassword/UserSignupWithEmailAndPassword',
           ],
-          'dashboard': [
-            'Components/View/View',
-            'Components/Self-Profile/SelfProfile',
-            'Components/FullFlowerSectionPage/FullFlowerSectionPage'
+          'dashboard-features': [
+            '@components/View/View',
+            '@components/Self-Profile/SelfProfile',
+            '@components/FullFlowerSectionPage/FullFlowerSectionPage',
           ],
           'messaging': [
-            'Components/MessageFinalClass/MessageFinalclass',
-            'Components/MessageFinalclass-2/MessageFinalClass2',
-            'Components/BottomMessagesWidget/BottomMessagesWidget',
-            'Components/MessageMobileInbox/MessageMobileInbox'
+            '@components/MessageFinalClass/MessageFinalClass', // Fixed casing
+            '@components/MessageFinalClass-2/MessageFinalClass2',
+            '@components/BottomMessagesWidget/BottomMessagesWidget',
+            '@components/MessageMobileInbox/MessageMobileInbox',
           ],
           'resources': [
-            'Components/Resources/Resources',
-            'Components/Resources/Books',
-            'Components/Resources/EventNews',
-            'Components/Resources/EventDescription'
-          ]
-        }
-      }
+            '@components/Resources/Resources',
+            '@components/Resources/Books',
+            '@components/Resources/EventNews',
+            '@components/Resources/EventDescription',
+          ],
+        },
+      },
     },
-    chunkSizeWarningLimit: 1000
-  }
-})
+    chunkSizeWarningLimit: 1000, // 1MB limit
+  },
+});

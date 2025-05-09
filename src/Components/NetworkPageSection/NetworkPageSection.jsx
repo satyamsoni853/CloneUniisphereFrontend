@@ -486,7 +486,7 @@ function NetworkPage() {
                               {user.username}
                             </h3>
                             <p className="networkpage-education">
-                              ID: {user.id}
+                              {/* ID: {user.id} */}
                             </p>
                             <p className="networkpage-description">
                               {user.headline || "No headline"}
@@ -555,7 +555,7 @@ function NetworkPage() {
                               {user.username}
                             </h3>
                             <p className="networkpage-education">
-                              ID: {user.id}
+                              {/* ID: {user.id} */}
                             </p>
                             <p className="networkpage-description">
                               {user.headline || "No headline"}

@@ -636,8 +636,9 @@ const BlogCreate = () => {
       </div>
 
       <div className="mobile-blog-create-container">
+        <MobileNavbar />
         <div className="blog-container-nav">
-          <MobileNavbar />
+          
         </div>
         <div className="blog-container-background">
           <Background />
