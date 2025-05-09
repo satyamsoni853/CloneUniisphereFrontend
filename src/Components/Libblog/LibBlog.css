@@ -99,6 +99,10 @@
      
      /* Media Queries for smaller screens */
      @media (max-width: 768px) {
+      .libblog-section-section-container {
+
+  height: 100vh;
+}
        .libblog-section-section-card {
          padding: 2rem;
          border-right: 6px solid #bfdbfe;
