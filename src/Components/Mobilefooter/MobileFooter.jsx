@@ -9,8 +9,8 @@ import NetworkBlack from "./NetworkBlackIcon.svg";
 import NetworkWhite from "./NetworkWhiteIcon.svg";
 import ClenderBlack from "./ClenderBlackIcon.svg";
 import ClenderWhite from "./ClenderWhiteIcon.svg";
-import HomeWhite from "./HomeWhiteIcon.svg";
-import HomeBlack from "./HomeBlackIcon.svg";
+import HomeWhite from "./HomewhiteIcon.svg";
+import HomeBlack from "./HomeblackIcon.svg";
 import NotificationWhite from "./NotificationWhiteIcon.svg";
 import NotificationBlack from "./NotificationBlackIcon.svg";
 
@@ -249,13 +249,13 @@ function MobileFooter() {
         </Link>
         <img
           src={notificationActive ? NotificationBlack : NotificationWhite}
-           style={
-             notificationActive
-                ? { width: "40px", height: "40px" }
-                :null
-            }
+          style={
+            notificationActive
+              ? { width: "40px", height: "40px" }
+              : null
+          }
           alt="Notification"
-          
+
           className="mobile-footer-icon"
           onClick={() => toggleIcon("notification")}
           aria-disabled="true"
@@ -264,10 +264,10 @@ function MobileFooter() {
           src={addActive ? AddBlack : AddWhite}
           alt="Add"
           style={
-             addActive
-                ? { width: "33px", height: "33px" }
-                : null
-            }
+            addActive
+              ? { width: "33px", height: "33px" }
+              : null
+          }
           className="mobile-footer-add-icon"
           onClick={() => {
             toggleIcon("add");
@@ -279,8 +279,8 @@ function MobileFooter() {
             src={calendarActive ? ClenderBlack : ClenderWhite}
             alt="Calendar"
 
-             style={
-             calendarActive
+            style={
+              calendarActive
                 ? { width: "33px", height: "33px" }
                 : null
             }
@@ -292,11 +292,11 @@ function MobileFooter() {
         <img
           src={networkActive ? NetworkBlack : NetworkWhite}
           alt="Network"
-           style={
-             networkActive
-                ? { width: "40px", height: "40px" }
-                : null
-            }
+          style={
+            networkActive
+              ? { width: "40px", height: "40px" }
+              : null
+          }
           className="mobile-footer-icon"
           onClick={() => {
             toggleIcon("network");
