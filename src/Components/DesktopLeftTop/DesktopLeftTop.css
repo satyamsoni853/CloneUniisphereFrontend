@@ -9,17 +9,19 @@
   min-width: 220px;
   margin-left: 20px;
   position: fixed;
-  top: 110px;
-  height: 30vh;
+  top: 75px;
+  height: 32vh;
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  background: linear-gradient(180deg, rgba(229, 190, 158, 0.2) 0%, rgba(244, 214, 204, 0.2) 100%);
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(0, 0, 0, 0.25), -4px 4px 4px rgba(0, 0, 0, 0.25), 4px -4px 4px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(
+    180deg,
+    rgba(229, 190, 158, 0.2) 0%,
+    rgba(244, 214, 204, 0.2) 100%
+  );
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(0, 0, 0, 0.25),
+    -4px 4px 4px rgba(0, 0, 0, 0.25), 4px -4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
-  
-  
- 
 }
 
 /* Hide scrollbar for Webkit browsers (Chrome, Safari) */

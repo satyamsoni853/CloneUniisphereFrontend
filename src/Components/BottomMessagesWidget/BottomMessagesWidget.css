@@ -23,14 +23,7 @@
   transition: all 0.3s ease-in-out;
 }
 
-.messages-widget:hover {
-  background: rgb(235, 200, 205);
 
- 
-  border-radius: 10%;
-  object-fit: cover;
-  border: 2px solid white;
-}
 
 .messages-text {
   color: black;
