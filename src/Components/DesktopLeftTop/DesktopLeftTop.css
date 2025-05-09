@@ -5,12 +5,12 @@
   padding: 1.25rem;
   border-radius: 8px;
   border: 1px solid black;
-  max-width: 28vw;
+  max-width: 25vw;
   min-width: 220px;
   margin-left: 20px;
   position: fixed;
   top: 110px;
-  height: 40vh;
+  height: 30vh;
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -66,7 +66,7 @@
 
 /* Left Section Title */
 .leftsectiontop-1-title {
-  font-size: 0.9375rem;
+  font-size: 0.75rem;
   font-weight: bold;
   color: #222;
   margin: 0;
@@ -82,12 +82,12 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
   .leftsectiontop-1 {
-    max-width: 35vw;
+    max-width: 20vw;
     min-width: 200px;
     padding: 1rem;
     margin-left: 15px;
     top: 100px;
-    height: 30vh;
+    height: 25vh;
   }
 
   .leftsectiontop-1-heading {

@@ -11,9 +11,9 @@
   border-radius: 25px;
   border: 2px solid grey;
   width: 100%;
-  max-width: 28vw;
+  max-width: 25vw;
   min-width: 220px;
-  height: 40vh;
+  height: 30vh;
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -136,12 +136,12 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
   .leftsectionbottom-1 {
-    max-width: 35vw;
+    max-width: 20vw;
     min-width: 200px;
     padding: 0.5rem;
     left: 15px;
     bottom: 15px;
-    height: 30vh;
+    height: 25vh;
   }
 
   .leftsectionbottom-1-heading,
