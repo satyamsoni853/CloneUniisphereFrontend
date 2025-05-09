@@ -22,8 +22,8 @@
 }
 
 .mobile-footer-icon {
-  width: 28px;
-  height: 28px;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
@@ -150,3 +150,4 @@
   border-radius: 50%;
   padding: 4px;
 }
+
