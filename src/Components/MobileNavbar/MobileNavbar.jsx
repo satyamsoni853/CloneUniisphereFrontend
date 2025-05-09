@@ -69,12 +69,12 @@ function MobileNavbar() {
   );
   const combinedRecentResults = searchQuery
     ? [
-        ...filteredRecentSearches,
-        ...searchResults.filter(
-          (result) =>
-            !filteredRecentSearches.some((search) => search.id === result.id)
-        ),
-      ]
+      ...filteredRecentSearches,
+      ...searchResults.filter(
+        (result) =>
+          !filteredRecentSearches.some((search) => search.id === result.id)
+      ),
+    ]
     : recentSearches;
 
   // Click outside handler to close the search results
@@ -322,9 +322,8 @@ function MobileNavbar() {
                       }}
                       key={tab}
                       onClick={() => setActiveTab(tab)}
-                      className={`mobile-search-tab-button ${
-                        activeTab === tab ? "active" : ""
-                      }`}
+                      className={`mobile-search-tab-button ${activeTab === tab ? "active" : ""
+                        }`}
                     >
                       {tab}
                     </button>

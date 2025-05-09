@@ -1,0 +1,16 @@
+"editor.cursorStyle": "block",
+"background.windowBackgrounds": [
+    "c:/Users/karti/Downloads/forrest-cavale-jwIk4Z3Msi4-unsplash.jpg"
+],
+"workbench.preferredDarkColorTheme": "Cursor Dark Midnight",
+"background.editor": {
+  "images": [
+    "file:///C:/Users/karti/Downloads/WhatsApp Image 2025-05-07 at 19.19.03_b531f005.jpg"
+  ],
+  "size": "50px",
+  "position": "bottom right",
+  "opacity": 0.5
+},
+"background.enabled": true,
+"background.useInvertedOpacity": false,
+"background.backgroundBlur": "0", 
