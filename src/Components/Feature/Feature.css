@@ -18,14 +18,7 @@
   transition: all 0.3s ease-in-out;
 }
 
-.feature-messages-widget:hover {
-  background: rgb(235, 200, 205);
 
- 
-  border-radius: 20px;
-  object-fit: cover;
-  border: 2px solid white;
-}
 
 .feature-messages-text {
   color: black;
@@ -121,6 +114,7 @@
 
 .desktop-feedback-cancel-btn {
   background-color: #F2EDED;
+  
   width: 183px;
   height: 33px;
   display: flex;

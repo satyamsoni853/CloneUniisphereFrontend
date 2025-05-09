@@ -42,9 +42,9 @@
 /* Profile Section Container */
 .afterconnectinginProfile-full-section-container {
   width: 90%;
-  max-width: 650px;
+  max-width: 600px;
   /* margin: 6rem auto 2rem; */
-  margin-top: 100px;
+  margin-top: 0px;
   margin-left: 50px;
   display: flex;
   flex-direction: column;
@@ -133,7 +133,7 @@
 /* Message Box */
 .afterconnectinginProfile-full-section-message-box {
   position: absolute;
-  left: -12rem;
+  left: -10rem;
   top: 60%;
   /* transform: translateY(-50%); */
   width: 8rem;

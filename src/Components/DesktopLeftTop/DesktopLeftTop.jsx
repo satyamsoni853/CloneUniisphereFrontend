@@ -74,8 +74,8 @@ function DesktopLeftTop() {
           {articles.slice(0, visibleCount).map((article) => (
             <div key={article.id} className="leftsectiontop-1-article">
               <img
-                src={article.image}
-                alt={article.title}
+                // src={article.image}
+                // alt={article.title}
                 className="leftsectiontop-1-image"
               />
               <div className="leftsectiontop-1-details">

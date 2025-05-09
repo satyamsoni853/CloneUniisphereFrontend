@@ -717,61 +717,7 @@ input:checked + .slider {
   display: none;
 }
 
-/* Decorative circles */
-/* .decorative-circles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
 
-.circle {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.3;
-}
-
-.circle-1 {
-  width: 40px;
-  height: 40px;
-  background: #a3dffa;
-  top: 10px;
-  left: 20px;
-}
-
-.circle-2 {
-  width: 30px;
-  height: 30px;
-  background: #ffd1dc;
-  top: 50px;
-  left: 60px;
-}
-
-.circle-3 {
-  width: 50px;
-  height: 50px;
-  background: #ffeb99;
-  top: 80px;
-  right: 20px;
-}
-
-.circle-4 {
-  width: 20px;
-  height: 20px;
-  background: #d4a5eb;
-  bottom: 30px;
-  right: 50px;
-}
-
-.circle-5 {
-  width: 35px;
-  height: 35px;
-  background: #a3dffa;
-  bottom: 60px;
-  left: 30px;
-} */
 
 /* Style each section in the dropdown */
 .search-section {
@@ -1028,5 +974,72 @@ input:checked + .slider {
   .desktop-search-results{
     left: 5%;
     width: 900px;
+  }
+}
+/* Tablet and Small Desktop (768px - 1199px) */
+@media screen and (max-width: 1199px) {
+  .desktop-navbar-1 {
+    padding: 8px 12px;
+    border-radius: 0 0 30px 30px;
+  }
+
+  .desktop-icon,
+  .desktop-user-icon,
+  .desktop-logo-icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .desktop-search-container {
+    max-width: 300px;
+    margin: 0 10px;
+  }
+
+  .desktop-search-bar {
+    padding: 6px 12px 6px 30px;
+    font-size: 14px;
+  }
+
+  .desktop-search-icon {
+    font-size: 16px;
+    left: 10px;
+  }
+
+  .desktop-search-results {
+    width: 95%;
+    max-width: 600px;
+    top: 110%;
+  }
+
+  .self-profile-card {
+    max-width: 350px;
+    padding: 12px;
+  }
+
+  .notification-dropdown {
+    max-width: 400px;
+    padding: 15px;
+  }
+
+  .connections-card {
+    max-width: 280px;
+  }
+
+  .search-tab-button {
+    width: 120px;
+    font-size: 14px;
+  }
+
+  .recent-search-avatar,
+  .suggested-user-avatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  .trend-image,
+  .event-image,
+  .news-image {
+    width: 80px;
+    height: 50px;
   }
 }

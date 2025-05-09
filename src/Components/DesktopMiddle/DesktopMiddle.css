@@ -13,11 +13,11 @@
 .middle-middle-card {
   position: relative;
   border-radius: 10px;
-  width: 40vw;
+  width: 35vw;
   min-width: 300px;
   max-width: 600px;
-  /* margin-left: 100px; */
-  margin-top: 110px;
+  margin-left: 50px;
+  margin-top: 80px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

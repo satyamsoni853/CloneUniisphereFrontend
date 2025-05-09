@@ -46,26 +46,33 @@
 
 .u, .e {
   color: #DA3E39; /* U, E */
+  font-size: 3rem;
 }
 
 .n, .r {
-  color: #38A3AC; /* N, R */
+  color: #38A3AC;
+  font-size: 3rem; /* N, R */
 }
 
 .i {
-  color: #DFC463; /* I, I */
+  color: #DFC463;
+   /* I, I */
+   font-size: 3rem;
 }
 
 .s {
   color: #889095; /* S */
+  font-size: 3rem;
 }
 
 .p, .e {
   color: #E9877A; /* P, E */
+  font-size: 3rem;
 }
 
 .h {
   color: #A7829D; /* H */
+  font-size: 3rem;
 }
 
 /* Original Background for .otp-box */

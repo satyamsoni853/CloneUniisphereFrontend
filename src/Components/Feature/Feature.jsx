@@ -51,7 +51,7 @@ function Feature() {
       >
         <span className="feature-messages-text">FeedBack</span>
         <span className="feature-icon">
-          {isOpen ? <ChevronUp /> : <ChevronDown />}
+          {isOpen ? < ChevronDown/> : <ChevronUp />}
         </span>
       </div>
 

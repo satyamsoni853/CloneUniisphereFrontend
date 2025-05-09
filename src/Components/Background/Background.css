@@ -23,7 +23,9 @@
 
 
 /* Manually setting different positions for 20 images */
-.img-0 { top: 15%; left: 10%; }
+.img-0 {
+  display: none;
+ }
 .img-1 { top: 42%; left: 3%; }
 .img-2 { top: 45%; left: 40%; }
 .img-3 { top: 0%; left: 20%; }
@@ -35,10 +37,12 @@
 .img-8 { top: 80%; left: 90%; }
 /* .img-9 { top: 55%; left: 10%; } */
 .img-10 { top: 5%; left: 90%; }
-.img-11 { top: 0%; left: 67%; }
+.img-11 { 
+  display: none;
+ }
 .img-12 { top:65%; left: 35%; }
 .img-13 { top: 80%; left: 60%; }
-.img-14 { top:  75%; left: 80%; }
+.img-14 { display: none; }
 .img-15 { top: 80%; left: 30%; }
 
 

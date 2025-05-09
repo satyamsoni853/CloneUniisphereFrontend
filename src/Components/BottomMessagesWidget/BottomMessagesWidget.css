@@ -9,7 +9,7 @@
 .messages-widget {
   position: fixed;
   z-index: 9999;
-  bottom: 20px;
+  bottom: 0px;
   right: 20px;
   background: rgb(242, 215, 219);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);

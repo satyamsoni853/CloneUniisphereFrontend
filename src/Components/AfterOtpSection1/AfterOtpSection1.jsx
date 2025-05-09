@@ -672,7 +672,7 @@ function AfterOtpSection1() {
           onChange={(e) => setCollege(e.target.value)}
         />
       </Form.Group>
-      <Form.Group controlId="tenthschool" className="mb-3">
+      {/* <Form.Group controlId="tenthschool" className="mb-3">
         <Form.Label>10th School</Form.Label>
         <Form.Control
           type="text"
@@ -680,8 +680,8 @@ function AfterOtpSection1() {
           value={tenthschool}
           onChange={(e) => setTenthschool(e.target.value)}
         />
-      </Form.Group>
-      <Form.Group controlId="twelveSchool" className="mb-3">
+      </Form.Group> */}
+      {/* <Form.Group controlId="twelveSchool" className="mb-3">
         <Form.Label>12th School</Form.Label>
         <Form.Control
           type="text"
@@ -689,7 +689,7 @@ function AfterOtpSection1() {
           value={twelveSchool}
           onChange={(e) => setTwelveSchool(e.target.value)}
         />
-      </Form.Group>
+      </Form.Group> */}
       <Form.Group controlId="degree" className="mb-3">
         <Form.Label>Degree</Form.Label>
         <Form.Control
@@ -700,7 +700,7 @@ function AfterOtpSection1() {
         />
       </Form.Group>
       <Form.Group controlId="workorProject" className="mb-3">
-        <Form.Label>Work or Project</Form.Label>
+        <Form.Label>Semster</Form.Label>
         <Form.Control
           type="text"
           placeholder="Enter work or project title"
@@ -708,7 +708,7 @@ function AfterOtpSection1() {
           onChange={(e) => setWorkorProject(e.target.value)}
         />
       </Form.Group>
-      <div className="year-of-clg">
+      {/* <div className="year-of-clg">
         <Form.Group controlId="startYear" className="mb-3">
           <Form.Label>Start Year</Form.Label>
           <Form.Control
@@ -731,7 +731,7 @@ function AfterOtpSection1() {
             max={new Date().getFullYear() + 10}
           />
         </Form.Group>
-      </div>
+      </div> */}
       {error && (
         <p className="error-text" style={{ color: "red" }}>
           {error}
