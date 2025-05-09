@@ -944,3 +944,22 @@
   }
 }
 
+.mobile-slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.mobile-slider-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.mobile-slider-dot.active {
+  background-color: #007bff;
+}

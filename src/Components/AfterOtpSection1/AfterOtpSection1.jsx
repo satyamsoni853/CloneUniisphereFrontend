@@ -33,9 +33,9 @@ function AfterOtpSection1() {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [token, setToken] = useState(passedToken || "");
-  const [userId, setUserId] = useState(null); // Added to store userId from backend if available
+  const [userId, setUserId] = useState(null);
 
-  // State for Step 1 (Pre-filled with passed data)
+  // State for Step 1
   const [username, setUsername] = useState(passedUsername ?? "");
   const [email, setEmail] = useState(passedEmail ?? "");
   const [password, setPassword] = useState("");
@@ -46,534 +46,131 @@ function AfterOtpSection1() {
     console.log("username state:", username);
   }, [username]);
 
-  // State for Step 2 (Basic Personal Info)
+  // State for Step 2
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [PhoneNumber, setPhoneNumber] = useState("");
   const [Gender, setGender] = useState("");
 
-  // State for Step 3 (Education/Work + Headline)
+  // State for Step 3
   const [headline, setHeadline] = useState("");
   const [college, setCollege] = useState("");
   const [twelveSchool, setTwelveSchool] = useState("");
   const [tenthschool, setTenthschool] = useState("");
-
   const [degree, setDegree] = useState("");
   const [workorProject, setWorkorProject] = useState("");
   const [startYear, setStartYear] = useState("");
   const [endYear, setEndYear] = useState("");
 
-  // State for Step sec4 (Interests)
+  // State for Step 4 (Interests)
   const [searchInterest, setSearchInterest] = useState("");
   const [selectedInterests, setSelectedInterests] = useState([]);
+  const [interestSlideIndex, setInterestSlideIndex] = useState(0);
   const interestSuggestions = [
-    "Acting",
-    "Activism",
-    "Advertising",
-    "Aerospace",
-    "Agriculture",
-    "AI",
-    "Algebra",
-    "Algorithms",
-    "Anatomy",
-    "Animation",
-    "Anthropology",
-    "App-Development",
-    "Archaeology",
-    "Architecture",
-    "Art",
-    "Artificial-Intelligence",
-    "Astronomy",
-    "Athletics",
-    "Audio-Engineering",
-    "Automation",
-    "Aviation",
-    "Baking",
-    "Banking",
-    "Basketball",
-    "Bioengineering",
-    "Bioinformatics",
-    "Biology",
-    "Biomechanics",
-    "Biophysics",
-    "Blogging",
-    "Blockchain",
-    "Board-Games",
-    "Book-Club",
-    "Botany",
-    "Boxing",
-    "Branding",
-    "Broadcasting",
-    "Business",
-    "Calligraphy",
-    "Camping",
-    "Career-Development",
-    "Carpentry",
-    "Chemistry",
-    "Chess",
-    "Choir",
-    "Cinematography",
-    "Civil-Engineering",
-    "Classical-Music",
-    "Climate-Change",
-    "Coding",
-    "Comedy",
-    "Communication",
-    "Community-Service",
-    "Computer-Graphics",
-    "Computer-Science",
-    "Construction",
-    "Content-Creation",
-    "Cooking",
-    "Copywriting",
-    "Counseling",
-    "Creative-Writing",
-    "Cricket",
-    "Culinary-Arts",
-    "Cultural-Studies",
-    "Cycling",
-    "Dance",
-    "Data-Analytics",
-    "Data-Science",
-    "Debate",
-    "Design",
-    "Digital-Art",
-    "Digital-Marketing",
-    "Digital-Painting",
-    "Diplomacy",
-    "DIY",
-    "Drama",
-    "Drawing",
-    "E-commerce",
-    "Economics",
-    "Education",
-    "Electrical-Engineering",
-    "Electronics",
-    "Embroidery",
-    "Emergency-Medicine",
-    "Engineering",
-    "English-Literature",
-    "Entrepreneurship",
-    "Environmentalism",
-    "Esports",
-    "Event-Planning",
-    "Fashion",
-    "Fencing",
-    "Film",
-    "Finance",
-    "Fine-Arts",
-    "Fitness",
-    "Flute",
-    "Folk-Music",
-    "Football",
-    "Foreign-Languages",
-    "Forensics",
-    "Forestry",
-    "Gardening",
-    "Gaming",
-    "Genetics",
-    "Geology",
-    "Geography",
-    "Graphic-Design",
-    "Gymnastics",
-    "Handball",
-    "Health",
-    "Hiking",
-    "History",
-    "Hockey",
-    "Home-Decor",
-    "Hospitality",
-    "Human-Rights",
-    "Illustration",
-    "Improv",
-    "Industrial-Design",
-    "Information-Technology",
-    "Innovation",
-    "Instrumental-Music",
-    "Interior-Design",
-    "International-Relations",
-    "Investing",
-    "Journalism",
-    "Judo",
-    "Karate",
-    "Kickboxing",
-    "Knitting",
-    "Law",
-    "Leadership",
-    "Literature",
-    "Logistics",
-    "Machine-Learning",
-    "Magic",
-    "Management",
-    "Manufacturing",
-    "Marketing",
-    "Martial-Arts",
-    "Mathematics",
-    "Mechanical-Engineering",
-    "Media-Studies",
-    "Medicine",
-    "Meditation",
-    "Mentorship",
-    "Metallurgy",
-    "Meteorology",
-    "Microbiology",
-    "Military-Science",
-    "Mobile-App-Development",
-    "Modeling",
-    "Modern-Art",
-    "Molecular-Biology",
-    "Motorsport",
-    "Mountaineering",
-    "Movie-Critique",
-    "Multimedia",
-    "Music",
-    "Mythology",
-    "Nanotechnology",
-    "Networking",
-    "Neuroscience",
-    "Nutrition",
-    "Opera",
-    "Painting",
-    "Paleontology",
-    "Paragliding",
-    "Parkour",
-    "Performing-Arts",
-    "Personal-Finance",
-    "Personal-Training",
-    "Philosophy",
-    "Photography",
-    "Physics",
-    "Pilates",
-    "Podcasting",
-    "Poetry",
-    "Political-Science",
-    "Pottery",
-    "Programming",
-    "Project-Management",
-    "Psychology",
-    "Public-Health",
-    "Public-Relations",
-    "Public-Speaking",
-    "Quantum-Computing",
-    "Quantum-Physics",
-    "Radio-Hosting",
-    "Reading",
-    "Real-Estate",
-    "Recycling",
-    "Renewable-Energy",
-    "Research",
-    "Robotics",
-    "Rocketry",
-    "Rowing",
-    "Rugby",
-    "Running",
-    "Salsa",
-    "Sculpture",
-    "Self-Defense",
-    "Sewing",
-    "Singing",
-    "Skateboarding",
-    "Skating",
-    "Social-Media",
-    "Social-Work",
-    "Sociology",
-    "Software-Development",
-    "Sound-Engineering",
-    "Space-Exploration",
-    "Spanish",
-    "Speechwriting",
-    "Spirituality",
-    "Sports",
-    "Stand-Up-Comedy",
-    "Startups",
-    "Stock-Trading",
-    "Storytelling",
-    "Strategy-Games",
-    "Street-Art",
-    "Student-Government",
-    "Sustainability",
-    "Swimming",
-    "Table-Tennis",
-    "Taekwondo",
-    "Taxation",
-    "Teaching",
-    "Technical-Writing",
-    "Technology",
-    "Tennis",
-    "Theater",
-    "Theology",
-    "Tourism",
-    "Trading",
-    "Traditional-Dance",
-    "Travel",
-    "Urban-Planning",
-    "UX-Design",
-    "VFX",
-    "Video-Editing",
-    "Videography",
-    "Violin",
-    "Virtual-Reality",
-    "Volleyball",
-    "Volunteering",
-    "Web-Development",
-    "Weightlifting",
-    "Wildlife-Conservation",
-    "Windsurfing",
-    "Woodworking",
-    "Wrestling",
-    "Writing",
-    "Yoga",
-    "Zoology",
-    "3D-Modeling",
-    "3D-Printing",
-    "Acoustic-Guitar",
-    "Acting-Coaching",
-    "Anime",
-    "Aquaponics",
-    "Archery",
-    "Astronomy-Photography",
-    "Auto-Racing",
-    "Ballet",
-    "Barista-Skills",
-    "Bartending",
-    "Beer-Brewing",
-    "Birdwatching",
-    "Blacksmithing",
-    "Bodybuilding",
-    "Bouldering",
-    "Candle-Making",
-    "Car-Restoration",
-    "Chess-Strategy",
-  ]
+    "Acting", "Activism", "Advertising", "Aerospace", "Agriculture", "AI", "Algebra", "Algorithms",
+    "Anatomy", "Animation", "Anthropology", "App-Development", "Archaeology", "Architecture", "Art",
+    "Artificial-Intelligence", "Astronomy", "Athletics", "Audio-Engineering", "Automation", "Aviation",
+    "Baking", "Banking", "Basketball", "Bioengineering", "Bioinformatics", "Biology", "Biomechanics",
+    "Biophysics", "Blogging", "Blockchain", "Board-Games", "Book-Club", "Botany", "Boxing", "Branding",
+    "Broadcasting", "Business", "Calligraphy", "Camping", "Career-Development", "Carpentry", "Chemistry",
+    "Chess", "Choir", "Cinematography", "Civil-Engineering", "Classical-Music", "Climate-Change", "Coding",
+    "Comedy", "Communication", "Community-Service", "Computer-Graphics", "Computer-Science", "Construction",
+    "Content-Creation", "Cooking", "Copywriting", "Counseling", "Creative-Writing", "Cricket", "Culinary-Arts",
+    "Cultural-Studies", "Cycling", "Dance", "Data-Analytics", "Data-Science", "Debate", "Design", "Digital-Art",
+    "Digital-Marketing", "Digital-Painting", "Diplomacy", "DIY", "Drama", "Drawing", "E-commerce", "Economics",
+    "Education", "Electrical-Engineering", "Electronics", "Embroidery", "Emergency-Medicine", "Engineering",
+    "English-Literature", "Entrepreneurship", "Environmentalism", "Esports", "Event-Planning", "Fashion",
+    "Fencing", "Film", "Finance", "Fine-Arts", "Fitness", "Flute", "Folk-Music", "Football", "Foreign-Languages",
+    "Forensics", "Forestry", "Gardening", "Gaming", "Genetics", "Geology", "Geography", "Graphic-Design",
+    "Gymnastics", "Handball", "Health", "Hiking", "History", "Hockey", "Home-Decor", "Hospitality", "Human-Rights",
+    "Illustration", "Improv", "Industrial-Design", "Information-Technology", "Innovation", "Instrumental-Music",
+    "Interior-Design", "International-Relations", "Investing", "Journalism", "Judo", "Karate", "Kickboxing",
+    "Knitting", "Law", "Leadership", "Literature", "Logistics", "Machine-Learning", "Magic", "Management",
+    "Manufacturing", "Marketing", "Martial-Arts", "Mathematics", "Mechanical-Engineering", "Media-Studies",
+    "Medicine", "Meditation", "Mentorship", "Metallurgy", "Meteorology", "Microbiology", "Military-Science",
+    "Mobile-App-Development", "Modeling", "Modern-Art", "Molecular-Biology", "Motorsport", "Mountaineering",
+    "Movie-Critique", "Multimedia", "Music", "Mythology", "Nanotechnology", "Networking", "Neuroscience",
+    "Nutrition", "Opera", "Painting", "Paleontology", "Paragliding", "Parkour", "Performing-Arts",
+    "Personal-Finance", "Personal-Training", "Philosophy", "Photography", "Physics", "Pilates", "Podcasting",
+    "Poetry", "Political-Science", "Pottery", "Programming", "Project-Management", "Psychology", "Public-Health",
+    "Public-Relations", "Public-Speaking", "Quantum-Computing", "Quantum-Physics", "Radio-Hosting", "Reading",
+    "Real-Estate", "Recycling", "Renewable-Energy", "Research", "Robotics", "Rocketry", "Rowing", "Rugby",
+    "Running", "Salsa", "Sculpture", "Self-Defense", "Sewing", "Singing", "Skateboarding", "Skating",
+    "Social-Media", "Social-Work", "Sociology", "Software-Development", "Sound-Engineering", "Space-Exploration",
+    "Spanish", "Speechwriting", "Spirituality", "Sports", "Stand-Up-Comedy", "Startups", "Stock-Trading",
+    "Storytelling", "Strategy-Games", "Street-Art", "Student-Government", "Sustainability", "Swimming",
+    "Table-Tennis", "Taekwondo", "Taxation", "Teaching", "Technical-Writing", "Technology", "Tennis", "Theater",
+    "Theology", "Tourism", "Trading", "Traditional-Dance", "Travel", "Urban-Planning", "UX-Design", "VFX",
+    "Video-Editing", "Videography", "Violin", "Virtual-Reality", "Volleyball", "Volunteering", "Web-Development",
+    "Weightlifting", "Wildlife-Conservation", "Windsurfing", "Woodworking", "Wrestling", "Writing", "Yoga",
+    "Zoology", "3D-Modeling", "3D-Printing", "Acoustic-Guitar", "Acting-Coaching", "Anime", "Aquaponics",
+    "Archery", "Astronomy-Photography", "Auto-Racing", "Ballet", "Barista-Skills", "Bartending", "Beer-Brewing",
+    "Birdwatching", "Blacksmithing", "Bodybuilding", "Bouldering", "Candle-Making", "Car-Restoration",
+    "Chess-Strategy"
+  ];
 
   // State for Step 5 (Skills)
   const [searchSkill, setSearchSkill] = useState("");
   const [selectedSkills, setSelectedSkills] = useState([]);
+  const [skillSlideIndex, setSkillSlideIndex] = useState(0);
   const skillSuggestions = [
     // Frontend
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "Vue.js",
-    "Angular",
-    "Bootstrap",
-    "Tailwind CSS",
-    "TypeScript",
-    "UI/UX",
-    "Graphic Design",
-    "Logo Design",
-    "Typography",
-    "Infographics",
-    "Digital Illustration",
+    "HTML", "CSS", "JavaScript", "React", "Vue.js", "Angular", "Bootstrap", "Tailwind CSS", "TypeScript",
+    "UI/UX", "Graphic Design", "Logo Design", "Typography", "Infographics", "Digital Illustration",
     "Resume Designing",
-  
     // Backend
-    "Node.js",
-    "Express.js",
-    "Java",
-    "Spring Boot",
-    "Python",
-    "Django",
-    "Flask",
-    "PHP",
-    "Laravel",
-    "C#",
-    ".NET",
-    "C++",
-    "API Development",
-    "REST APIs",
-    "GraphQL",
-    "Web Scraping",
-  
+    "Node.js", "Express.js", "Java", "Spring Boot", "Python", "Django", "Flask", "PHP", "Laravel", "C#",
+    ".NET", "C++", "API Development", "REST APIs", "GraphQL", "Web Scraping",
     // Databases
-    "SQL",
-    "MySQL",
-    "PostgreSQL",
-    "MongoDB",
-    "Oracle",
-    "Data Visualization",
-  
+    "SQL", "MySQL", "PostgreSQL", "MongoDB", "Oracle", "Data Visualization",
     // DevOps & Tools
-    "Git",
-    "GitHub",
-    "Docker",
-    "Jenkins",
-    "CI/CD",
-    "AWS",
-    "Azure",
-    "Firebase",
-    "Cloud Computing",
-    "Linux",
-    "VS Code",
-    "Agile/Scrum",
-    "Data Structures & Algorithms",
-    "Smart Home Setup",
-  
+    "Git", "GitHub", "Docker", "Jenkins", "CI/CD", "AWS", "Azure", "Firebase", "Cloud Computing", "Linux",
+    "VS Code", "Agile/Scrum", "Data Structures & Algorithms", "Smart Home Setup",
     // Testing
-    "Jest",
-    "Mocha",
-    "Selenium",
-    "JUnit",
-    "Software Testing",
-  
+    "Jest", "Mocha", "Cypress", "Selenium", "JUnit", "Software Testing",
     // Programming & Development
-    "Web Development",
-    "WordPress",
-    "App Development",
-    "Game Development",
-    "Chatbot Development",
-    "AR/VR",
-    "IoT",
-    "Automation",
-    "Blockchain",
-    "AI/ML",
-    "Cybersecurity",
-    "Ethical Hacking",
-    "Cloud Security",
+    "Web Development", "WordPress", "App Development", "Game Development", "Chatbot Development", "AR/VR",
+    "IoT", "Automation", "Blockchain", "AI/ML", "Cybersecurity", "Ethical Hacking", "Cloud Security",
     "App Monetization",
-  
     // Design & Creative
-    "Animation",
-    "Video Editing",
-    "3D Modeling",
-    "NFT Art",
-    "Interior Design",
-    "Photography",
-    "Stock Photography",
-    "Virtual Reality Content",
-    "3D Printing",
-    "Handmade Crafts",
-    "DIY Home Decor",
-  
+    "Animation", "Video Editing", "3D Modeling", "NFT Art", "Interior Design", "Photography",
+    "Stock Photography", "Virtual Reality Content", "3D Printing", "Handmade Crafts", "DIY Home Decor",
     // Writing & Content
-    "Content Writing",
-    "Copywriting",
-    "Technical Writing",
-    "Ghostwriting",
-    "Resume Writing",
-    "Scriptwriting",
-    "Blogging",
-    "Research Writing",
-    "Translation",
-    "Transcription",
-    "Speech Writing",
-    "Freelance Writing",
-    "Copyediting",
-    "Proofreading",
-    "Email Copywriting",
-    "Public Relations Writing",
-  
+    "Content Writing", "Copywriting", "Technical Writing", "Ghostwriting", "Resume Writing", "Scriptwriting",
+    "Blogging", "Research Writing", "Translation", "Transcription", "Speech Writing", "Freelance Writing",
+    "Copyediting", "Proofreading", "Email Copywriting", "Public Relations Writing",
     // Marketing & Sales
-    "Social Media",
-    "SEO",
-    "Email Marketing",
-    "Ads Management",
-    "Affiliate Marketing",
-    "Influencer Marketing",
-    "PR",
-    "Market Research",
-    "Lead Generation",
-    "Growth Hacking",
-    "Sales Funnels",
-    "Video Marketing",
-    "Social Media Ads",
-    "Google Analytics",
-    "Digital Fundraising",
-  
+    "Social Media", "SEO", "Email Marketing", "Ads Management", "Affiliate Marketing", "Influencer Marketing",
+    "PR", "Market Research", "Lead Generation", "Growth Hacking", "Sales Funnels", "Video Marketing",
+    "Social Media Ads", "Google Analytics", "Digital Fundraising",
     // Business & Finance
-    "Accounting",
-    "Financial Analysis",
-    "Stock Trading",
-    "Cryptocurrency",
-    "Tax Filing",
-    "Budgeting",
-    "Crowdfunding",
-    "Business Valuation",
-    "Investment Analysis",
-    "Risk Management",
-    "Business Consulting",
-    "HR Management",
-    "Business Proposal",
-    "E-commerce",
-    "Dropshipping",
-    "Product Listing",
-    "Print-on-Demand",
-    "B2B Sales",
-    "Customer Retention",
-    "Online Courses",
-    "Subscription Business",
-    "Retail Management",
-  
+    "Accounting", "Financial Analysis", "Stock Trading", "Cryptocurrency", "Tax Filing", "Budgeting",
+    "Crowdfunding", "Business Valuation", "Investment Analysis", "Risk Management", "Business Consulting",
+    "HR Management", "Business Proposal", "E-commerce", "Dropshipping", "Product Listing", "Print-on-Demand",
+    "B2B Sales", "Customer Retention", "Online Courses", "Subscription Business", "Retail Management",
     // Soft Skills & Personal Development
-    "Public Speaking",
-    "Negotiation",
-    "Conflict Resolution",
-    "Time Management",
-    "Leadership",
-    "Networking",
-    "Emotional Intelligence",
-    "Personal Branding",
-    "Interviewing",
-    "Problem-Solving",
-    "Personal Development",
-    "Stress Management",
-    "Meditation",
-    "Relationship Building",
-    "Workplace Communication",
-    "Professional Dressing",
-    "Job Search",
-    "Legal Knowledge",
-    "Debt Management",
-    "Resume Optimization",
+    "Public Speaking", "Negotiation", "Conflict Resolution", "Time Management", "Leadership", "Networking",
+    "Emotional Intelligence", "Personal Branding", "Interviewing", "Problem-Solving", "Personal Development",
+    "Stress Management", "Meditation", "Relationship Building", "Workplace Communication",
+    "Professional Dressing", "Job Search", "Legal Knowledge", "Debt Management", "Resume Optimization",
     "Personal Finance",
-  
     // Teaching & Coaching
-    "Online Tutoring",
-    "Language Teaching",
-    "Music Lessons",
-    "Fitness Training",
-    "Life Coaching",
-    "Career Counseling",
-    "Exam Coaching",
-    "Yoga",
-    "Skill Training",
-    "Dance Choreography",
-  
+    "Online Tutoring", "Language Teaching", "Music Lessons", "Fitness Training", "Life Coaching",
+    "Career Counseling", "Exam Coaching", "Yoga", "Skill Training", "Dance Choreography",
     // Administrative & Support
-    "Virtual Assistance",
-    "Data Entry",
-    "Email Management",
-    "Customer Support",
-    "Travel Planning",
-    "Project Management",
-    "Event Planning",
-    "Document Formatting",
-    "CRM Management",
-    "Customer Retention",
-  
+    "Virtual Assistance", "Data Entry", "Email Management", "Customer Support", "Travel Planning",
+    "Project Management", "Event Planning", "Document Formatting", "CRM Management", "Customer Retention",
     // Miscellaneous
-    "Podcasting",
-    "Podcast Editing",
-    "Voiceover",
-    "Voice Modulation",
-    "Mobile Repair",
-    "Car Maintenance",
-    "Home Repair",
-    "Cooking",
-    "Nutrition",
-    "First Aid",
-    "Emergency Preparedness",
-    "Gardening",
-    "Public Transport Navigation",
-    "Apartment Hunting"
+    "Podcasting", "Podcast Editing", "Voiceover", "Voice Modulation", "Mobile Repair", "Car Maintenance",
+    "Home Repair", "Cooking", "Nutrition", "First Aid", "Emergency Preparedness", "Gardening",
+    "Public Transport Navigation", "Apartment Hunting"
   ];
 
-  // State for Step 6 (About, Location)
+  // State for Step 6
   const [About, setAbout] = useState("");
   const [userLocation, setUserLocation] = useState("");
 
-  // State for Step 8 (Profile Picture Upload)
+  // State for Step 8
   const [profilePicture, setProfilePicture] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
 
@@ -637,8 +234,7 @@ function AfterOtpSection1() {
       "Step 3 - Education/Work:",
       JSON.stringify(
         { headline, college, degree, workorProject, startYear, endYear },
-        null,
-        2
+        null, 2
       )
     );
     setError("");
@@ -713,13 +309,11 @@ function AfterOtpSection1() {
     setIsSubmitting(false);
   };
 
-  // Helper function to resize and compress image
   const resizeAndCompressImage = (file) => {
     return new Promise((resolve, reject) => {
       const maxWidth = 500;
       const maxHeight = 500;
       const quality = 0.7;
-
       const reader = new FileReader();
       reader.onload = (event) => {
         const img = new Image();
@@ -727,7 +321,6 @@ function AfterOtpSection1() {
           const canvas = document.createElement("canvas");
           let width = img.width;
           let height = img.height;
-
           if (width > height) {
             if (width > maxWidth) {
               height = Math.round((height * maxWidth) / width);
@@ -739,12 +332,10 @@ function AfterOtpSection1() {
               height = maxHeight;
             }
           }
-
           canvas.width = width;
           canvas.height = height;
           const ctx = canvas.getContext("2d");
           ctx.drawImage(img, 0, 0, width, height);
-
           const resizedBase64 = canvas.toDataURL("image/jpeg", quality);
           resolve(resizedBase64);
         };
@@ -761,7 +352,6 @@ function AfterOtpSection1() {
     if (isSubmitting) return;
     setIsSubmitting(true);
     console.log("Starting profile submission...");
-
     if (!token) {
       setError(
         "Authentication token is missing. Please go back to the login page and try again."
@@ -769,13 +359,11 @@ function AfterOtpSection1() {
       setIsSubmitting(false);
       return;
     }
-
     if (!username || !email || !password || !firstName || !lastName) {
       setError("Required fields are missing");
       setIsSubmitting(false);
       return;
     }
-
     try {
       let profilePictureUrl = "";
       if (profilePicture) {
@@ -787,7 +375,6 @@ function AfterOtpSection1() {
           `Image size reduced from ${originalSize} to ~${compressedSize} bytes`
         );
       }
-
       const userData = {
         email,
         password,
@@ -808,14 +395,12 @@ function AfterOtpSection1() {
         endYear: endYear ? parseInt(endYear, 10) : null,
         profilePictureBase64: profilePictureUrl,
       };
-
       const logData = { ...userData };
       if (logData.profilePictureBase64) {
         logData.profilePictureBase64 =
           logData.profilePictureBase64.substring(0, 50) + "...";
       }
       console.log("Profile data being sent:", logData);
-
       const response = await axios.post(
         "https://uniisphere-backend-latest.onrender.com/api/auth/completeProfile",
         userData,
@@ -827,21 +412,15 @@ function AfterOtpSection1() {
           timeout: 30000,
         }
       );
-
       console.log("Profile completion successful:", response.data);
-
-      // Extract userId from response if provided, W to username
       const returnedUserId =
         response.data.userId || response.data.id || username;
       setUserId(returnedUserId);
-
       alert("Profile completed successfully!");
-
-      // Navigate with the correct token and userId
       navigate("/view", {
         state: {
-          userToken: response.data.token, // Make sure this matches what you're looking for
-          userId: response.data.user.id, // Make sure this matches what you're looking for
+          userToken: response.data.token,
+          userId: response.data.user.id,
         },
       });
     } catch (err) {
@@ -870,7 +449,7 @@ function AfterOtpSection1() {
 
   // Interest and Skill Handlers
   const handleInterestSelect = (interest) => {
-    if (selectedInterests.includes(interest)) return; // Prevent duplicates
+    if (selectedInterests.includes(interest)) return;
     setSelectedInterests([...selectedInterests, interest]);
     setSearchInterest("");
   };
@@ -895,6 +474,51 @@ function AfterOtpSection1() {
     if (file) {
       setProfilePicture(file);
       setPreviewUrl(URL.createObjectURL(file));
+    }
+  };
+
+  // Slider Navigation
+  const itemsPerSlide = {
+    mobile: 3,
+    tablet: 4,
+    desktop: 6,
+  };
+
+  const getFilteredInterests = () =>
+    interestSuggestions.filter(
+      (interest) =>
+        interest.toLowerCase().includes(searchInterest.toLowerCase()) &&
+        !selectedInterests.includes(interest)
+    );
+
+  const getFilteredSkills = () =>
+    skillSuggestions.filter(
+      (skill) =>
+        skill.toLowerCase().includes(searchSkill.toLowerCase()) &&
+        !selectedSkills.includes(skill)
+    );
+
+  const handleNextSlide = (type) => {
+    if (type === "interest") {
+      const filtered = getFilteredInterests();
+      const maxIndex = Math.ceil(filtered.length / itemsPerSlide.desktop) - 1;
+      setInterestSlideIndex((prev) => (prev < maxIndex ? prev + 1 : 0));
+    } else {
+      const filtered = getFilteredSkills();
+      const maxIndex = Math.ceil(filtered.length / itemsPerSlide.desktop) - 1;
+      setSkillSlideIndex((prev) => (prev < maxIndex ? prev + 1 : 0));
+    }
+  };
+
+  const handlePrevSlide = (type) => {
+    if (type === "interest") {
+      const filtered = getFilteredInterests();
+      const maxIndex = Math.ceil(filtered.length / itemsPerSlide.desktop) - 1;
+      setInterestSlideIndex((prev) => (prev > 0 ? prev - 1 : maxIndex));
+    } else {
+      const filtered = getFilteredSkills();
+      const maxIndex = Math.ceil(filtered.length / itemsPerSlide.desktop) - 1;
+      setSkillSlideIndex((prev) => (prev > 0 ? prev - 1 : maxIndex));
     }
   };
 
@@ -1068,7 +692,6 @@ function AfterOtpSection1() {
       </Form.Group>
       <Form.Group controlId="degree" className="mb-3">
         <Form.Label>Degree</Form.Label>
-
         <Form.Control
           type="text"
           placeholder="Enter your degree (e.g., B.Tech)"
@@ -1133,139 +756,258 @@ function AfterOtpSection1() {
     </Form>
   );
 
-  const renderFourthStep = () => (
-    <Form onSubmit={handleFourthStepSubmit}>
-      <Form.Group controlId="interest" className="mb-3">
-        <Form.Label>Interests (Optional)</Form.Label>
-        <div className="interest-search">
-          <Form.Control
-            type="text"
-            placeholder="Search your interest"
-            value={searchInterest}
-            onChange={(e) => setSearchInterest(e.target.value)}
-          />
-          <span className="search-icon">🔍</span>
+  const renderFourthStep = () => {
+    const filteredInterests = getFilteredInterests();
+    const itemsToShow = {
+      mobile: filteredInterests.slice(
+        interestSlideIndex * itemsPerSlide.mobile,
+        (interestSlideIndex + 1) * itemsPerSlide.mobile
+      ),
+      tablet: filteredInterests.slice(
+        interestSlideIndex * itemsPerSlide.tablet,
+        (interestSlideIndex + 1) * itemsPerSlide.tablet
+      ),
+      desktop: filteredInterests.slice(
+        interestSlideIndex * itemsPerSlide.desktop,
+        (interestSlideIndex + 1) * itemsPerSlide.desktop
+      ),
+    };
+
+    return (
+      <Form onSubmit={handleFourthStepSubmit}>
+        <Form.Group controlId="interest" className="mb-3">
+          <Form.Label>Interests (Optional)</Form.Label>
+          <div className="relative">
+            <Form.Control
+              type="text"
+              placeholder="Search your interest"
+              value={searchInterest}
+              onChange={(e) => setSearchInterest(e.target.value)}
+              className="pl-3 pr-10 py-2 border rounded-md"
+            />
+            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">🔍</span>
+          </div>
+          <p className="mt-2 text-sm text-gray-600">Select any interests you have.</p>
+        </Form.Group>
+        <div className="mb-4">
+          {/* Desktop: Buttons */}
+          <div className="hidden md:flex justify-between mb-2">
+            <button
+              type="button"
+              onClick={() => handlePrevSlide("interest")}
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition"
+            >
+              ← Previous
+            </button>
+            <button
+              type="button"
+              onClick={() => handleNextSlide("interest")}
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition"
+            >
+              Next →
+            </button>
+          </div>
+          {/* Slider */}
+          <div className="overflow-hidden">
+            <div className="flex flex-wrap gap-2 md:grid md:grid-cols-3 md:gap-4 transition-transform duration-300 ease-in-out">
+              {itemsToShow.desktop.map((interest, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => handleInterestSelect(interest)}
+                  className="flex-1 min-w-[100px] text-center px-3 py-2 bg-gradient-to-b from-blue-100 to-green-100 text-gray-800 rounded-md hover:bg-gradient-to-b hover:from-blue-200 hover:to-green-200 transition"
+                >
+                  {interest}
+                </button>
+              ))}
+            </div>
+            {/* Mobile/Tablet Slider */}
+            <div className="md:hidden flex flex-wrap gap-2 transition-transform duration-300 ease-in-out">
+              {itemsToShow.mobile.map((interest, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => handleInterestSelect(interest)}
+                  className="flex-1 min-w-[100px] text-center px-3 py-2 bg-gradient-to-b from-blue-100 to-green-100 text-gray-800 rounded-md hover:bg-gradient-to-b hover:from-blue-200 hover:to-green-200 transition"
+                >
+                  {interest}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
-        <p>Select any interests you have.</p>
-      </Form.Group>
-      <div className="interest-suggestions">
-        {interestSuggestions
-          .filter(
-            (interest) =>
-              interest.toLowerCase().includes(searchInterest.toLowerCase()) &&
-              !selectedInterests.includes(interest)
-          )
-          .map((interest, index) => (
-            <Button
+        <div className="flex flex-wrap gap-2 mb-4">
+          {selectedInterests.map((interest, index) => (
+            <span
               key={index}
-              variant="outline-primary"
-              className="interest-btn"
-              onClick={() => handleInterestSelect(interest)}
+              className="inline-flex items-center px-3 py-1 bg-gradient-to-b from-blue-100 to-green-100 text-gray-800 rounded-full"
             >
               {interest}
-            </Button>
+              <button
+                type="button"
+                onClick={() => handleInterestRemove(interest)}
+                className="ml-2 text-red-500 hover:text-red-700"
+              >
+                ×
+              </button>
+            </span>
           ))}
-      </div>
-      <div className="selected-interests">
-        {selectedInterests.map((interest, index) => (
-          <span key={index} className="selected-interest">
-            {interest}{" "}
-            <span onClick={() => handleInterestRemove(interest)}>×</span>
-          </span>
-        ))}
-      </div>
-      {error && (
-        <p className="error-text" style={{ color: "red" }}>
-          {error}
-        </p>
-      )}
-      <Button
-        variant="primary"
-        type="submit"
-        className="otp-btn"
-        disabled={isSubmitting}
-      >
-        {isSubmitting ? "Processing..." : "Next"}
-      </Button>
-      <Button
-        variant="secondary"
-        className="otp-btn mt-2"
-        onClick={() => setStep(3)}
-        disabled={isSubmitting}
-      >
-        Back
-      </Button>
-    </Form>
-  );
-
-  const renderFifthStep = () => (
-    <Form onSubmit={handleFifthStepSubmit}>
-      <Form.Group controlId="skill" className="mb-3">
-        <Form.Label>Skills (Optional)</Form.Label>
-        <div className="skill-search">
-          <Form.Control
-            type="text"
-            placeholder="Search your skills"
-            value={searchSkill}
-            onChange={(e) => setSearchSkill(e.target.value)}
-          />
-          <span className="search-icon">🔍</span>
         </div>
-        <p>Select up to 10 skills you have.</p>
-      </Form.Group>
-      <div className="skill-suggestions">
-        {skillSuggestions
-          .filter(
-            (skill) =>
-              skill.toLowerCase().includes(searchSkill.toLowerCase()) &&
-              !selectedSkills.includes(skill)
-          )
-          .map((skill, index) => (
-            <Button
+        {error && (
+          <p className="error-text" style={{ color: "red" }}>
+            {error}
+          </p>
+        )}
+        <Button
+          variant="primary"
+          type="submit"
+          className="otp-btn"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Processing..." : "Next"}
+        </Button>
+        <Button
+          variant="secondary"
+          className="otp-btn mt-2"
+          onClick={() => setStep(3)}
+          disabled={isSubmitting}
+        >
+          Back
+        </Button>
+      </Form>
+    );
+  };
+
+  const renderFifthStep = () => {
+    const filteredSkills = getFilteredSkills();
+    const itemsToShow = {
+      mobile: filteredSkills.slice(
+        skillSlideIndex * itemsPerSlide.mobile,
+        (skillSlideIndex + 1) * itemsPerSlide.mobile
+      ),
+      tablet: filteredSkills.slice(
+        skillSlideIndex * itemsPerSlide.tablet,
+        (skillSlideIndex + 1) * itemsPerSlide.tablet
+      ),
+      desktop: filteredSkills.slice(
+        skillSlideIndex * itemsPerSlide.desktop,
+        (skillSlideIndex + 1) * itemsPerSlide.desktop
+      ),
+    };
+
+    return (
+      <Form onSubmit={handleFifthStepSubmit}>
+        <Form.Group controlId="skill" className="mb-3">
+          <Form.Label>Skills (Optional)</Form.Label>
+          <div className="relative">
+            <Form.Control
+              type="text"
+              placeholder="Search your skills"
+              value={searchSkill}
+              onChange={(e) => setSearchSkill(e.target.value)}
+              className="pl-3 pr-10 py-2 border rounded-md"
+            />
+            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">🔍</span>
+          </div>
+          <p className="mt-2 text-sm text-gray-600">Select up to 10 skills you have.</p>
+        </Form.Group>
+        <div className="mb-4">
+          {/* Desktop: Buttons */}
+          <div className="hidden md:flex justify-between mb-2">
+            <button
+              type="button"
+              onClick={() => handlePrevSlide("skill")}
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition"
+            >
+              ← Previous
+            </button>
+            <button
+              type="button"
+              onClick={() => handleNextSlide("skill")}
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition"
+            >
+              Next →
+            </button>
+          </div>
+          {/* Slider */}
+          <div className="overflow-hidden">
+            <div className="flex flex-wrap gap-2 md:grid md:grid-cols-3 md:gap-4 transition-transform duration-300 ease-in-out">
+              {itemsToShow.desktop.map((skill, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => handleSkillSelect(skill)}
+                  disabled={selectedSkills.length >= 10}
+                  className={`flex-1 min-w-[100px] text-center px-3 py-2 bg-gradient-to-b from-blue-100 to-green-100 text-gray-800 rounded-md transition ${
+                    selectedSkills.length >= 10 ? "opacity-50 cursor-not-allowed" : "hover:bg-gradient-to-b hover:from-blue-200 hover:to-green-200"
+                  }`}
+                >
+                  {skill}
+                </button>
+              ))}
+            </div>
+            {/* Mobile/Tablet Slider */}
+            <div className="md:hidden flex flex-wrap gap-2 transition-transform duration-300 ease-in-out">
+              {itemsToShow.mobile.map((skill, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => handleSkillSelect(skill)}
+                  disabled={selectedSkills.length >= 10}
+                  className={`flex-1 min-w-[100px] text-center px-3 py-2 bg-gradient-to-b from-blue-100 to-green-100 text-gray-800 rounded-md transition ${
+                    selectedSkills.length >= 10 ? "opacity-50 cursor-not-allowed" : "hover:bg-gradient-to-b hover:from-blue-200 hover:to-green-200"
+                  }`}
+                >
+                  {skill}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {selectedSkills.map((skill, index) => (
+            <span
               key={index}
-              variant="outline-primary"
-              className="skill-btn"
-              onClick={() => handleSkillSelect(skill)}
-              disabled={selectedSkills.length >= 10}
+              className="inline-flex items-center px-3 py-1 bg-gradient-to-b from-blue-100 to-green-100 text-gray-800 rounded-full"
             >
               {skill}
-            </Button>
+              <button
+                type="button"
+                onClick={() => handleSkillRemove(skill)}
+                className="ml-2 text-red-500 hover:text-red-700"
+              >
+                ×
+              </button>
+            </span>
           ))}
-      </div>
-      <div className="selected-skills">
-        {selectedSkills.map((skill, index) => (
-          <span key={index} className="selected-skill">
-            {skill} <span onClick={() => handleSkillRemove(skill)}>×</span>
-          </span>
-        ))}
-      </div>
-      {error && (
-        <p className="error-text" style={{ color: "red" }}>
-          {error}
-        </p>
-      )}
-      <Button
-        variant="primary"
-        type="submit"
-        className="otp-btn"
-        disabled={isSubmitting}
-      >
-        {isSubmitting ? "Processing..." : "Next"}
-      </Button>
-      <Button
-        variant="secondary"
-        className="otp-btn mt-2"
-        onClick={() => setStep(4)}
-        disabled={isSubmitting}
-      >
-        Back
-      </Button>
-    </Form>
-  );
+        </div>
+        {error && (
+          <p className="error-text" style={{ color: "red" }}>
+            {error}
+          </p>
+        )}
+        <Button
+          variant="primary"
+          type="submit"
+          className="otp-btn"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Processing..." : "Next"}
+        </Button>
+        <Button
+          variant="secondary"
+          className="otp-btn mt-2"
+          onClick={() => setStep(4)}
+          disabled={isSubmitting}
+        >
+          Back
+        </Button>
+      </Form>
+    );
+  };
 
   const renderSixthStep = () => (
     <Form onSubmit={handleSixthStepSubmit}>
-      {console.log("Rendering Step 6, isSubmitting:", isSubmitting)}
       <Form.Group controlId="About" className="mb-3">
         <Form.Label>About*</Form.Label>
         <Form.Control
@@ -1302,11 +1044,7 @@ function AfterOtpSection1() {
       <Button
         variant="secondary"
         className="otp-btn mt-2"
-        onClick={(e) => {
-          e.preventDefault();
-          console.log("Back button clicked, setting step to 5");
-          setStep(5);
-        }}
+        onClick={() => setStep(5)}
         disabled={isSubmitting}
       >
         Back
@@ -1316,7 +1054,6 @@ function AfterOtpSection1() {
 
   const renderSeventhStep = () => (
     <Form onSubmit={handleSeventhStepSubmit}>
-      {console.log("Rendering Step 7, isSubmitting:", isSubmitting)}
       <p>Review your information before proceeding.</p>
       {error && (
         <p className="error-text" style={{ color: "red" }}>
@@ -1334,11 +1071,7 @@ function AfterOtpSection1() {
       <Button
         variant="secondary"
         className="otp-btn mt-2"
-        onClick={(e) => {
-          e.preventDefault();
-          console.log("Back button clicked, setting step to 6");
-          setStep(6);
-        }}
+        onClick={() => setStep(6)}
         disabled={isSubmitting}
       >
         Back
@@ -1380,20 +1113,11 @@ function AfterOtpSection1() {
       >
         {isSubmitting ? "Processing..." : "Next"}
       </Button>
-      {/* <Button
-        variant="secondary"
-        className="otp-btn mt-2"
-        onClick={() => setStep(7)}
-        disabled={isSubmitting}
-      >
-        Back
-      </Button> */}
     </Form>
   );
 
   const renderNinthStep = () => (
     <Form onSubmit={handleNinthStepSubmit}>
-      {console.log("Rendering Step 9, isSubmitting:", isSubmitting)}
       <p>Final step: Submit your profile.</p>
       {error && (
         <p className="error-text" style={{ color: "red" }}>
@@ -1419,11 +1143,7 @@ function AfterOtpSection1() {
       <Button
         variant="secondary"
         className="otp-btn mt-2"
-        onClick={(e) => {
-          e.preventDefault();
-          console.log("Back button clicked, setting step to 8");
-          setStep(8);
-        }}
+        onClick={() => setStep(8)}
         disabled={isSubmitting}
       >
         Back
@@ -1441,20 +1161,18 @@ function AfterOtpSection1() {
           className="top-left-logo"
         />
         <div className="login-container-1">
-          <div>
-            <h1 className="unisphere-title-1">
-              <span className="u">U</span>
-              <span className="n">N</span>
-              <span className="i">I</span>
-              <span className="i">I</span>
-              <span className="s">S</span>
-              <span className="p">P</span>
-              <span className="h">H</span>
-              <span className="e">E</span>
-              <span className="r">R</span>
-              <span className="e">E</span>
-            </h1>
-          </div>
+          <h1 className="unisphere-title-1">
+            <span className="u">U</span>
+            <span className="n">N</span>
+            <span className="i">I</span>
+            <span className="i">I</span>
+            <span className="s">S</span>
+            <span className="p">P</span>
+            <span className="h">H</span>
+            <span className="e">E</span>
+            <span className="r">R</span>
+            <span className="e">E</span>
+          </h1>
           <div className="Succeed-1">
             <h3>
               <span>"Connect" </span>

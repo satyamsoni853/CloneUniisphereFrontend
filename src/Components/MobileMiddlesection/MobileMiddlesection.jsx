@@ -51,6 +51,7 @@ function MobileMiddleSection() {
   const commentModalRef = useRef(null);
   const shareModalRef = useRef(null);
   const imageModalRef = useRef(null);
+  const sliderRefs = useRef({});
   const location = useLocation();
   const navigate = useNavigate();
   const [showToast, setShowToast] = useState(false);
@@ -252,7 +253,7 @@ function MobileMiddleSection() {
       }));
       setError(null);
     } catch (error) {
-      console.error("Connection request error:", error.response?.data || error.message);
+      console.error("Connection request error:", err.response?.data || err.message);
       setError(
         error.response?.data?.message || "Failed to send connection request."
       );
@@ -557,20 +558,44 @@ function MobileMiddleSection() {
     return `${caption.substring(0, maxLength)}...`;
   };
 
-  const handlePrevSlide = (postId, totalImages) => {
-    setCurrentSlides((prev) => {
-      const current = prev[postId] || 0;
-      const nextIndex = (current - 1 + totalImages) % totalImages;
-      return { ...prev, [postId]: nextIndex };
-    });
+  const handleTouchStart = (postId, e) => {
+    const touch = e.touches[0];
+    sliderRefs.current[postId] = {
+      startX: touch.clientX,
+      startTime: Date.now(),
+    };
   };
 
-  const handleNextSlide = (postId, totalImages) => {
-    setCurrentSlides((prev) => {
-      const current = prev[postId] || 0;
-      const nextIndex = (current + 1) % totalImages;
-      return { ...prev, [postId]: nextIndex };
-    });
+  const handleTouchMove = (postId, e) => {
+    e.preventDefault();
+  };
+
+  const handleTouchEnd = (postId, totalImages, e) => {
+    const touch = e.changedTouches[0];
+    const endX = touch.clientX;
+    const endTime = Date.now();
+    const { startX, startTime } = sliderRefs.current[postId] || {};
+    const deltaX = endX - startX;
+    const deltaTime = endTime - startTime;
+
+    const minSwipeDistance = 50;
+    const maxSwipeTime = 1000;
+
+    if (deltaTime < maxSwipeTime) {
+      if (deltaX > minSwipeDistance) {
+        setCurrentSlides((prev) => ({
+          ...prev,
+          [postId]: (prev[postId] - 1 + totalImages) % totalImages,
+        }));
+      } else if (deltaX < -minSwipeDistance) {
+        setCurrentSlides((prev) => ({
+          ...prev,
+          [postId]: (prev[postId] + 1) % totalImages,
+        }));
+      }
+    }
+
+    sliderRefs.current[postId] = null;
   };
 
   const handleImageClick = (images, index) => {
@@ -702,13 +727,12 @@ function MobileMiddleSection() {
               </div>
 
               <div className="mobile-middle-main-image">
-                <div className="mobile-slider-container">
-                  <button
-                    className="mobile-slider-arrow mobile-slider-arrow-left"
-                    onClick={() => handlePrevSlide(post._id, images.length)}
-                  >
-                    ←
-                  </button>
+                <div
+                  className="mobile-slider-container"
+                  onTouchStart={(e) => handleTouchStart(post._id, e)}
+                  onTouchMove={(e) => handleTouchMove(post._id, e)}
+                  onTouchEnd={(e) => handleTouchEnd(post._id, images.length, e)}
+                >
                   <div className="mobile-slider">
                     {images.map((url, imgIndex) => (
                       <div
@@ -732,31 +756,23 @@ function MobileMiddleSection() {
                       </div>
                     ))}
                   </div>
-                  <button
-                    className="mobile-slider-arrow mobile-slider-arrow-right"
-                    onClick={() => handleNextSlide(post._id, images.length)}
-                  >
-                    →
-                  </button>
                 </div>
-                {images.length > 1 && (
-                  <div className="mobile-slider-dots">
-                    {images.map((_, dotIndex) => (
-                      <span
-                        key={dotIndex}
-                        className={`mobile-slider-dot ${
-                          dotIndex === currentSlide ? "active" : ""
-                        }`}
-                        onClick={() =>
-                          setCurrentSlides((prev) => ({
-                            ...prev,
-                            [post._id]: dotIndex,
-                          }))
-                        }
-                      />
-                    ))}
-                  </div>
-                )}
+                <div className="mobile-slider-dots">
+                  {images.map((_, dotIndex) => (
+                    <span
+                      key={dotIndex}
+                      className={`mobile-slider-dot ${
+                        dotIndex === currentSlide ? "active" : ""
+                      }`}
+                      onClick={() =>
+                        setCurrentSlides((prev) => ({
+                          ...prev,
+                          [post._id]: dotIndex,
+                        }))
+                      }
+                    />
+                  ))}
+                </div>
               </div>
 
               <div className="mobile-middle-action-bar">
@@ -888,18 +904,12 @@ function MobileMiddleSection() {
               )}
             </div>
             <div className="mobile-Full-comment-section-photo-container">
-              <div className="mobile-slider-container">
-                <button
-                  className="mobile-slider-arrow mobile-slider-arrow-left"
-                  onClick={() =>
-                    handlePrevSlide(
-                      posts[activeCommentPostIndex]._id,
-                      posts[activeCommentPostIndex].mediaUrl.length
-                    )
-                  }
-                >
-                  ←
-                </button>
+              <div
+                className="mobile-slider-container"
+                onTouchStart={(e) => handleTouchStart(posts[activeCommentPostIndex]._id, e)}
+                onTouchMove={(e) => handleTouchMove(posts[activeCommentPostIndex]._id, e)}
+                onTouchEnd={(e) => handleTouchEnd(posts[activeCommentPostIndex]._id, posts[activeCommentPostIndex].mediaUrl.length, e)}
+              >
                 <div className="mobile-slider">
                   {posts[activeCommentPostIndex].mediaUrl.map((url, imgIndex) => (
                     <div
@@ -924,38 +934,25 @@ function MobileMiddleSection() {
                     </div>
                   ))}
                 </div>
-                <button
-                  className="mobile-slider-arrow mobile-slider-arrow-right"
-                  onClick={() =>
-                    handleNextSlide(
-                      posts[activeCommentPostIndex]._id,
-                      posts[activeCommentPostIndex].mediaUrl.length
-                    )
-                  }
-                >
-                  →
-                </button>
               </div>
-              {posts[activeCommentPostIndex].mediaUrl.length > 1 && (
-                <div className="mobile-slider-dots">
-                  {posts[activeCommentPostIndex].mediaUrl.map((_, dotIndex) => (
-                    <span
-                      key={dotIndex}
-                      className={`mobile-slider-dot ${
-                        dotIndex === currentSlides[posts[activeCommentPostIndex]._id]
-                          ? "active"
-                          : ""
-                      }`}
-                      onClick={() =>
-                        setCurrentSlides((prev) => ({
-                          ...prev,
-                          [posts[activeCommentPostIndex]._id]: dotIndex,
-                        }))
-                      }
-                    />
-                  ))}
-                </div>
-              )}
+              <div className="mobile-slider-dots">
+                {posts[activeCommentPostIndex].mediaUrl.map((_, dotIndex) => (
+                  <span
+                    key={dotIndex}
+                    className={`mobile-slider-dot ${
+                      dotIndex === currentSlides[posts[activeCommentPostIndex]._id]
+                        ? "active"
+                        : ""
+                    }`}
+                    onClick={() =>
+                      setCurrentSlides((prev) => ({
+                        ...prev,
+                        [posts[activeCommentPostIndex]._id]: dotIndex,
+                      }))
+                    }
+                  />
+                ))}
+              </div>
             </div>
 
             <div className="mobile-Full-comment-section-right-section">
@@ -1089,18 +1086,12 @@ function MobileMiddleSection() {
               />
             </div>
             <div className="mobile-Full-share-section-photo-container">
-              <div className="mobile-slider-container">
-                <button
-                  className="mobile-slider-arrow mobile-slider-arrow-left"
-                  onClick={() =>
-                    handlePrevSlide(
-                      posts[activeSharePostIndex]._id,
-                      posts[activeSharePostIndex].mediaUrl.length
-                    )
-                  }
-                >
-                  ←
-                </button>
+              <div
+                className="mobile-slider-container"
+                onTouchStart={(e) => handleTouchStart(posts[activeSharePostIndex]._id, e)}
+                onTouchMove={(e) => handleTouchMove(posts[activeSharePostIndex]._id, e)}
+                onTouchEnd={(e) => handleTouchEnd(posts[activeSharePostIndex]._id, posts[activeSharePostIndex].mediaUrl.length, e)}
+              >
                 <div className="mobile-slider">
                   {posts[activeSharePostIndex].mediaUrl.map((url, imgIndex) => (
                     <div
@@ -1125,38 +1116,25 @@ function MobileMiddleSection() {
                     </div>
                   ))}
                 </div>
-                <button
-                  className="mobile-slider-arrow mobile-slider-arrow-right"
-                  onClick={() =>
-                    handleNextSlide(
-                      posts[activeSharePostIndex]._id,
-                      posts[activeSharePostIndex].mediaUrl.length
-                    )
-                  }
-                >
-                  →
-                </button>
               </div>
-              {posts[activeSharePostIndex].mediaUrl.length > 1 && (
-                <div className="mobile-slider-dots">
-                  {posts[activeSharePostIndex].mediaUrl.map((_, dotIndex) => (
-                    <span
-                      key={dotIndex}
-                      className={`mobile-slider-dot ${
-                        dotIndex === currentSlides[posts[activeSharePostIndex]._id]
-                          ? "active"
-                          : ""
-                      }`}
-                      onClick={() =>
-                        setCurrentSlides((prev) => ({
-                          ...prev,
-                          [posts[activeSharePostIndex]._id]: dotIndex,
-                        }))
-                      }
-                    />
-                  ))}
-                </div>
-              )}
+              <div className="mobile-slider-dots">
+                {posts[activeSharePostIndex].mediaUrl.map((_, dotIndex) => (
+                  <span
+                    key={dotIndex}
+                    className={`mobile-slider-dot ${
+                      dotIndex === currentSlides[posts[activeSharePostIndex]._id]
+                        ? "active"
+                        : ""
+                    }`}
+                    onClick={() =>
+                      setCurrentSlides((prev) => ({
+                        ...prev,
+                        [posts[activeSharePostIndex]._id]: dotIndex,
+                      }))
+                    }
+                  />
+                ))}
+              </div>
             </div>
 
             <div className="mobile-Full-share-section-right-section">

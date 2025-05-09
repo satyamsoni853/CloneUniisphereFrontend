@@ -4,13 +4,6 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
-/* Ensure buttons are clickable and visible */
-.otp-btn {
-  pointer-events: auto !important;
-  z-index: 10 !important;
-  opacity: 1 !important;
-  position: relative;
-}
 
 /* Ensure the form and container don't block events */
 .otp-box {
@@ -73,190 +66,69 @@
   color: #A7829D; /* H */
 }
 
-.subtitle-signup {
-  align-items: center;
-  width: 360px;
-  margin-top: 5px;
-  margin-bottom: 30px;
-}
 
-.year-of-clg {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 
-  /* gap: 50px; */
-}
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
 
+/* Original Background for .otp-box */
 .otp-box {
-  /* display: none; */
   max-width: 600px;
   padding: 20px;
   background: linear-gradient(to bottom, #dff2f6, #f4efda);
-
   border-radius: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: #333;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 auto;
+  pointer-events: auto;
+  z-index: 5;
 }
 
+/* Override Bootstrap Button Styles */
 .otp-btn {
   width: 100%;
   margin-top: 10px;
-  background: rgb(105, 105, 236);
-  border: none;
-  color:white;
-  transition: background 0.3s ease;
+  background: rgb(105, 105, 236) !important;
+  border: none !important;
+  color: white !important;
+  transition: background 0.3s ease !important;
+  pointer-events: auto !important;
+  z-index: 10 !important;
+  opacity: 1 !important;
+  position: relative;
 }
 
 .otp-btn:hover {
   background: linear-gradient(
     45deg,
-    #3a9ca1 0%,  /* Deep Aqua */
-    #79c7ca 40%, /* Light Teal */
-    #e6c57c 60%, /* Soft Gold */
-    #f4e1a1 100% /* Light Cream */
-  );
-  
+    #3a9ca1 0%,
+    #79c7ca 40%,
+    #e6c57c 60%,
+    #f4e1a1 100%
+  ) !important;
 }
 
-/* Interest Section */
-.interest-search {
-  position: relative;
-  margin-bottom: 10px;
-}
-
-.interest-search .search-icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #666;
-}
-
-.interest-suggestions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.interest-btn {
-  width: 120px;
-  background: linear-gradient(to bottom, #ACCDF9, #BAFABC);
-  
-  border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-  color: #333;
-  cursor: pointer;
-}
-
-.interest-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.selected-interests {
-  margin: 15px 0;
-}
-
-.selected-interest {
-  display: inline-block;
-  /* background: linear-gradient(45deg, #44A9B1 0%, #A3D8DC 50%, #E1C86B 50%, #F1E2A0 100%); */
-  background: linear-gradient(to bottom, #ACCDF9, #BAFABC);
-
-  padding: 5px 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  border-radius: 15px;
-  color: #333;
-}
-
-.selected-interest span {
+/* Error Text */
+.error-text {
   color: red;
-  margin-left: 5px;
-  cursor: pointer;
-}
-
-/* Skills Section */
-.skill-search {
-  position: relative;
+  font-size: 14px;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.skill-search .search-icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #666;
-}
-
-.skill-suggestions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.skill-btn {
-background: linear-gradient(to bottom, #ACCDF9, #BAFABC);
-  /* background-color: black; */
-  border: none;
-  width: 120px;
-  padding: 8px 15px;
-  border-radius: 5px;
-  color: #333;
-  cursor: pointer;
-}
-
-.skill-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.selected-skills {
-  margin: 15px 0;
-}
-
-.selected-skill {
-  display: inline-block;
-  background: linear-gradient(
-    45deg,
-    #3a9ca1 0%,  /* Deep Aqua */
-    #79c7ca 40%, /* Light Teal */
-    #e6c57c 60%, /* Soft Gold */
-    #f4e1a1 100% /* Light Cream */
-  );
-  
-
-  padding: 5px 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  border-radius: 15px;
-  color: #333;
-}
-
-.selected-skill span {
-  color: red;
-  margin-left: 5px;
-  cursor: pointer;
-}
-
-/* Progress Indicator Inside the Box */
+/* Progress Indicator */
 .progress-indicator {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
-  
-  /* background: linear-gradient(45deg, #44A9B1 0%, #A3D8DC 50%, #E1C86B 50%, #F1E2A0 100%); */
   background-color: white;
   padding: 5px;
   border-radius: 5px;
 }
 
 .step {
-  width: 17%; /* Adjusted for 5 steps */
+  width: 17%;
   height: 10px;
   text-align: center;
   line-height: 10px;
@@ -274,65 +146,219 @@ background: linear-gradient(to bottom, #ACCDF9, #BAFABC);
   background-color: #a3d8dc;
 }
 
-/* Profile Picture Section */
-.profile-circle {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  background: linear-gradient(
-    45deg,
-    #44a9b1 0%,
-    #a3d8dc 50%,
-    #e1c86b 50%,
-    #f1e2a0 100%
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  cursor: pointer;
-  margin: 0 auto;
-  position: relative;
-}
-
-.circle-label {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.circle-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.upload-text {
-  color: #333;
-  font-size: 16px;
-  text-align: center;
-}
-
-.image-note {
-  font-size: 14px;
-  color: #666;
-  margin-top: 10px;
-  text-align: center;
-}
-
-/* Label Alignment Fix */
-.form-label {
-  text-align: left !important; /* Override any centering */
-  margin-bottom: 5px; /* Ensure spacing below label */
-  display: block; /* Ensure it behaves as a block element */
-  font-size: 20px;
-  margin-left: 10px;
-}
+/* Privacy Text */
 .privacy-text {
   text-align: center;
   font-size: 10px;
+}
+
+/* Interest Section */
+.interest-search {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.interest-search .search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+}
+
+.interest-btn {
+  flex: 1;
+  min-width: 100px;
+  text-align: center;
+  padding: 8px 12px;
+  background: linear-gradient(180deg, rgba(68, 169, 177, 0.06) 0%, rgba(51, 255, 0, 0.06) 88.19%);
+  color: #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.interest-btn:hover {
+  background: linear-gradient(180deg, rgba(68, 169, 177, 0.12) 0%, rgba(51, 255, 0, 0.12) 88.19%);
+  transform: scale(1.05);
+}
+
+.selected-interests {
+  margin: 15px 0;
+}
+
+.selected-interest {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(68, 169, 177, 0.06) 0%, rgba(51, 255, 0, 0.06) 88.19%);
+  padding: 5px 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  color: #333;
+}
+
+.selected-interest span {
+  color: red;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+/* Skill Section */
+.skill-search {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.skill-search .search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+}
+
+.skill-btn {
+  flex: 1;
+  min-width: 100px;
+  text-align: center;
+  padding: 8px 12px;
+  background: linear-gradient(180deg, rgba(220, 74, 69, 0.06) 0%, rgba(225, 200, 107, 0.06) 100%);
+  color: #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.skill-btn:hover {
+  background: linear-gradient(180deg, rgba(220, 74, 69, 0.12) 0%, rgba(225, 200, 107, 0.12) 100%);
+  transform: scale(1.05);
+}
+
+.skill-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.selected-skills {
+  margin: 15px 0;
+}
+
+.selected-skill {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(172, 137, 163, 0.06) 0%, rgba(103, 100, 100, 0.06) 100%);
+  padding: 5px 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  color: #333;
+}
+
+.selected-skill span {
+  color: red;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+/* Slider and Navigation Buttons */
+.slider-container {
+  overflow: hidden;
+  width: 100%;
+}
+
+.slider-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.nav-btn {
+  padding: 8px 16px;
+  background: #e5e7eb;
+  color: #374151;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.nav-btn:hover {
+  background: #d1d5db;
+}
+
+/* Responsive Adjustments */
+@media (min-width: 480px) and (max-width: 768px) {
+  .otp-box {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .slider-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .interest-btn, .skill-btn {
+    min-width: 90px;
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  .selected-interest, .selected-skill {
+    padding: 4px 8px;
+    font-size: 14px;
+  }
+
+  .nav-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 768px) {
+  .slider-content {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .interest-btn, .skill-btn {
+    min-width: 100px;
+    padding: 8px 12px;
+    font-size: 16px;
+  }
+
+  .selected-interest, .selected-skill {
+    padding: 5px 10px;
+    font-size: 16px;
+  }
+
+  .nav-btn {
+    padding: 8px 16px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .otp-box {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .slider-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .interest-btn, .skill-btn {
+    min-width: 80px;
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+
+  .selected-interest, .selected-skill {
+    padding: 3px 6px;
+    font-size: 12px;
+  }
+
+  .nav-btn {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
 }
