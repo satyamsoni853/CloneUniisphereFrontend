@@ -3,11 +3,16 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./MobileFooter.css"; // Import CSS for styling
 
-import AddIcon from "./Addicon.png";
-import CalendarIcon from "./Calendaricon.png";
-import HomeIcon from "./Homeicon.png";
-import NetworkIcon from "./Networkicon.png";
-import NotificationIcon from "./Notificationicon.png";
+import AddBlack from "./AddBlackIcon.svg";
+import AddWhite from "./AddWhiteIcon.svg";
+import NetworkBlack from "./NetworkBlackIcon.svg";
+import NetworkWhite from "./NetworkWhiteIcon.svg";
+import ClenderBlack from "./ClenderBlackIcon.svg";
+import ClenderWhite from "./ClenderWhiteIcon.svg";
+import HomeWhite from "./HomeWhiteIcon.svg";
+import HomeBlack from "./HomeBlackIcon.svg";
+import NotificationWhite from "./NotificationWhiteIcon.svg";
+import NotificationBlack from "./NotificationBlackIcon.svg";
 
 function MobileFooter() {
   const [showNetwork, setShowNetwork] = useState(false);
@@ -26,6 +31,56 @@ function MobileFooter() {
   const [userProfileImage, setUserProfileImage] = useState("");
   const inputRef = useRef(null);
   const navigate = useNavigate();
+
+  // Separate useState hooks for each icon
+  const [homeActive, setHomeActive] = useState(true);
+  const [notificationActive, setNotificationActive] = useState(false);
+  const [addActive, setAddActive] = useState(false);
+  const [calendarActive, setCalendarActive] = useState(false);
+  const [networkActive, setNetworkActive] = useState(false);
+
+  // Function to toggle an icon and set others to false
+  const toggleIcon = (iconName) => {
+    switch (iconName) {
+      case "home":
+        setHomeActive(!homeActive);
+        setNotificationActive(false);
+        setAddActive(false);
+        setCalendarActive(false);
+        setNetworkActive(false);
+        break;
+      case "notification":
+        setNotificationActive(!notificationActive);
+        setHomeActive(false);
+        setAddActive(false);
+        setCalendarActive(false);
+        setNetworkActive(false);
+        break;
+      case "add":
+        setAddActive(!addActive);
+        setHomeActive(false);
+        setNotificationActive(false);
+        setCalendarActive(false);
+        setNetworkActive(false);
+        break;
+      case "calendar":
+        setCalendarActive(!calendarActive);
+        setHomeActive(false);
+        setNotificationActive(false);
+        setAddActive(false);
+        setNetworkActive(false);
+        break;
+      case "network":
+        setNetworkActive(!networkActive);
+        setHomeActive(false);
+        setNotificationActive(false);
+        setAddActive(false);
+        setCalendarActive(false);
+        break;
+      default:
+        break;
+    }
+  };
 
   // Fetch user profile data (username and profile image)
   useEffect(() => {
@@ -180,34 +235,73 @@ function MobileFooter() {
     <div className="mobile-footer">
       <div className="mobile-footer-container">
         <Link to="/View">
-          <img src={HomeIcon} alt="Home" className="mobile-footer-icon" />
+          <img
+            src={homeActive ? HomeBlack : HomeWhite}
+            style={
+              homeActive
+                ? { width: "30px", height: "30px" }
+                : null
+            }
+            alt="Home"
+            className="mobile-footer-icon"
+            onClick={() => toggleIcon("home")}
+          />
         </Link>
         <img
-          src={NotificationIcon}
+          src={notificationActive ? NotificationBlack : NotificationWhite}
+           style={
+             notificationActive
+                ? { width: "40px", height: "40px" }
+                :null
+            }
           alt="Notification"
+          
           className="mobile-footer-icon"
+          onClick={() => toggleIcon("notification")}
           aria-disabled="true"
         />
         <img
-          src={AddIcon}
+          src={addActive ? AddBlack : AddWhite}
           alt="Add"
+          style={
+             addActive
+                ? { width: "33px", height: "33px" }
+                : null
+            }
           className="mobile-footer-add-icon"
-          onClick={() => setShowUploadSection(true)}
+          onClick={() => {
+            toggleIcon("add");
+            setShowUploadSection(true);
+          }}
         />
-       
-<Link to="/coming-soon">
-  <img
-    src={CalendarIcon}
-    alt="Calendar"
-    className="mobile-footer-icon"
-    aria-disabled="true"
-  />
-</Link>
+        <Link to="/coming-soon">
+          <img
+            src={calendarActive ? ClenderBlack : ClenderWhite}
+            alt="Calendar"
+
+             style={
+             calendarActive
+                ? { width: "33px", height: "33px" }
+                : null
+            }
+            className="mobile-footer-icon"
+            onClick={() => toggleIcon("calendar")}
+            aria-disabled="true"
+          />
+        </Link>
         <img
-          src={NetworkIcon}
-          onClick={() => setShowNetwork(!showNetwork)}
+          src={networkActive ? NetworkBlack : NetworkWhite}
           alt="Network"
+           style={
+             networkActive
+                ? { width: "40px", height: "40px" }
+                : null
+            }
           className="mobile-footer-icon"
+          onClick={() => {
+            toggleIcon("network");
+            setShowNetwork(!showNetwork);
+          }}
         />
       </div>
       {showNetwork && (
