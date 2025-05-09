@@ -530,7 +530,7 @@ function NetworkPage() {
                       <div>Error: {error}</div>
                     ) : connections.length > 0 ? (
                       connections.map((user, index) => (
-                        <div className="" key={user.id} >
+                        <div className="new-connection-wrapper" key={user.id} >
                           <div
                             
                             className="networkpage-card "
@@ -573,6 +573,7 @@ function NetworkPage() {
                               <span>{user.collaborations} collaborate</span>
                             </div>
                           </div>
+
                           
                           {(isMobile || showCatchUpMode )&& (
                               <div className="networkpage-mobile-catchup">
