@@ -18,7 +18,7 @@ function LibBlog() {
           }
           className="desktop-connection-link"
         >
-          Blog
+          
         </Link>
       </div>
       <div className="libblog-section-section-container">
