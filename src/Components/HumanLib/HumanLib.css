@@ -202,10 +202,10 @@
     }
   }
   
-  /* Animate pseudo-element’s light purple border */
+  /* Animate pseudo-element's light purple border */
   .HumanLib-circle::before {
     animation: fadeCycleBefore 14s ease-in infinite;
-    animation-delay: inherit; /* Match circle’s delay */
+    animation-delay: inherit; /* Match circle's delay */
   }
   
   @keyframes fadeCycleBefore {
@@ -338,7 +338,7 @@
     overflow: hidden;
     margin: 0; /* Remove any margins */
     padding: 0; /* Remove any padding */
-    box-sizing: border-box; /* Ensure padding doesn’t add width */
+    box-sizing: border-box; /* Ensure padding doesn't add width */
   }
   
   /* Chat header */
@@ -390,7 +390,7 @@
     width: 100%; /* Full width */
     padding: 30px;
     overflow-y: auto;
-    background: url('path-to-abstract-background.png') no-repeat center/cover; /* Replace with your background image */
+    background: url('https://images.unsplash.com/photo-1557683316-973673baf926?w=800&auto=format&fit=crop') no-repeat center/cover; /* Abstract background placeholder */
     display: flex;
     flex-direction: column;
     gap: 20px;
