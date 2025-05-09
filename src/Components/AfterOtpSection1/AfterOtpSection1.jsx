@@ -1068,7 +1068,7 @@ function AfterOtpSection1() {
       </Form.Group>
       <Form.Group controlId="degree" className="mb-3">
         <Form.Label>Degree</Form.Label>
- presupuesto
+
         <Form.Control
           type="text"
           placeholder="Enter your degree (e.g., B.Tech)"

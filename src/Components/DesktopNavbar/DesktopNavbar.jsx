@@ -491,14 +491,14 @@ function DesktopNavbar() {
       {/* Navigation Icons */}
       <div className="icon-wrapper">
         {activeIcon === "home" ? (
-          <IoHome
+          < IoHomeOutline
             className="desktop-icon"
             size={24}
             onClick={() => handleIconClick("home")}
             title="Home"
           />
         ) : (
-          <IoHomeOutline
+          <IoHome
             className="desktop-icon"
             size={24}
             onClick={() => handleIconClick("home")}
