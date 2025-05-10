@@ -1106,6 +1106,7 @@
     width: 50vw;
     min-width: 300px;
   }
+  
 
   .post-container {
     width: 646px; /* Maintain increased width */
@@ -1131,11 +1132,11 @@
   }
 
   .middle-middle-card {
-    width: 80vw;
+    width: 50vw;
     min-width: 300px;
     max-width: 90%;
     padding: 0.9375rem;
-    margin-top: 80px;
+    margin-top: 20px;
     margin-left: 0;
   }
 
