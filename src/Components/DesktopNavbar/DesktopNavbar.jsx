@@ -328,6 +328,48 @@ function DesktopNavbar() {
     fetchProfiles();
     fetchStats();
   }, [fetchProfiles]);
+  // Click outside handler to close dropdowns
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    // Close search results if clicking outside search container
+    if (
+      searchContainerRef.current &&
+      !searchContainerRef.current.contains(event.target)
+    ) {
+      setShowResults(false);
+    }
+
+    // Close network dropdown if clicking outside connections card or network icon
+    if (
+      !event.target.closest(".connections-card") &&
+      !event.target.closest(".desktop-icon.network-icon")
+    ) {
+      setShowDropdown(false);
+    }
+
+    // Close notification dropdown if clicking outside notification dropdown or notification icon
+    if (
+      !event.target.closest(".notification-dropdown") &&
+      !event.target.closest(".notification-icon-container")
+    ) {
+      setShowNotificationDropdown(false);
+      setActiveIcon((prev) => (prev === "notifications" ? null : prev));
+    }
+
+    // Close user dropdown if clicking outside user dropdown or user icon
+    if (
+      !event.target.closest(".self-profile-card") &&
+      !event.target.closest(".user-icon-container")
+    ) {
+      setIsUserDropdownOpen(false);
+    }
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
 
   // User dropdown handlers
   const handleUserIconClick = () => {
@@ -649,12 +691,14 @@ function DesktopNavbar() {
               >
                 Settings
               </div>
-              <div className="self-profile-menu-item">Help</div>
+              <div className="self-profile-menu-item">
+                <Link to="/helpform">Help</Link>
+              </div>
               <div
                 className="self-profile-menu-item self-profile-sign-out"
                 onClick={handleSignOut}
               >
-                Sign Out
+                <Link to="/" >Sign Out</Link>
               </div>
             </div>
           </div>

@@ -91,7 +91,7 @@ function App() {
 
             {/* Other Routes */}
             <Route path="/self-profile" element={<SelfProfile />} />
-            <Route path="/settings" element={<SelfSetting />} />
+            <Route path="/SelfSetting" element={<SelfSetting />} />
             <Route path="/messages" element={<MessageFinalClass />} />
             <Route path="/MessageFinalClass2/:messageId" element={<MessageFinalClass2 />} />
             <Route path="/NetworkPage" element={<NetworkPageSection />} />

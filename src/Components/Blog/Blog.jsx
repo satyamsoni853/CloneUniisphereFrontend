@@ -3,6 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./Blog.css";
+import { Link } from "react-router-dom";
 
 import profile from "./profile.jpg";
 import backIcon from "./backsvg.svg";
@@ -281,9 +282,9 @@ const Blog = () => {
         {showDefaultBlog && (
           <div className="blog-main-wrapper">
             <div className="blog-nav">
-              {/* <div className="blog-dropdown">
-                Recommended <IoIosArrowDown />
-              </div> */}
+              <div className="blog-dropdown">
+                <Link to="/blog-description" >Your Blog</Link>
+              </div>
               <button
                 onClick={() => {
                   navigate(`/blogcreate/${userId}`);
@@ -383,9 +384,9 @@ const Blog = () => {
         <div className="desktop-blog-container">
           <div className="desktop-blog-main-sidebar">
             <div className="desktop-blog-nav">
-              {/* <div className="desktop-blog-dropdown">
-                Recommended <IoIosArrowDown />
-              </div> */}
+              <div className="desktop-blog-dropdown">
+                 <Link to="/blog-description" >Your Blog</Link>
+              </div>
               <button
                 onClick={() => {
                   navigate(`/blogcreate/${userId}`);
