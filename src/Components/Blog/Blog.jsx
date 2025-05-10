@@ -3,6 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams,Link } from "react-router-dom";
 import "./Blog.css";
+import { Link } from "react-router-dom";
 
 import profile from "./profile.jpg";
 import backIcon from "./backsvg.svg";
@@ -79,7 +80,7 @@ const Blog = () => {
 
         // Fetch blogs
         const blogResponse = await axios.get(
-          `https://uniisphere-1.onrender.com/api/blogs/allBlogs`,
+          `https://uniisphere-backend-latest.onrender.com/api/blogs/allBlogs`,
           {
             headers: {
               Authorization: `Bearer ${authToken}`,
@@ -110,7 +111,7 @@ const Blog = () => {
             // Fetch profile from API
             try {
               const profileResponse = await axios.get(
-                `https://uniisphere-1.onrender.com/api/users/profile/?userId=${authorId}`,
+                `https://uniisphere-backend-latest.onrender.com/api/users/profile/?userId=${authorId}`,
                 {
                   headers: {
                     Authorization: `Bearer ${authToken}`,
@@ -281,9 +282,9 @@ const Blog = () => {
         {showDefaultBlog && (
           <div className="blog-main-wrapper">
             <div className="blog-nav">
-          <Link to="/blog-description">  <div className="blog-dropdown">
-              Your Blog
-              </div>   </Link> 
+              <div className="blog-dropdown">
+                <Link to="/blog-description" >Your Blog</Link>
+              </div>
               <button
                 onClick={() => {
                   navigate(`/blogcreate/${userId}`);
@@ -383,9 +384,9 @@ const Blog = () => {
         <div className="desktop-blog-container">
           <div className="desktop-blog-main-sidebar">
             <div className="desktop-blog-nav">
-            <Link  to="/blog-description">  <div className="desktop-blog-dropdown">
-               Your Blog  
-              </div> </Link>
+              <div className="desktop-blog-dropdown">
+                 <Link to="/blog-description" >Your Blog</Link>
+              </div>
               <button
                 onClick={() => {
                   navigate(`/blogcreate/${userId}`);

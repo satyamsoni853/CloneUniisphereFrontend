@@ -69,5 +69,8 @@
   .desktop-view-left {
     flex-direction: row; /* Optional: Stack horizontally on smaller screens */
   }
+  .desktop-view-right{
+    display: none;
+  }
 }
 

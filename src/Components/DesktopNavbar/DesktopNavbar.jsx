@@ -157,7 +157,7 @@ function DesktopNavbar() {
       }
       try {
         const response = await axios.get(
-          "https://uniisphere-1.onrender.com/api/connections",
+          "https://uniisphere-backend-latest.onrender.com/api/connections",
           { headers: { Authorization: `Bearer ${authToken}` } }
         );
         console.log("Connections API Response:", response.data);
@@ -185,7 +185,7 @@ function DesktopNavbar() {
       try {
         setLoading(true);
         const response = await axios.get(
-          "https://uniisphere-1.onrender.com/users/getAll",
+          "https://uniisphere-backend-latest.onrender.com/users/getAll",
           { headers: { Authorization: `Bearer ${authToken}` } }
         );
         const users = Array.isArray(response.data) ? response.data : [];
@@ -224,7 +224,7 @@ function DesktopNavbar() {
     setError(null);
     try {
       const response = await axios.get(
-        `https://uniisphere-1.onrender.com/getProfile/profile/?search=${encodeURIComponent(username)}`
+        `https://uniisphere-backend-latest.onrender.com/getProfile/profile/?search=${encodeURIComponent(username)}`
       );
       console.log("Search API Response:", response.data);
       setSearchResults(Array.isArray(response.data) ? response.data : []);
@@ -248,7 +248,7 @@ function DesktopNavbar() {
     }
     try {
       const response = await axios.get(
-        "https://uniisphere-1.onrender.com/api/posts",
+        "https://uniisphere-backend-latest.onrender.com/api/posts",
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -328,6 +328,48 @@ function DesktopNavbar() {
     fetchProfiles();
     fetchStats();
   }, [fetchProfiles]);
+  // Click outside handler to close dropdowns
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    // Close search results if clicking outside search container
+    if (
+      searchContainerRef.current &&
+      !searchContainerRef.current.contains(event.target)
+    ) {
+      setShowResults(false);
+    }
+
+    // Close network dropdown if clicking outside connections card or network icon
+    if (
+      !event.target.closest(".connections-card") &&
+      !event.target.closest(".desktop-icon.network-icon")
+    ) {
+      setShowDropdown(false);
+    }
+
+    // Close notification dropdown if clicking outside notification dropdown or notification icon
+    if (
+      !event.target.closest(".notification-dropdown") &&
+      !event.target.closest(".notification-icon-container")
+    ) {
+      setShowNotificationDropdown(false);
+      setActiveIcon((prev) => (prev === "notifications" ? null : prev));
+    }
+
+    // Close user dropdown if clicking outside user dropdown or user icon
+    if (
+      !event.target.closest(".self-profile-card") &&
+      !event.target.closest(".user-icon-container")
+    ) {
+      setIsUserDropdownOpen(false);
+    }
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
 
   // User dropdown handlers
   const handleUserIconClick = () => {
@@ -448,7 +490,7 @@ function DesktopNavbar() {
       formData.append("location", location || "");
       formData.append("tags", "");
       const postResponse = await axios.post(
-        "https://uniisphere-1.onrender.com/api/posts",
+        "https://uniisphere-backend-latest.onrender.com/api/posts",
         formData,
         { headers: { Authorization: `Bearer ${authToken}` } }
       );
@@ -649,12 +691,14 @@ function DesktopNavbar() {
               >
                 Settings
               </div>
-              <div className="self-profile-menu-item">Help</div>
+              <div className="self-profile-menu-item">
+                <Link to="/helpform">Help</Link>
+              </div>
               <div
                 className="self-profile-menu-item self-profile-sign-out"
                 onClick={handleSignOut}
               >
-                Sign Out
+                <Link to="/" >Sign Out</Link>
               </div>
             </div>
           </div>
