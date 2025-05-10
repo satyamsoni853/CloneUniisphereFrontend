@@ -357,9 +357,26 @@
   display: grid;
   grid-template-columns: repeat(2,1fr);
  }
+ .new-connection-wrapper{
+ display: flex;
+  gap: 10px;
+}
+.new-connection-mode{
+display: flex;
+ 
+align-items: center;
+flex-direction: column;
+}
+.networkpage-mobile-catchup{
+height: 500px;
+ 
 
 }
-
+ .catchup-container{
+ height: 100%
+ 
+ }
+}
 @media (max-width: 480px) {
   .Network-right-section {
     display: none;
@@ -471,7 +488,6 @@
   .networkpage-grid.catchup-mode {
   display: grid;
  grid-template-columns: repeat(2,1fr);
- 
  width: 100%;
 }
 }

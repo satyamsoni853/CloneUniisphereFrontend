@@ -281,9 +281,9 @@ const Blog = () => {
         {showDefaultBlog && (
           <div className="blog-main-wrapper">
             <div className="blog-nav">
-              <div className="blog-dropdown">
+              {/* <div className="blog-dropdown">
                 Recommended <IoIosArrowDown />
-              </div>
+              </div> */}
               <button
                 onClick={() => {
                   navigate(`/blogcreate/${userId}`);
@@ -383,9 +383,9 @@ const Blog = () => {
         <div className="desktop-blog-container">
           <div className="desktop-blog-main-sidebar">
             <div className="desktop-blog-nav">
-              <div className="desktop-blog-dropdown">
+              {/* <div className="desktop-blog-dropdown">
                 Recommended <IoIosArrowDown />
-              </div>
+              </div> */}
               <button
                 onClick={() => {
                   navigate(`/blogcreate/${userId}`);
