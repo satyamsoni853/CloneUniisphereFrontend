@@ -153,10 +153,17 @@ background: linear-gradient(to bottom, #91f09877,#9cdbf265);
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
+@media (max-width: 900px) {
+  .bottom-message-main-container{
+    width: 200px;
+  }
+}
 @media (max-width:768px){
   .bottom-message-main-container{
     display: none;
+  }
+  .messages-widget{
+    width: 200px;
   }
 }
 @media (width<=480px) {

@@ -70,10 +70,10 @@
     flex-direction: row; /* Optional: Stack horizontally on smaller screens */
   }
   .desktop-view-right{
-    display: none;
+    /* display: none; */
   }
   .desktop-view-left{
-    /* display: none; */
+    display: none;
   }
 }
 
