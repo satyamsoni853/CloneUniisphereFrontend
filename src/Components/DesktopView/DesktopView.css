@@ -72,5 +72,8 @@
   .desktop-view-right{
     display: none;
   }
+  .desktop-view-left{
+    /* display: none; */
+  }
 }
 
