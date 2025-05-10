@@ -1129,13 +1129,20 @@
 @media (max-width: 900px) {
   .middle-container {
     padding: 0.9375rem;
+    display: flex;
+    align-items: end;
+    justify-content: end;
   }
+  
 
   .middle-middle-card {
-    width: 50vw;
+    width: 60vw;
     min-width: 300px;
-    max-width: 90%;
+    /* max-width: 90%; */
+    
+
     padding: 0.9375rem;
+    overflow: hidden;
     margin-top: 20px;
     margin-left: 0;
   }
@@ -1144,6 +1151,7 @@
     width: 100%; /* Adjust to fit screen */
     height: auto; /* Allow height to adjust */
     padding: 10px;
+    overflow: hidden;
   }
 
   .middle-main-image,
