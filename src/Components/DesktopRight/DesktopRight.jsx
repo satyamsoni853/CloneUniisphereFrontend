@@ -42,7 +42,7 @@ function DesktopRightSection() {
       try {
         // Fetch profile data
         const profileResponse = await axios.get(
-          `https://uniisphere-1.onrender.com/getProfile/profile/?userId=${authData.userId}`,
+          `https://uniisphere-backend-latest.onrender.com/getProfile/profile/?userId=${authData.userId}`,
           {
             headers: {
               Authorization: `Bearer ${authData.token}`,
@@ -68,7 +68,7 @@ function DesktopRightSection() {
         // Fetch suggestions with GET request and userId in body
         const suggestionsResponse = await axios({
           method: "get",
-          url: `https://uniisphere-1.onrender.com/api/suggestions`,
+          url: `https://uniisphere-backend-latest.onrender.com/api/suggestions`,
           data: { userId: authData.userId }, // Sending userId in body
           headers: {
             Authorization: `Bearer ${authData.token}`,
