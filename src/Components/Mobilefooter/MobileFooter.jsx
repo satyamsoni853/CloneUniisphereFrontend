@@ -205,7 +205,7 @@ function MobileFooter() {
 
       formData.append("content", caption);
       formData.append("userId", userId);
-      formData.append("visibility", hideLikes ? "private" : "public");
+      formData.append("visibility", (!hideLikes).toString());
       formData.append("location", location || "");
       formData.append("tags", mentions.join(","));
 
@@ -224,8 +224,8 @@ function MobileFooter() {
       handleCloseUpload();
       navigate("/");
     } catch (error) {
-      console.error("Error creating post:", error);
-      setError(error.message || "Failed to create post. Please try again.");
+      console.error("Error creating post:", error, error?.response?.data);
+      setError(error?.response?.data?.message || error.message || "Failed to create post. Please try again.");
     } finally {
       setIsLoading(false);
     }
