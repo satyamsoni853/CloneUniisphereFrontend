@@ -173,10 +173,10 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
   .right-section-container {
-    width: 20vw;
-    min-width: 220px;
+    width: 23vw;
+    /* min-width: 220px; */
     right: 10px;
-    top: 100px;
+    top: 70px;
     height: auto;
   }
 
