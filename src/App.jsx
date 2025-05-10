@@ -11,6 +11,8 @@ import EduValt from "./Components/EduValt/EduValt.jsx";
 import LibBlog from "./Components/Libblog/LibBlog.jsx";
 import CommingSoon from './Components/ComingSoon/ComingSoon.jsx'
 import Guiednest from "./Components/Guiednest/Guiednest.jsx";
+import BlogDescription from "./Components/BlogDescription/BlogDescription.jsx";
+import Help from "./Components/Help/Help.jsx";
 
 
 // Lazy load other components
@@ -108,6 +110,8 @@ function App() {
             <Route path="/Guiednest" element={<Guiednest />} />
             <Route path="/libblog" element={< LibBlog />} />
             <Route path="/coming-soon" element={< CommingSoon />} />
+            <Route path='/blog-description' element={<BlogDescription/>} />
+            <Route path='/helpform' element={<Help/>} />
 
           </Routes>
         </Suspense>

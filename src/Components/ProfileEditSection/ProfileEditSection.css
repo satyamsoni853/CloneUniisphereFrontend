@@ -45,6 +45,7 @@
 .section-container{
   /* border-top: 10px solid rgb(165, 157, 157); */
   padding: 10px;
+ 
 }
 
 
@@ -227,6 +228,9 @@ border-radius: 20px;
   align-items: center;
   gap: 10px;
   width: 100%;
+ 
+ 
+  
 }
 
 .Followers-middle-section-2-skill-list-public {
@@ -486,23 +490,29 @@ border-radius: 20px;
   .Followers-middle-section-2-skillsMiniDiv-public {
     flex-shrink: 1;
     height: 40px;
-    padding: 8px 12px;
+    
+  }
+  .Followers-middle-section-2-ArrowBack{
+    display: none;
   }
 
   .Followers-middle-section-2-skill-list-public {
     display: grid;
-    width: 70vw;
+    width: 75vw;
     grid-template-rows: repeat(2, auto);
     grid-auto-flow: column;
+  
     gap: 10px;
     overflow-x: auto;
     scroll-behavior: smooth;
-    padding: 5px 0;
+    
   }
 
   .Followers-middle-section-2-skillsMiniDiv-public {
-    padding: 8px 12px;
+    
     font-size: 13px;
+    width: 100%;
+   
     display: flex;
     justify-content: center;
     align-items: center;

@@ -423,7 +423,7 @@ const BlogCreate = () => {
                           Create
                         </button>
                       </div>
-                      <div className="desktop-blog-both-buttons">
+                      {/* <div className="desktop-blog-both-buttons">
                         <button className="desktop-blog-create-delete-button">
                           Delete
                         </button>
@@ -438,7 +438,7 @@ const BlogCreate = () => {
                         >
                           Update
                         </button>
-                      </div>
+                      </div> */}
                     </footer>
                     {error && <p className="error-message">{error}</p>}
                   </div>
@@ -714,7 +714,7 @@ const BlogCreate = () => {
                   Create
                 </button>
               </div>
-              <div className="blog-create-both-buttons">
+              {/* <div className="blog-create-both-buttons">
                 <button className="blog-create-delete-button">Delete</button>
                 <button 
                 onClick={()=>{
@@ -724,7 +724,7 @@ const BlogCreate = () => {
                 className="blog-create-update-button" >
                   Update
                 </button>
-              </div>
+              </div> */}
             </footer>
           </div>
         </div>
