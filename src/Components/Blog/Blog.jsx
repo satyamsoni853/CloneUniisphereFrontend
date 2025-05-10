@@ -1,7 +1,7 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams,Link } from "react-router-dom";
 import "./Blog.css";
 
 import profile from "./profile.jpg";
@@ -281,9 +281,9 @@ const Blog = () => {
         {showDefaultBlog && (
           <div className="blog-main-wrapper">
             <div className="blog-nav">
-              {/* <div className="blog-dropdown">
-                Recommended <IoIosArrowDown />
-              </div> */}
+          <Link to="/blog-description">  <div className="blog-dropdown">
+              Your Blog
+              </div>   </Link> 
               <button
                 onClick={() => {
                   navigate(`/blogcreate/${userId}`);
@@ -383,9 +383,9 @@ const Blog = () => {
         <div className="desktop-blog-container">
           <div className="desktop-blog-main-sidebar">
             <div className="desktop-blog-nav">
-              {/* <div className="desktop-blog-dropdown">
-                Recommended <IoIosArrowDown />
-              </div> */}
+            <Link  to="/blog-description">  <div className="desktop-blog-dropdown">
+               Your Blog  
+              </div> </Link>
               <button
                 onClick={() => {
                   navigate(`/blogcreate/${userId}`);
