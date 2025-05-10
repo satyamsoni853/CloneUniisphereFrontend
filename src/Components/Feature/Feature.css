@@ -140,3 +140,10 @@
  
   cursor: pointer;
 }
+@media (max-width: 900px) {
+   
+.feature-messages-widget {
+  width: 200px;
+}
+
+}
