@@ -289,6 +289,11 @@
   box-shadow: 0 2px 5px 2px #3687618c;
   padding-bottom: 10px;
 }
+.connections-card :nth-child(10) {
+  margin-top: 15px;
+  box-shadow: 0 2px 5px 2px #df92d08c;
+  padding-bottom: 10px;
+}
 
 .connections-item {
   width: 282px;

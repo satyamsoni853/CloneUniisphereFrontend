@@ -17,8 +17,8 @@ import NetworkBlack from "./NetworkBlackIcon.svg";
 import NetworkWhite from "./NetworkWhiteIcon.svg";
 import UnisphereLogoIcon from "./UnisphereLogoIcon.svg";
 import UserIcon from "./UserIcon.svg";
-import ClenderBlack from './ClenderBlackIcon.svg';
-import ClenderWhite from './ClenderWhiteIcon.svg';
+import ClenderBlack from "./ClenderBlackIcon.svg";
+import ClenderWhite from "./ClenderWhiteIcon.svg";
 import Background from "../Background/Background";
 
 function DesktopNavbar() {
@@ -50,7 +50,8 @@ function DesktopNavbar() {
   const navigate = useNavigate();
 
   // Notification state
-  const [showNotificationDropdown, setShowNotificationDropdown] = useState(false);
+  const [showNotificationDropdown, setShowNotificationDropdown] =
+    useState(false);
   const [activeNotificationTab, setActiveNotificationTab] = useState("Today");
   const [notifications, setNotifications] = useState([
     {
@@ -118,7 +119,10 @@ function DesktopNavbar() {
       ) {
         setShowResults(false);
       }
-      if (!event.target.closest(".connections-card") && !event.target.closest(".desktop-icon")) {
+      if (
+        !event.target.closest(".connections-card") &&
+        !event.target.closest(".desktop-icon")
+      ) {
         setShowDropdown(false);
       }
     };
@@ -224,7 +228,9 @@ function DesktopNavbar() {
     setError(null);
     try {
       const response = await axios.get(
-        `https://uniisphere-backend-latest.onrender.com/getProfile/profile/?search=${encodeURIComponent(username)}`
+        `https://uniisphere-backend-latest.onrender.com/getProfile/profile/?search=${encodeURIComponent(
+          username
+        )}`
       );
       console.log("Search API Response:", response.data);
       setSearchResults(Array.isArray(response.data) ? response.data : []);
@@ -262,7 +268,10 @@ function DesktopNavbar() {
           (post) => post.user.id === userId
         );
         if (userPosts.length > 0) {
-          console.log("Setting userProfileImage:", userPosts[0].user.profilePictureUrl);
+          console.log(
+            "Setting userProfileImage:",
+            userPosts[0].user.profilePictureUrl
+          );
           setUsername(userPosts[0].user.username || "");
           setUserProfileImage(userPosts[0].user.profilePictureUrl || "");
         }
@@ -329,47 +338,47 @@ function DesktopNavbar() {
     fetchStats();
   }, [fetchProfiles]);
   // Click outside handler to close dropdowns
-useEffect(() => {
-  const handleClickOutside = (event) => {
-    // Close search results if clicking outside search container
-    if (
-      searchContainerRef.current &&
-      !searchContainerRef.current.contains(event.target)
-    ) {
-      setShowResults(false);
-    }
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Close search results if clicking outside search container
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(event.target)
+      ) {
+        setShowResults(false);
+      }
 
-    // Close network dropdown if clicking outside connections card or network icon
-    if (
-      !event.target.closest(".connections-card") &&
-      !event.target.closest(".desktop-icon.network-icon")
-    ) {
-      setShowDropdown(false);
-    }
+      // Close network dropdown if clicking outside connections card or network icon
+      if (
+        !event.target.closest(".connections-card") &&
+        !event.target.closest(".desktop-icon.network-icon")
+      ) {
+        setShowDropdown(false);
+      }
 
-    // Close notification dropdown if clicking outside notification dropdown or notification icon
-    if (
-      !event.target.closest(".notification-dropdown") &&
-      !event.target.closest(".notification-icon-container")
-    ) {
-      setShowNotificationDropdown(false);
-      setActiveIcon((prev) => (prev === "notifications" ? null : prev));
-    }
+      // Close notification dropdown if clicking outside notification dropdown or notification icon
+      if (
+        !event.target.closest(".notification-dropdown") &&
+        !event.target.closest(".notification-icon-container")
+      ) {
+        setShowNotificationDropdown(false);
+        setActiveIcon((prev) => (prev === "notifications" ? null : prev));
+      }
 
-    // Close user dropdown if clicking outside user dropdown or user icon
-    if (
-      !event.target.closest(".self-profile-card") &&
-      !event.target.closest(".user-icon-container")
-    ) {
-      setIsUserDropdownOpen(false);
-    }
-  };
+      // Close user dropdown if clicking outside user dropdown or user icon
+      if (
+        !event.target.closest(".self-profile-card") &&
+        !event.target.closest(".user-icon-container")
+      ) {
+        setIsUserDropdownOpen(false);
+      }
+    };
 
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, []);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // User dropdown handlers
   const handleUserIconClick = () => {
@@ -534,7 +543,7 @@ useEffect(() => {
       {/* Navigation Icons */}
       <div className="icon-wrapper">
         {activeIcon === "home" ? (
-          < IoHomeOutline
+          <IoHomeOutline
             className="desktop-icon"
             size={24}
             onClick={() => handleIconClick("home")}
@@ -551,7 +560,7 @@ useEffect(() => {
       </div>
       <div className="icon-wrapper">
         <img
-          src={activeIcon === "network" ?   NetworkBlack:NetworkWhite}
+          src={activeIcon === "network" ? NetworkBlack : NetworkWhite}
           alt="Explore"
           className="desktop-icon"
           onClick={() => handleIconClick("network")}
@@ -559,7 +568,7 @@ useEffect(() => {
       </div>
       <div className="icon-wrapper">
         <img
-          src={activeIcon === "add" ?   AddBlack:AddWhite}
+          src={activeIcon === "add" ? AddBlack : AddWhite}
           alt="Add"
           className="desktop-icon"
           onClick={() => handleIconClick("add")}
@@ -604,7 +613,10 @@ useEffect(() => {
                     className={`notification-item ${notif.color}`}
                   >
                     <img
-                      src={notif.profilePictureUrl || "https://via.placeholder.com/40"}
+                      src={
+                        notif.profilePictureUrl ||
+                        "https://via.placeholder.com/40"
+                      }
                       alt="Profile"
                       className="notification-profile-pic"
                       onError={(e) => (e.target.src = UserIcon)}
@@ -629,15 +641,15 @@ useEffect(() => {
         )}
       </div>
       <div className="icon-wrapper">
-  <Link to="/coming-soon" className="connection-link">
-    <img
-      src={activeIcon === "clender" ?   ClenderBlack:ClenderWhite}
-      alt="Calendar"
-      className="desktop-icon"
-      title="Calendar"
-    />
-  </Link>
-</div>
+        <Link to="/coming-soon" className="connection-link">
+          <img
+            src={activeIcon === "clender" ? ClenderBlack : ClenderWhite}
+            alt="Calendar"
+            className="desktop-icon"
+            title="Calendar"
+          />
+        </Link>
+      </div>
 
       {/* User Dropdown */}
       <div className="user-icon-container">
@@ -652,7 +664,10 @@ useEffect(() => {
           <div className="self-profile-card">
             <div className="self-profile-header">
               <img
-                src={localStorage.getItem("profilePicture") || "https://via.placeholder.com/50"}
+                src={
+                  localStorage.getItem("profilePicture") ||
+                  "https://via.placeholder.com/50"
+                }
                 alt="Profile"
                 className="self-profile-pic"
                 onError={(e) => (e.target.src = UserIcon)}
@@ -698,7 +713,7 @@ useEffect(() => {
                 className="self-profile-menu-item self-profile-sign-out"
                 onClick={handleSignOut}
               >
-                <Link to="/" >Sign Out</Link>
+                <Link to="/">Sign Out</Link>
               </div>
             </div>
           </div>
@@ -713,47 +728,60 @@ useEffect(() => {
               Connection
             </Link>
           </div>
+
           <div className="connections-item">
             <Link to="/Books" className="connection-link">
               Eduvault
             </Link>
           </div>
+
           <div className="connections-item">
             <Link to="/HumanLibGuidelines" className="connection-link">
               Human Library
             </Link>
           </div>
+
+          <div className="connections-item">
+            <Link to="/libblog" className="connection-link">
+              Blogs
+            </Link>
+          </div>
+
           <div className="connections-item">
             <Link to="/MentorSection" className="connection-link">
               MentorShip
             </Link>
           </div>
+
           <div className="connections-item">
             <Link to="/coming-soon" className="connection-link">
               Skillup
             </Link>
           </div>
+
           <div className="connections-item">
             <Link to="/coming-soon" className="connection-link">
               Freelancing
             </Link>
           </div>
+
           <div className="connections-item">
             <Link to="/coming-soon" className="connection-link">
               Intern Zone
             </Link>
           </div>
+
+          <div className="connections-item">
+            <Link to="/coming-soon" className="connection-link">
+              Community
+            </Link>
+          </div>
+
           <div className="connections-item">
             <Link to="/coming-soon" className="connection-link">
               Events
             </Link>
           </div>
-          <div className="connections-item">
-            <Link to="/libblog" className="connection-link">
-              Blog
-            </Link>
-          </div>
-       
         </div>
       )}
 
@@ -826,7 +854,9 @@ useEffect(() => {
                   />
                   <div className="suggested-user-info">
                     <span className="suggested-user-name">{user.name}</span>
-                    <p className="suggested-user-university">{user.university}</p>
+                    <p className="suggested-user-university">
+                      {user.university}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -878,14 +908,18 @@ useEffect(() => {
                     events.map((event) => (
                       <div key={event.id} className="event-item">
                         <img
-                          src={event.image || "https://via.placeholder.com/60x40"}
+                          src={
+                            event.image || "https://via.placeholder.com/60x40"
+                          }
                           alt={event.title}
                           className="event-image"
                           onError={(e) => (e.target.src = UserIcon)}
                         />
                         <div className="event-info">
                           <p className="event-title">{event.title}</p>
-                          <p className="event-description">{event.description}</p>
+                          <p className="event-description">
+                            {event.description}
+                          </p>
                         </div>
                       </div>
                     ))
@@ -899,7 +933,9 @@ useEffect(() => {
                     news.map((item) => (
                       <div key={item.id} className="news-item">
                         <img
-                          src={item.image || "https://via.placeholder.com/60x40"}
+                          src={
+                            item.image || "https://via.placeholder.com/60x40"
+                          }
                           alt={item.title}
                           className="news-image"
                           onError={(e) => (e.target.src = UserIcon)}

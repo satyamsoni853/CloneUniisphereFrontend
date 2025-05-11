@@ -16,7 +16,7 @@
   width: 35vw;
   min-width: 300px;
   max-width: 600px;
-  margin-left: 50px;
+  /* margin-left: 50px; */
   margin-top: 80px;
   box-sizing: border-box;
   display: flex;
@@ -1099,10 +1099,58 @@
   font-weight: bold;
   padding: 0.3125rem 0.625rem;
 }
+/* iPad Pro 11-inch (Portrait & Landscape) */
+@media (min-width: 834px) and (max-width: 1194px) {
+  .middle-container {
+    padding: 0.9375rem;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+  }
+  
+
+  .middle-middle-card {
+    width: 60vw;
+    min-width: 300px;
+    /* max-width: 90%; */
+    
+
+    padding: 0.9375rem;
+    overflow: hidden;
+    margin-top: 20px;
+    margin-left: 0;
+  }
+}
+
+/* iPad Pro 12.9-inch (Portrait & Landscape) */
+@media (min-width: 1024px) and (max-width: 1366px) {
+    .middle-container {
+    padding: 0.9375rem;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+  }
+  
+
+  .middle-middle-card {
+    width: 60vw;
+    min-width: 300px;
+    /* max-width: 90%; */
+    
+
+    padding: 0.9375rem;
+    overflow: hidden;
+    margin-top: 20px;
+    margin-left: 0;
+  }
+}
 
 /* Responsive Adjustments */
 @media (max-width: 1200px) {
   .middle-middle-card {
+    display: flex;
+    align-items: start;
+    justify-content: start;
     width: 50vw;
     min-width: 300px;
   }
