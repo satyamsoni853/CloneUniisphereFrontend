@@ -656,6 +656,8 @@ function DesktopMiddle() {
                         <button className="middle-options-item">Block</button>
                         <button className="middle-options-item">Report</button>
                         <button className="middle-options-item">Message</button>
+                        <button className="middle-options-item">Edit</button>
+                        <button className="middle-options-item">Delete</button>
                       </div>
                     )}
                   </div>

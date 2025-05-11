@@ -497,12 +497,12 @@ function NetworkPage() {
                                 className="networkpage-connect-icon"
                                 onClick={handleConnectClick}
                               >
-                                <img src={ConnectSvg} alt="Connect" />
+                                {/* <img src={ConnectSvg} alt="Connect" /> */}
                               </div>
                             </div>
                             <div className="networkpage-stats">
-                              <span>{user.connections} connect</span>
-                              <span>{user.collaborations} collaborate</span>
+                              {/* <span>{user.connections} connect</span> */}
+                              {/* <span>{user.collaborations} collaborate</span> */}
                             </div>
                           </div>
                           {!isMobile  && (
@@ -511,9 +511,9 @@ function NetworkPage() {
                                 {user.username}
                               </h2>
                               <p className="catchup-text">
-                                Catch up with {user.username}! Share updates,
-                                collaborate on projects, or start a new
-                                conversation.
+                                {/* Catch up with {user.username}! Share updates,  */}
+                                {/* collaborate on projects, or start a new
+                                conversation. */}
                               </p>
                             </div>
                           )}
@@ -621,7 +621,7 @@ function NetworkPage() {
                     className="networkpage-action-btn NEW-CONNECTION-Btn"
                     onClick={handleNewConnectionClick}
                   >
-                    CATCHUP 
+                    
                        NEW CONNECTION
                   
                   </button>

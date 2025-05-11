@@ -1,13 +1,10 @@
- 
 .feature-messages-widget {
   position: fixed;
   z-index: 9999;
   bottom: 5px;
   left: 25px;
- 
   background: rgb(242, 215, 219);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
- 
   border-radius: 16px;
   padding: 14px;
   display: flex;
@@ -18,8 +15,6 @@
   transition: all 0.3s ease-in-out;
 }
 
-
-
 .feature-messages-text {
   color: black;
   font-weight: 600;
@@ -28,24 +23,26 @@
 
 .feature-icon {
   margin-left: auto;
- 
 }
 
 .desktop-feedback-container {
-  display: flex;
   position: fixed;
-  left: 20%;
-  top: 18%;
-  padding: 50px 100px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); /* Center the container */
+  padding: 30px 40px; /* Reduced padding for more content space */
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
   z-index: 9999;
-  width: 1000px;
-  height: 600px;
+  max-width: 800px; /* Flexible width */
+  width: 90%; /* Responsive width */
+  min-height: 400px;
+  max-height: 80vh; /* Prevent overflow on small screens */
   background-color: white;
-  border-radius: 40px;
-  box-shadow:4px 4px 4px #00000040;
-  
+  border-radius: 20px; /* Slightly smaller radius for better aesthetics */
+  box-shadow: 4px 4px 4px #00000040;
+  overflow-y: auto; /* Allow scrolling if content overflows */
+  box-sizing: border-box; /* Include padding in width/height */
 }
 
 .desktop-feedback-header {
@@ -55,95 +52,183 @@
 }
 
 .desktop-feedback-header h1 {
-  font-size: 22px;
+  font-size: 18px; /* Reduced for better fit */
   font-weight: 500;
+  margin: 0;
 }
 
 .desktop-feedback-close-btn {
   background: none;
   border: none;
-  font-size: 50px;
+  font-size: 30px; /* Reduced size */
   cursor: pointer;
+  line-height: 1;
 }
 
 .desktop-feedback-emojis {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 10px;
 }
-.desktop-feedback-emoji{
-  font-size: 35px;
+
+.desktop-feedback-emoji {
+  font-size: 30px; /* Slightly smaller */
 }
-.desktop-feedback-emoji-emotions{
-  font-size: 18px;
+
+.desktop-feedback-emoji-emotions {
+  font-size: 14px; /* Smaller for better fit */
   color: #828181;
 }
-.desktop-feedback-emoji-btn{
+
+.desktop-feedback-emoji-btn {
   display: flex;
   cursor: pointer;
   flex-direction: column;
   align-items: center;
+  padding: 10px;
+  transition: background-color 0.2s;
 }
 
+.desktop-feedback-emoji-btn.selected {
+  background-color: #e0f7fa;
+  border: 2px solid #007bff;
+  border-radius: 10px;
+}
 
 .desktop-feedback-textarea-container {
   display: flex;
-  gap: 10px;
-
+  gap: 8px;
   flex-direction: column;
 }
-.desktop-feedback-label{
-  font-size: 22px;
+
+.desktop-feedback-label {
+  font-size: 16px; /* Reduced for better fit */
   font-weight: 500;
 }
+
 .desktop-feedback-textarea {
   width: 100%;
-  padding: 5px 10px;
-  height: 80px;
+  padding: 10px;
+  height: 100px; /* Increased height for more text */
   border: 2px solid #000000;
-  border-radius: 25px;
-  resize: none;
+  border-radius: 15px; /* Slightly smaller radius */
+  resize: vertical; /* Allow vertical resizing */
   outline: none;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 .desktop-feedback-buttons {
   display: flex;
- width: 100%;
- justify-content: space-evenly;
+  justify-content: space-evenly;
+  gap: 20px;
 }
 
 .desktop-feedback-cancel-btn {
-  background-color: #F2EDED;
-  
-  width: 183px;
-  height: 33px;
+  background-color: #f2eded;
+  width: 150px; /* Slightly smaller */
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #000000;
   border: none;
   border-radius: 20px;
- 
   cursor: pointer;
+  font-size: 14px;
 }
 
 .desktop-feedback-submit-btn {
-  background-color: #003CFFCC;
-  width: 183px;
-  height: 33px;
+  background-color: #003cffcc;
+  width: 150px; /* Slightly smaller */
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   border: none;
   border-radius: 20px;
- 
   cursor: pointer;
-}
-@media (max-width: 900px) {
-   
-.feature-messages-widget {
-  width: 200px;
+  font-size: 14px;
 }
 
+.desktop-feedback-error {
+  color: red;
+  font-size: 12px;
+  margin: 8px 0;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .feature-messages-widget {
+    width: 200px;
+    padding: 10px;
+  }
+
+  .desktop-feedback-container {
+    width: 95%;
+    padding: 20px;
+    max-height: 90vh;
+    border-radius: 15px;
+  }
+
+  .desktop-feedback-header h1 {
+    font-size: 16px;
+  }
+
+  .desktop-feedback-close-btn {
+    font-size: 24px;
+  }
+
+  .desktop-feedback-emoji {
+    font-size: 24px;
+  }
+
+  .desktop-feedback-emoji-emotions {
+    font-size: 12px;
+  }
+
+  .desktop-feedback-label {
+    font-size: 14px;
+  }
+
+  .desktop-feedback-textarea {
+    height: 80px;
+    font-size: 12px;
+  }
+
+  .desktop-feedback-cancel-btn,
+  .desktop-feedback-submit-btn {
+    width: 120px;
+    height: 35px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .desktop-feedback-container {
+    padding: 15px;
+  }
+
+  .desktop-feedback-emojis {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .desktop-feedback-emoji-btn {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .desktop-feedback-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .desktop-feedback-cancel-btn,
+  .desktop-feedback-submit-btn {
+    width: 100%;
+  }
 }

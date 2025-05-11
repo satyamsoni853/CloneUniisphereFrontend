@@ -14,9 +14,9 @@
   max-width: 25vw;
   min-width: 220px;
   height: 32vh;
-  overflow-y: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  /* overflow-y: auto; */
+  /* scrollbar-width: none; */
+  /* -ms-overflow-style: none; */
   position: fixed;
   bottom: 60px;
   left: 20px;
@@ -245,5 +245,11 @@
 
   .leftsectionbottom-1-overlay-powered {
     font-size: 0.875rem;
+  }
+}
+@media (max-width: 1024px) {
+  .leftsectionbottom-1,
+  .Leftsectionbottom-main-container {
+    display: none !important;
   }
 }
