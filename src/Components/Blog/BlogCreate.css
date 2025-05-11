@@ -335,6 +335,36 @@
   width: 100%;
 }
 
+
+@media only screen and (min-width:768px) and (max-width:1368px){
+  .desktop-blog-create-content-parent{
+    padding-top: 120px;
+  }
+  .desktop-right-section-fixed{
+    display: none;
+  }
+  .desktop-blog-create-btn{
+    padding: 7px 20px;
+  }
+  .desktop-blog-dropdown{
+    padding: 7px 20px;
+    margin: 0;
+  }
+  .desktop-blog-sidebar-blogs-description{
+    font-size: 12px;
+    letter-spacing: 0;
+  }
+   .desktop-blog-main-sidebar{
+    width: 50%;
+  }
+  .desktop-blog-container{
+   gap: 0;
+  }
+}
+
+ 
+
+
 /* // Media queries for mobile responsiveness */
 
 @media (min-width: 748px) {
