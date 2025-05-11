@@ -114,7 +114,7 @@ function MobileNavbar() {
     setError(null);
     try {
       const response = await axios.get(
-        `https://uniisphere-backend-latest.onrender.com/getProfile/profile/?search=${encodeURIComponent(username)}`
+        `https://uniisphere-backend-latest.onrender.com/api/users/profile/?search=${encodeURIComponent(username)}`
       );
       console.log("Search API Response:", response.data);
       setSearchResults(Array.isArray(response.data) ? response.data : []);

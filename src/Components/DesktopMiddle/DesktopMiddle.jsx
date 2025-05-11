@@ -129,8 +129,7 @@ function DesktopMiddle() {
         console.log("All Connections:");
         response.data.forEach((conn, index) => {
           console.log(
-            `Connection ${index + 1}: ID = ${conn.id}, Name = ${
-              conn.username || "Unknown"
+            `Connection ${index + 1}: ID = ${conn.id}, Name = ${conn.username || "Unknown"
             }`
           );
         });
@@ -232,7 +231,7 @@ function DesktopMiddle() {
       console.error("Fetch feed error:", error.response?.data || error);
       setError(
         error.response?.data?.message ||
-          "Failed to load content. Please try again."
+        "Failed to load content. Please try again."
       );
     } finally {
       setImageLoading(false);
@@ -309,10 +308,10 @@ function DesktopMiddle() {
         prevPosts.map((p, i) =>
           i === index
             ? {
-                ...p,
-                isLiked: !p.isLiked,
-                likes: p.isLiked ? p.likes - 1 : p.likes + 1,
-              }
+              ...p,
+              isLiked: !p.isLiked,
+              likes: p.isLiked ? p.likes - 1 : p.likes + 1,
+            }
             : p
         )
       );
@@ -365,7 +364,7 @@ function DesktopMiddle() {
 
     try {
       const response = await axios.post(
-        `https://uniisphere-backend-latest.onrender.com/posts/${post._id}/comments`,
+        `https://uniisphere-backend-latest.onrender.com/api/posts/${post._id}/comments`,
         {
           postId: post._id,
           userId: authData.userId,
@@ -388,7 +387,7 @@ function DesktopMiddle() {
       console.error("Comment submission error:", error.response?.data || error);
       setError(
         error.response?.data?.message ||
-          "Failed to post comment. Please try again."
+        "Failed to post comment. Please try again."
       );
     }
   };
@@ -459,7 +458,7 @@ function DesktopMiddle() {
       console.error("Share submission error:", error.response?.data || error);
       setShareError(
         error.response?.data?.message ||
-          "Failed to share post. Please try again."
+        "Failed to share post. Please try again."
       );
     }
   };
@@ -500,7 +499,7 @@ function DesktopMiddle() {
     const post = posts[activeSharePostIndex];
     const postUrl = `${window.location.origin}/post/${post._id}`;
     const message = encodeURIComponent(`${shareMessage} ${postUrl}`);
-    window.open (`https://twitter.com/intent/tweet?text=${message}`, "_blank");
+    window.open(`https://twitter.com/intent/tweet?text=${message}`, "_blank");
   };
 
   const handleShareToInstagram = () => {
@@ -535,7 +534,7 @@ function DesktopMiddle() {
       console.error("Save post error:", error.response?.data || error);
       setShareError(
         error.response?.data?.message ||
-          "Failed to save post. Please try again."
+        "Failed to save post. Please try again."
       );
     }
   };
@@ -760,16 +759,16 @@ function DesktopMiddle() {
                     <span className="middle-post-caption">
                       {renderCaption(post.caption, index)}
                       {post.caption && post.caption.length > 100 && (
-                    <span
-                      className="middle-see-more"
-                      onClick={() => toggleSeeMore(index)}
-                    >
-                      {seeMore[index] ? "....See Less" : "....See More"}
-                    </span>
-                  )}
+                        <span
+                          className="middle-see-more"
+                          onClick={() => toggleSeeMore(index)}
+                        >
+                          {seeMore[index] ? "....See Less" : "....See More"}
+                        </span>
+                      )}
                     </span>
                   </div>
-                 
+
                 </div>
               </div>
             );
@@ -1161,9 +1160,8 @@ function DesktopMiddle() {
               />
               <input
                 type="text"
-                placeholder={`Write a share to ${
-                  posts[activeSharePostIndex]?.authorName || "someone"
-                }`}
+                placeholder={`Write a share to ${posts[activeSharePostIndex]?.authorName || "someone"
+                  }`}
                 value={shareMessage}
                 onChange={(e) => setShareMessage(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleShareSubmit()}

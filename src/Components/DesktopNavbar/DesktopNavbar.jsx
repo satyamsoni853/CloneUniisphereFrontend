@@ -189,7 +189,7 @@ function DesktopNavbar() {
       try {
         setLoading(true);
         const response = await axios.get(
-          "https://uniisphere-backend-latest.onrender.com/users/getAll",
+          "https://uniisphere-backend-latest.onrender.com/api/users/getAll",
           { headers: { Authorization: `Bearer ${authToken}` } }
         );
         const users = Array.isArray(response.data) ? response.data : [];
@@ -228,9 +228,7 @@ function DesktopNavbar() {
     setError(null);
     try {
       const response = await axios.get(
-        `https://uniisphere-backend-latest.onrender.com/getProfile/profile/?search=${encodeURIComponent(
-          username
-        )}`
+        `https://uniisphere-backend-latest.onrender.com/api/users/profile/?search=${encodeURIComponent(username)}`
       );
       console.log("Search API Response:", response.data);
       setSearchResults(Array.isArray(response.data) ? response.data : []);
@@ -596,9 +594,8 @@ function DesktopNavbar() {
               {Object.keys(timeFilters).map((tab) => (
                 <button
                   key={tab}
-                  className={`notification-tab-button ${
-                    activeNotificationTab === tab ? "active" : ""
-                  }`}
+                  className={`notification-tab-button ${activeNotificationTab === tab ? "active" : ""
+                    }`}
                   onClick={() => setActiveNotificationTab(tab)}
                 >
                   {tab}
@@ -876,9 +873,8 @@ function DesktopNavbar() {
                     }}
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`search-tab-button ${
-                      activeTab === tab ? "active" : ""
-                    }`}
+                    className={`search-tab-button ${activeTab === tab ? "active" : ""
+                      }`}
                   >
                     {tab}
                   </button>

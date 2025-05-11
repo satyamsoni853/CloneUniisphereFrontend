@@ -295,10 +295,10 @@ function MobileMiddleSection() {
         prevPosts.map((p, i) =>
           i === index
             ? {
-                ...p,
-                isLiked: !p.isLiked,
-                likes: p.isLiked ? p.likes - 1 : p.likes + 1,
-              }
+              ...p,
+              isLiked: !p.isLiked,
+              likes: p.isLiked ? p.likes - 1 : p.likes + 1,
+            }
             : p
         )
       );
@@ -353,7 +353,7 @@ function MobileMiddleSection() {
 
     try {
       const response = await axios.post(
-        `https://uniisphere-backend-latest.onrender.com/posts/${post._id}/comments`,
+        `https://uniisphere-backend-latest.onrender.com/api/posts/${post._id}/comments`,
         {
           postId: post._id,
           userId: authData.userId,
@@ -737,9 +737,8 @@ function MobileMiddleSection() {
                     {images.map((url, imgIndex) => (
                       <div
                         key={imgIndex}
-                        className={`mobile-slider-item ${
-                          imgIndex === currentSlide ? "active" : ""
-                        }`}
+                        className={`mobile-slider-item ${imgIndex === currentSlide ? "active" : ""
+                          }`}
                       >
                         <img
                           src={url}
@@ -761,9 +760,8 @@ function MobileMiddleSection() {
                   {images.map((_, dotIndex) => (
                     <span
                       key={dotIndex}
-                      className={`mobile-slider-dot ${
-                        dotIndex === currentSlide ? "active" : ""
-                      }`}
+                      className={`mobile-slider-dot ${dotIndex === currentSlide ? "active" : ""
+                        }`}
                       onClick={() =>
                         setCurrentSlides((prev) => ({
                           ...prev,
@@ -883,7 +881,7 @@ function MobileMiddleSection() {
                 onClick={() => setShowCommentOptions(!showCommentOptions)}
                 className="mobile-Full-comment-section-menu-icon"
               />
-            
+
             </div>
             <div className="mobile-Full-comment-section-photo-container">
               <div
@@ -896,11 +894,10 @@ function MobileMiddleSection() {
                   {posts[activeCommentPostIndex].mediaUrl.map((url, imgIndex) => (
                     <div
                       key={imgIndex}
-                      className={`mobile-slider-item ${
-                        imgIndex === currentSlides[posts[activeCommentPostIndex]._id]
-                          ? "active"
-                          : ""
-                      }`}
+                      className={`mobile-slider-item ${imgIndex === currentSlides[posts[activeCommentPostIndex]._id]
+                        ? "active"
+                        : ""
+                        }`}
                     >
                       <img
                         src={url}
@@ -921,11 +918,10 @@ function MobileMiddleSection() {
                 {posts[activeCommentPostIndex].mediaUrl.map((_, dotIndex) => (
                   <span
                     key={dotIndex}
-                    className={`mobile-slider-dot ${
-                      dotIndex === currentSlides[posts[activeCommentPostIndex]._id]
-                        ? "active"
-                        : ""
-                    }`}
+                    className={`mobile-slider-dot ${dotIndex === currentSlides[posts[activeCommentPostIndex]._id]
+                      ? "active"
+                      : ""
+                      }`}
                     onClick={() =>
                       setCurrentSlides((prev) => ({
                         ...prev,
@@ -1078,11 +1074,10 @@ function MobileMiddleSection() {
                   {posts[activeSharePostIndex].mediaUrl.map((url, imgIndex) => (
                     <div
                       key={imgIndex}
-                      className={`mobile-slider-item ${
-                        imgIndex === currentSlides[posts[activeSharePostIndex]._id]
-                          ? "active"
-                          : ""
-                      }`}
+                      className={`mobile-slider-item ${imgIndex === currentSlides[posts[activeSharePostIndex]._id]
+                        ? "active"
+                        : ""
+                        }`}
                     >
                       <img
                         src={url}
@@ -1103,11 +1098,10 @@ function MobileMiddleSection() {
                 {posts[activeSharePostIndex].mediaUrl.map((_, dotIndex) => (
                   <span
                     key={dotIndex}
-                    className={`mobile-slider-dot ${
-                      dotIndex === currentSlides[posts[activeSharePostIndex]._id]
-                        ? "active"
-                        : ""
-                    }`}
+                    className={`mobile-slider-dot ${dotIndex === currentSlides[posts[activeSharePostIndex]._id]
+                      ? "active"
+                      : ""
+                      }`}
                     onClick={() =>
                       setCurrentSlides((prev) => ({
                         ...prev,
@@ -1253,9 +1247,8 @@ function MobileMiddleSection() {
                 {selectedImages.map((url, imgIndex) => (
                   <div
                     key={imgIndex}
-                    className={`mobile-image-modal-slider-item ${
-                      imgIndex === selectedImageIndex ? "active" : ""
-                    }`}
+                    className={`mobile-image-modal-slider-item ${imgIndex === selectedImageIndex ? "active" : ""
+                      }`}
                   >
                     <img
                       src={url}
@@ -1280,9 +1273,8 @@ function MobileMiddleSection() {
                 {selectedImages.map((_, dotIndex) => (
                   <span
                     key={dotIndex}
-                    className={`mobile-image-modal-dot ${
-                      dotIndex === selectedImageIndex ? "active" : ""
-                    }`}
+                    className={`mobile-image-modal-dot ${dotIndex === selectedImageIndex ? "active" : ""
+                      }`}
                     onClick={() => setSelectedImageIndex(dotIndex)}
                   />
                 ))}

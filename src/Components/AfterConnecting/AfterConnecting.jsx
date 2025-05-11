@@ -102,10 +102,10 @@ function AfterConnecting() {
     skills: dummySkills,
     interests: dummyInterests,
     education: [
-      "Hansraj College (DU)",
-      "BA Programme",
-      "12th Class",
-      "10th Class",
+      "Dummy 1 ",
+      "Dummy 2",
+      "Dummy 3",
+      "Dummy 4",
     ],
     collaboratorName: dummyCollabs.collaboratorName,
     subCollaborators: dummyCollabs.subCollaborators,
@@ -493,7 +493,7 @@ function AfterConnecting() {
                           </div>
                         ))}
                     </div>
-                    <IoIosArrowForward
+                    {/* <IoIosArrowForward
                       className={`afterconnectinginProfile-full-section-Forward ${
                         currentImageIndex >= images.length - 3
                           ? "afterconnectingindisabled"
@@ -501,7 +501,7 @@ function AfterConnecting() {
                       }`}
                       onClick={nextImageSlide}
                       disabled={currentImageIndex >= images.length - 3}
-                    />
+                    /> */}
                   </div>
                 </div>
 
@@ -567,7 +567,7 @@ function AfterConnecting() {
                               </div>
                             ))}
                     </div>
-                    <IoIosArrowForward
+                    {/* <IoIosArrowForward
                       className={`afterconnectinginProfile-full-section-Forward ${
                         currentExpIndex >= data.experiences.length - 3
                           ? "afterconnectingindisabled"
@@ -575,7 +575,7 @@ function AfterConnecting() {
                       }`}
                       onClick={nextExpSlide}
                       disabled={currentExpIndex >= data.experiences.length - 3}
-                    />
+                    /> */}
                   </div>
                 </div>
 
@@ -630,7 +630,7 @@ function AfterConnecting() {
                               </div>
                             ))}
                     </div>
-                    <IoIosArrowForward
+                    {/* <IoIosArrowForward
                       className={`afterconnectinginProfile-full-section-right-btn ${
                         currentSkillIndex >= data.skills.length - 4
                           ? "afterconnectingindisabled"
@@ -638,7 +638,7 @@ function AfterConnecting() {
                       }`}
                       onClick={nextSkillSlide}
                       disabled={currentSkillIndex >= data.skills.length - 4}
-                    />
+                    /> */}
                   </div>
                 </div>
 
@@ -756,7 +756,7 @@ function AfterConnecting() {
                               </div>
                             ))}
                     </div>
-                    <IoIosArrowForward
+                    {/* <IoIosArrowForward
                       className={`afterconnectinginProfile-full-section-right-btn ${
                         currentInterestIndex >= data.interests.length - 4
                           ? "afterconnectingindisabled"
@@ -766,7 +766,7 @@ function AfterConnecting() {
                       disabled={
                         currentInterestIndex >= data.interests.length - 4
                       }
-                    />
+                    /> */}
                   </div>
                 </div>
 

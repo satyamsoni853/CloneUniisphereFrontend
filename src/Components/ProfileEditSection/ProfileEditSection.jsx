@@ -403,7 +403,7 @@ function ProfileEditSection() {
                 {/* Upload Section */}
                 <div className="section-container">
                   <div className="Followers-middle-section-2-headingAndEdit-public">
-                    <p className="section-heading">Upload</p>
+                    <p className="ProfileEdit_section-section-heading">Upload</p>
                     <Link to={`/uploadsection/${userId}`}>
                       <FiEdit className="Followers-middle-section-2-icon-public" />
                     </Link>
@@ -414,7 +414,7 @@ function ProfileEditSection() {
                 {/* Experience Section */}
                 <div className="section-container">
                   <div className="Followers-middle-section-2-headingAndEdit-public">
-                    <p className="section-heading">Experience</p>
+                    <p className="ProfileEdit_section-section-heading">Experience</p>
                     <Link to={`/AboutAndExperience/${userId}`}>
                       <FiEdit className="Followers-middle-section-2-icon-public" />
                     </Link>
@@ -425,7 +425,7 @@ function ProfileEditSection() {
                 {/* Skills Section */}
                 <div className="section-container">
                   <div className="Followers-middle-section-2-headingAndEdit-public">
-                    <p className="section-heading">Skills</p>
+                    <p className="ProfileEdit_section-section-heading">Skills</p>
                     <Link to={`/skills/${userId}`}>
                       <FiEdit className="Followers-middle-section-2-icon-public" />
                     </Link>
@@ -465,7 +465,7 @@ function ProfileEditSection() {
                 {/* Collabs Section */}
                 <div className="section-container">
                   <div className="Followers-middle-section-2-headingAndEdit-public">
-                    <p className="section-heading">Collabs</p>
+                    <p className="ProfileEdit_section-section-heading">Collabs</p>
                     <Link to={`/collab/${userId}`}>
                       <FiEdit className="Followers-middle-section-2-icon-public" />
                     </Link>
@@ -476,7 +476,7 @@ function ProfileEditSection() {
                 {/* Interests Section */}
                 <div className="section-container">
                   <div className="Followers-middle-section-2-headingAndEdit-public">
-                    <p className="section-heading">Interests</p>
+                    <p className="ProfileEdit_section-section-heading">Interests</p>
                     <Link to={`/interests/${userId}`}>
                       <FiEdit className="Followers-middle-section-2-icon-public" />
                     </Link>
@@ -516,7 +516,7 @@ function ProfileEditSection() {
                 {/* Education Section */}
                 <div className="section-container">
                   <div className="Followers-middle-section-2-headingAndEdit-public">
-                    <p className="section-heading">Education</p>
+                    <p className="ProfileEdit_section-section-heading">Education</p>
                     <Link to={`/education/${userId}`}>
                       <FiEdit className="Followers-middle-section-2-icon-public" />
                     </Link>
