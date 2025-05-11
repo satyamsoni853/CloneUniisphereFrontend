@@ -700,7 +700,7 @@ input:checked + .slider {
 /* Style the search results dropdown */
 .desktop-search-results {
   position: absolute;
-  top: 200%;
+  top: 150%;
   left: -42%;
   display: flex;
   flex-direction: column;

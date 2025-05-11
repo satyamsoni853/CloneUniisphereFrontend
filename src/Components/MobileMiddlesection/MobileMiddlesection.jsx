@@ -883,25 +883,7 @@ function MobileMiddleSection() {
                 onClick={() => setShowCommentOptions(!showCommentOptions)}
                 className="mobile-Full-comment-section-menu-icon"
               />
-              {showCommentOptions && (
-                <div className="mobile-comment-threedot-options-dropdown">
-                  <button className="mobile-comment-threedot-options-item">
-                    Interest
-                  </button>
-                  <button className="mobile-comment-threedot-options-item">
-                    Not Interest
-                  </button>
-                  <button className="mobile-comment-threedot-options-item">
-                    Block
-                  </button>
-                  <button className="mobile-comment-threedot-options-item">
-                    Report
-                  </button>
-                  <button className="mobile-comment-threedot-options-item">
-                    Message
-                  </button>
-                </div>
-              )}
+            
             </div>
             <div className="mobile-Full-comment-section-photo-container">
               <div

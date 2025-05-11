@@ -3,12 +3,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   text-align: center;
   padding: 20px;
-  /* background: linear-gradient(45deg, #f3ec78, #af4261, #78f3e0, #f378a0); */
-  background-size: 400%;
-  animation: colorShift 10s ease infinite;
+  background: inherit;
   box-sizing: border-box;
   width: 100vw;
   overflow-x: hidden;

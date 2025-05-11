@@ -313,7 +313,8 @@ function ProfileEditSection() {
           <DesktopLeftTop />
           <DesktopLeftBottomSection />
         </div>
-        <div className="ProfileEditSection-middle-main-container">
+        <div>
+          <div className="ProfileEditSection-middle-main-container">
           <div className="Followers-middle-section-2-mainParent-public">
             <div className="Followers-middle-section-2-middle-container-public">
               <div className="Followers-middle-section-2-middle-section-public">
@@ -527,12 +528,14 @@ function ProfileEditSection() {
                     {class12Board && (
                       <button className="twelfth">{class12Board}</button>
                     )}
-                    {isMobile && <MobileFooter />}
+                    
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        {isMobile && <MobileFooter />}
         </div>
         <div className="ProfileEditSection-right-main-container">
           <DesktopRight />

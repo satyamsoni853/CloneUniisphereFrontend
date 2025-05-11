@@ -6,9 +6,11 @@ import Background from '../Background/Background';
 
 function ComingSoon() {
   return (
-  <div>
+<div>
     <DesktopNavbar/>
     <Background/>
+    <div>
+  
       <div className="coming-soon-container">
       <h1 className="coming-soon-title">Coming Soon!</h1>
       <p className="coming-soon-message">
@@ -22,6 +24,7 @@ function ComingSoon() {
       </Link>
     </div>
   </div>
+</div>
   );
 }
 
