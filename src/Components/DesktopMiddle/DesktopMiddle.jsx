@@ -259,7 +259,7 @@ function DesktopMiddle() {
 
     try {
       const response = await axios.post(
-        `https://uniisphere-backend-latest.onrender.com/api/connect/${receiverId}`,
+        `https://uniisphere-backend-latest.onrender.com/api/connections/connect/${receiverId}`,
         {
           userId: authData.userId,
           senderName: userProfile?.name || "Anonymous",
@@ -300,43 +300,69 @@ function DesktopMiddle() {
     const originalPost = { ...post };
 
     try {
-      const endpoint = post.isLiked
-        ? `https://uniisphere-backend-latest.onrender.com/posts/${post._id}/unlike`
-        : `https://uniisphere-backend-latest.onrender.com/posts/${post._id}/like`;
-
-      setPosts((prevPosts) =>
-        prevPosts.map((p, i) =>
-          i === index
-            ? {
-              ...p,
-              isLiked: !p.isLiked,
-              likes: p.isLiked ? p.likes - 1 : p.likes + 1,
-            }
-            : p
-        )
-      );
-
-      const response = await axios.post(
-        endpoint,
-        { userId: authData.userId },
-        {
-          headers: {
-            Authorization: `Bearer ${authData.token}`,
-            "Content-Type": "application/json",
-          },
-          timeout: 10000,
-        }
-      );
-
-      const isSuccessful = post.isLiked
-        ? response.data.message === "Post unliked successfully"
-        : !!response.data;
-
-      if (!isSuccessful) {
+      if (post.isLiked) {
+        // UNLIKE: Use DELETE with userId as query param
         setPosts((prevPosts) =>
-          prevPosts.map((p, i) => (i === index ? originalPost : p))
+          prevPosts.map((p, i) =>
+            i === index
+              ? {
+                  ...p,
+                  isLiked: false,
+                  likes: p.likes - 1,
+                }
+              : p
+          )
         );
-        throw new Error("Operation failed");
+
+        const response = await axios.delete(
+          `https://uniisphere-backend-latest.onrender.com/api/posts/${post._id}/unlike`,
+          {
+            params: { userId: authData.userId },
+            headers: {
+              Authorization: `Bearer ${authData.token}`,
+            },
+            timeout: 10000,
+          }
+        );
+
+        if (response.data.message !== "Post unLiked successfully") {
+          setPosts((prevPosts) =>
+            prevPosts.map((p, i) => (i === index ? originalPost : p))
+          );
+          throw new Error("Operation failed");
+        }
+      } else {
+        // LIKE: Use POST with userId in body
+        setPosts((prevPosts) =>
+          prevPosts.map((p, i) =>
+            i === index
+              ? {
+                  ...p,
+                  isLiked: true,
+                  likes: p.likes + 1,
+                }
+              : p
+          )
+        );
+
+        const response = await axios.post(
+          `https://uniisphere-backend-latest.onrender.com/api/posts/${post._id}/like`,
+          { userId: authData.userId },
+          {
+            headers: {
+              Authorization: `Bearer ${authData.token}`,
+              "Content-Type": "application/json",
+            },
+            timeout: 10000,
+          }
+        );
+
+        if (!response.data) {
+          setPosts((prevPosts) =>
+            prevPosts.map((p, i) => (i === index ? originalPost : p))
+          );
+          throw new Error("Operation failed");
+        }
       }
     } catch (error) {
       console.error(
