@@ -133,7 +133,7 @@
 .afterconnectinginProfile-full-section-message-box {
   position: absolute;
   left: -10rem;
-  top: 60%;
+  top: 100%;
   width: 8rem;
   height: 2rem;
   font-size: 1rem;
@@ -148,7 +148,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   z-index: 10;
-  display: none;
+  
 }
 
 .afterconnectinginProfile-full-section-message-box:hover {
@@ -537,7 +537,10 @@
   .afterconnectinginInterest-left-main-container {
     display: none;
   }
-
+.afterconnectinginProfile-full-section-message-box{
+  top: 100%;
+  left: -30%;
+}
   .afterconnectinginFullFlowerSectionPage-middle-main-container {
     width: 60%;
   }
@@ -575,7 +578,7 @@
     display: flex;
     width: 25%;
   }
-
+ 
   .afterconnectinginFullFlowerSectionPage-middle-main-container {
     width: 50%;
   }
@@ -677,7 +680,7 @@
   .afterconnectinginProfile-full-section-message-box {
     top: auto;
     bottom: -3rem;
-    left: 50%;
+    left: -30%;
     transform: translateX(-50%);
   }
 }
@@ -699,8 +702,8 @@
   }
 
   .afterconnectinginProfile-full-section-imageContainer {
-    height: 6rem;
-    width: 6rem;
+    
+    width: 100px;
   }
 
   .afterconnectinginProfile-full-section-name {
@@ -737,8 +740,8 @@
   }
 
   .afterconnectinginProfile-full-section-collab-image {
-    height: 3rem;
-    width: 3rem;
+    
+    width: 100px;
   }
 
   .afterconnectinginProfile-full-section-buttons-section {
@@ -749,6 +752,9 @@
     width: 6rem;
     height: 1.5rem;
     font-size: 0.875rem;
+  }
+  .afterconnectinginProfile-full-section-message-box{
+    left: -20%;
   }
 }
 
@@ -764,10 +770,7 @@
     overflow-x: hidden;
   }
 
-  .afterconnectinginProfile-full-section-imageContainer {
-    height: 3rem;
-    width: 3rem;
-  }
+   
 
   .afterconnectinginProfile-full-section-btn {
     width: 100%;
@@ -783,5 +786,5 @@
     height: 1.25rem;
     font-size: 0.75rem;
   }
-  
+   
 }
