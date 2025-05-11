@@ -1,15 +1,13 @@
 /* Left Section Top Container */
-
 .leftsectiontop-1 {
-  width: 100%;
+  width: clamp(220px, 25vw, 25vw); /* Consistent width */
   padding: 1.25rem;
   border-radius: 8px;
   border: 1px solid black;
-  max-width: 25vw;
-  min-width: 220px;
-  margin-left: 20px;
   position: fixed;
-  top: 75px;
+  margin-top: 80px;
+  top: 0; /* Align to top */
+  left: 15px;
   height: 32vh;
   overflow-y: scroll;
   scrollbar-width: none;
@@ -19,9 +17,8 @@
     rgba(229, 190, 158, 0.2) 0%,
     rgba(244, 214, 204, 0.2) 100%
   );
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(0, 0, 0, 0.25),
-    -4px 4px 4px rgba(0, 0, 0, 0.25), 4px -4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); /* Simplified shadow */
+  z-index: 1000; /* Ensure it stays above other elements */
 }
 
 /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
@@ -85,11 +82,10 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
   .leftsectiontop-1 {
-    max-width: 20vw;
-    min-width: 200px;
+    width: clamp(200px, 20vw, 20vw);
     padding: 1rem;
-    margin-left: 15px;
-    top: 100px;
+    left: 0;
+    top: 0;
     height: 25vh;
   }
 
@@ -114,8 +110,7 @@
 @media (max-width: 768px) {
   .leftsectiontop-1 {
     position: static;
-    max-width: 100%;
-    min-width: none;
+    width: 100%;
     margin: 1rem 0;
     padding: 0.75rem;
     height: auto;
