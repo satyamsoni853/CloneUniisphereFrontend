@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import DesktopNavbar from "../DesktopNavbar/DesktopNavbar";
 import MobileNavbar from "../MobileNavbar/MobileNavbar";
 import "./BlogDescription.css";
-import BlogImage from "./Blogdescription.svg";
+import BlogImage from "./blogdescription.svg";
 import MobileFooter from "../Mobilefooter/MobileFooter";
 export default function BlogDescription() {
   const posts = [
@@ -33,8 +33,8 @@ export default function BlogDescription() {
     title: "The June Revise",
     date: "24-04-2025",
     text: " We’d love your feedback! Would you like to take a quick one-step survey? We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey? We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey? We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?"
-      
-    
+
+
   };
 
   const [isMobile, setIsMobile] = useState(false);
@@ -64,12 +64,12 @@ export default function BlogDescription() {
         {showDefault && (
           <div className="blog-description-cards-container">
             {posts.map((post, index) => (
-              <div 
-              onClick={()=>{
-                setShowDefault(false)
-                setShowSingleBlog(true)
-              }}
-              key={index} className="blog-description-card">
+              <div
+                onClick={() => {
+                  setShowDefault(false)
+                  setShowSingleBlog(true)
+                }}
+                key={index} className="blog-description-card">
                 <img
                   src={post.imageSrc}
                   alt={post.title}
@@ -92,7 +92,7 @@ export default function BlogDescription() {
             ))}
           </div>
         )}
-{/* single blog section*/}
+        {/* single blog section*/}
         {showSingleBlog && (
           <div className="single-blog-section-page">
             <div className="single-blog-section-card">
