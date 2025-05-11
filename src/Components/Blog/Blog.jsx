@@ -1,9 +1,9 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams,Link } from "react-router-dom";
 import "./Blog.css";
-import { Link } from "react-router-dom";
+
 
 import profile from "./profile.jpg";
 import backIcon from "./backsvg.svg";

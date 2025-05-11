@@ -12,7 +12,6 @@ import MobileFooter from "../Mobilefooter/MobileFooter";
 import MobileNavbar from "../MobileNavbar/MobileNavbar";
 import profile from "./profile.jpg";
 
-
 const BlogCreate = () => {
   const navigate = useNavigate();
   const inputRef = useRef(null);
@@ -191,19 +190,20 @@ const BlogCreate = () => {
     setObjectUrl(null);
     setValidationErrors({});
   };
-   const blogList = [
-      {
-        name: "Arjun Verma",
-        description: "As per the rumors it is said that the elections of this year is going",
-        avatar: profile,
-      },
-      {
-        name: "Arjun Verma",
-        description: "As per the rumors it is said that the elections of this year is going",
-        avatar: profile,
-      },
-    ];
-  
+  const blogList = [
+    {
+      name: "Arjun Verma",
+      description:
+        "As per the rumors it is said that the elections of this year is going",
+      avatar: profile,
+    },
+    {
+      name: "Arjun Verma",
+      description:
+        "As per the rumors it is said that the elections of this year is going",
+      avatar: profile,
+    },
+  ];
 
   return (
     <>
@@ -218,34 +218,43 @@ const BlogCreate = () => {
           <div className="desktop-blog-container">
             <div className="desktop-blog-main-sidebar">
               <div className="desktop-blog-nav">
-                <div className="desktop-blog-dropdown">
-                  Recommended <IoIosArrowDown />
-                </div>
+                <Link to="/blog-description">
+                  <div className="desktop-blog-dropdown">Your Blog</div>{" "}
+                </Link>
                 <Link to="/createblog">
                   <button className="desktop-blog-create-btn">+ CREATE</button>
                 </Link>
               </div>
               <div className="desktop-blog-sidebar-blogs">
-              <div className="desktop-blog-sidebar-blogs-title">Top Blogs</div>
-              <div className="desktop-blog-sidebar-blogs-list">
-                {blogList.map((blog, index) => (
-                  <div key={index} className="desktop-blog-sidebar-blogs-item">
-                    <img
-                      src={blog.avatar}
-                      alt="Avatar"
-                      className="desktop-blog-sidebar-blogs-avatar"
-                    />
-                    <div className="desktop-blog-sidebar-blogs-text">
-                      <div className="desktop-blog-sidebar-blogs-name">{blog.name}</div>
-                      <div className="desktop-blog-sidebar-blogs-description">
-                        {blog.description}
-                        <span className="desktop-blog-more-link">...more</span>
+                <div className="desktop-blog-sidebar-blogs-title">
+                  Top Blogs
+                </div>
+                <div className="desktop-blog-sidebar-blogs-list">
+                  {blogList.map((blog, index) => (
+                    <div
+                      key={index}
+                      className="desktop-blog-sidebar-blogs-item"
+                    >
+                      <img
+                        src={blog.avatar}
+                        alt="Avatar"
+                        className="desktop-blog-sidebar-blogs-avatar"
+                      />
+                      <div className="desktop-blog-sidebar-blogs-text">
+                        <div className="desktop-blog-sidebar-blogs-name">
+                          {blog.name}
+                        </div>
+                        <div className="desktop-blog-sidebar-blogs-description">
+                          {blog.description}
+                          <span className="desktop-blog-more-link">
+                            ...more
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
             </div>
             <div className="desktop-blog-create-content-parent">
               {showDesktopCreateBlog && (
@@ -637,84 +646,86 @@ const BlogCreate = () => {
 
       <div className="mobile-blog-create-container">
         <MobileNavbar />
-        <div className="blog-container-nav">
-          
-        </div>
+        <div className="blog-container-nav"></div>
         <div className="blog-container-background">
           <Background />
         </div>
         {showCreateBlog && (
           <div className="blog-create-content">
-          <div className="blog-create-section-wrapper">
-            <header className="blog-create-header">
-              <img className="blog-create-backIcon" src={backIcon} alt="Back" />
-              <h1 className="blog-create-header-heading">Create Blog</h1>
-            </header>
-          </div>
-          <div className="blog-create-section-wrapper">
-            <section className="blog-create-form">
-              <div className="blog-create-input-group">
-                <label htmlFor="headline" className="blog-create-label">
-                  Headline
-                </label>
-                <input
-                  type="text"
-                  id="headline"
-                  className="blog-create-input"
-                  disabled
+            <div className="blog-create-section-wrapper">
+              <header className="blog-create-header">
+                <img
+                  className="blog-create-backIcon"
+                  src={backIcon}
+                  alt="Back"
                 />
-              </div>
-              <div className="blog-create-input-group">
-                <label htmlFor="written-by" className="blog-create-label">
-                  Written by
-                </label>
-                <input
-                  type="text"
-                  id="written-by"
-                  className="blog-create-input"
-                  disabled
-                />
-              </div>
-              <div className="blog-create-input-group">
-                <label htmlFor="about" className="blog-create-label">
-                  About
-                </label>
-                <textarea
-                  id="about"
-                  className="blog-create-textarea"
-                  disabled
-                ></textarea>
-              </div>
-            </section>
-          </div>
-          <div className="blog-create-section-wrapper">
-            <section className="blog-create-media-upload">
-              <div className="blog-create-media-container">
-                <input
-                  type="file"
-                  accept="image/*,video/*"
-                  className="blog-create-media-input"
-                  style={{ display: "none" }}
-                  disabled
-                />
-                <button className="blog-create-upload-button" disabled>
-                  Upload media
-                </button>
-                <p className="blog-create-instructional-text">
-                  Add media to make your blog more attractive & relative.
-                </p>
-              </div>
-            </section>
-          </div>
-          <div className="blog-create-section-wrapper">
-            <footer className="blog-create-actions">
-              <div className="blog-create-both-buttons">
-                <button className="blog-create-cancel-button">Cancel</button>
-                <button className="blog-create-create-button" disabled>
-                  Create
-                </button>
-              </div>
-              {/* <div className="blog-create-both-buttons">
+                <h1 className="blog-create-header-heading">Create Blog</h1>
+              </header>
+            </div>
+            <div className="blog-create-section-wrapper">
+              <section className="blog-create-form">
+                <div className="blog-create-input-group">
+                  <label htmlFor="headline" className="blog-create-label">
+                    Headline
+                  </label>
+                  <input
+                    type="text"
+                    id="headline"
+                    className="blog-create-input"
+                    disabled
+                  />
+                </div>
+                <div className="blog-create-input-group">
+                  <label htmlFor="written-by" className="blog-create-label">
+                    Written by
+                  </label>
+                  <input
+                    type="text"
+                    id="written-by"
+                    className="blog-create-input"
+                    disabled
+                  />
+                </div>
+                <div className="blog-create-input-group">
+                  <label htmlFor="about" className="blog-create-label">
+                    About
+                  </label>
+                  <textarea
+                    id="about"
+                    className="blog-create-textarea"
+                    disabled
+                  ></textarea>
+                </div>
+              </section>
+            </div>
+            <div className="blog-create-section-wrapper">
+              <section className="blog-create-media-upload">
+                <div className="blog-create-media-container">
+                  <input
+                    type="file"
+                    accept="image/*,video/*"
+                    className="blog-create-media-input"
+                    style={{ display: "none" }}
+                    disabled
+                  />
+                  <button className="blog-create-upload-button" disabled>
+                    Upload media
+                  </button>
+                  <p className="blog-create-instructional-text">
+                    Add media to make your blog more attractive & relative.
+                  </p>
+                </div>
+              </section>
+            </div>
+            <div className="blog-create-section-wrapper">
+              <footer className="blog-create-actions">
+                <div className="blog-create-both-buttons">
+                  <button className="blog-create-cancel-button">Cancel</button>
+                  <button className="blog-create-create-button" disabled>
+                    Create
+                  </button>
+                </div>
+                {/* <div className="blog-create-both-buttons">
                 <button className="blog-create-delete-button">Delete</button>
                 <button 
                 onClick={()=>{
@@ -725,93 +736,90 @@ const BlogCreate = () => {
                   Update
                 </button>
               </div> */}
-            </footer>
+              </footer>
+            </div>
           </div>
-        </div>
         )}
         {showUploadBlog && (
           <div className="blog-create-content">
-          <div className="blog-create-section-wrapper">
-            <header className="blog-create-header">
-              <img
-         onClick={()=>{
-          setShowCreateBlog(true)
-          setShowUploadBlog(false)
-         }
-         }
-              className="blog-create-backIcon" src={backIcon} alt="Back" />
-              <h1 className="blog-create-header-heading">Update Blog</h1>
-            </header>
-          </div>
-          <div className="blog-create-section-wrapper">
-            <section className="blog-create-form">
-              <div className="blog-create-input-group">
-                <label htmlFor="headline" className="blog-create-label">
-                  Headline
-                </label>
-                <input
-                  type="text"
-                  id="headline"
-                  className="blog-create-input"
-                  disabled
+            <div className="blog-create-section-wrapper">
+              <header className="blog-create-header">
+                <img
+                  onClick={() => {
+                    setShowCreateBlog(true);
+                    setShowUploadBlog(false);
+                  }}
+                  className="blog-create-backIcon"
+                  src={backIcon}
+                  alt="Back"
                 />
-              </div>
-              <div className="blog-create-input-group">
-                <label htmlFor="written-by" className="blog-create-label">
-                  Written by
-                </label>
-                <input
-                  type="text"
-                  id="written-by"
-                  className="blog-create-input"
-                  disabled
-                />
-              </div>
-              <div className="blog-create-input-group">
-                <label htmlFor="about" className="blog-create-label">
-                  About
-                </label>
-                <textarea
-                  id="about"
-                  className="blog-create-textarea"
-                  disabled
-                ></textarea>
-              </div>
-            </section>
+                <h1 className="blog-create-header-heading">Update Blog</h1>
+              </header>
+            </div>
+            <div className="blog-create-section-wrapper">
+              <section className="blog-create-form">
+                <div className="blog-create-input-group">
+                  <label htmlFor="headline" className="blog-create-label">
+                    Headline
+                  </label>
+                  <input
+                    type="text"
+                    id="headline"
+                    className="blog-create-input"
+                    disabled
+                  />
+                </div>
+                <div className="blog-create-input-group">
+                  <label htmlFor="written-by" className="blog-create-label">
+                    Written by
+                  </label>
+                  <input
+                    type="text"
+                    id="written-by"
+                    className="blog-create-input"
+                    disabled
+                  />
+                </div>
+                <div className="blog-create-input-group">
+                  <label htmlFor="about" className="blog-create-label">
+                    About
+                  </label>
+                  <textarea
+                    id="about"
+                    className="blog-create-textarea"
+                    disabled
+                  ></textarea>
+                </div>
+              </section>
+            </div>
+            <div className="blog-create-section-wrapper">
+              <section className="blog-create-media-upload">
+                <div className="blog-create-media-container">
+                  <input
+                    type="file"
+                    accept="image/*,video/*"
+                    className="blog-create-media-input"
+                    style={{ display: "none" }}
+                    disabled
+                  />
+                  <button className="blog-create-upload-button" disabled>
+                    Upload media
+                  </button>
+                  <p className="blog-create-instructional-text">
+                    Add media to make your blog more attractive & relative.
+                  </p>
+                </div>
+              </section>
+            </div>
+            <div className="blog-create-section-wrapper">
+              <footer className="blog-create-actions">
+                <div className="blog-create-both-buttons">
+                  <button className="blog-create-cancel-button">Cancel</button>
+                  <button className="blog-create-update-button">Update</button>
+                </div>
+              </footer>
+            </div>
           </div>
-          <div className="blog-create-section-wrapper">
-            <section className="blog-create-media-upload">
-              <div className="blog-create-media-container">
-                <input
-                  type="file"
-                  accept="image/*,video/*"
-                  className="blog-create-media-input"
-                  style={{ display: "none" }}
-                  disabled
-                />
-                <button className="blog-create-upload-button" disabled>
-                  Upload media
-                </button>
-                <p className="blog-create-instructional-text">
-                  Add media to make your blog more attractive & relative.
-                </p>
-              </div>
-            </section>
-          </div>
-          <div className="blog-create-section-wrapper">
-            <footer className="blog-create-actions">
-             
-              <div className="blog-create-both-buttons">
-                <button className="blog-create-cancel-button">Cancel</button>
-                <button 
-               
-                className="blog-create-update-button"  >
-                  Update
-                </button>
-              </div>
-            </footer>
-          </div>
-        </div>
         )}
         <div className="blog-container-footer">
           <MobileFooter />
