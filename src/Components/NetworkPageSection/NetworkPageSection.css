@@ -268,12 +268,16 @@
 /* Responsive Styles */
 @media (max-width: 1200px) {
   .connection-row {
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
+  }
+  .networkpage {
+    margin-top: 50px;
   }
   .catchup-container {
     max-width: 400px;
     margin: 0 auto;
+    height: 350px;
     padding: 15px;
   }
   .networkpage-grid:not(.catchup-mode) {
@@ -282,6 +286,9 @@
 }
 
 @media (max-width: 992px) {
+  .networkpage {
+    margin-top: 0px;
+  }
   .networkpage {
     padding: 15px;
     margin-top: 80px;
@@ -308,6 +315,9 @@
 }
 
 @media (max-width: 768px) {
+  .networkpage {
+    margin-top: 0px;
+  }
   .Network-right-section {
     display: none;
   }
