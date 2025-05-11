@@ -77,7 +77,7 @@ function App() {
             <Route path="/follower-privacy/:userId" element={<DesFollowerMiddleSectionPrivacy />} />
             <Route path="/ProfileEditSection/:userId" element={<ProfileEditSection />} />
             <Route path="/follower-section" element={<FullFlowerSectionPage />} />
-            <Route path="/AfterConnecting" element={<AfterConnecting />} />
+            <Route path="/AfterConnecting/:userid" element={<AfterConnecting />} />
             <Route path="/PersonalInfoUpdate/:userId" element={<PersonalInfoUpdate />} />
             <Route path="/skills/:userId" element={<SkillForm />} />
             <Route path="/collab/:userId" element={<CollabForm />} />
