@@ -102,10 +102,10 @@ function AfterConnecting() {
     skills: dummySkills,
     interests: dummyInterests,
     education: [
-      "Dummy 1 ",
-      "Dummy 2",
-      "Dummy 3",
-      "Dummy 4",
+      "Hansraj College (DU)",
+      "BA Programme",
+      "12th Class",
+      "10th Class",
     ],
     collaboratorName: dummyCollabs.collaboratorName,
     subCollaborators: dummyCollabs.subCollaborators,
@@ -157,7 +157,7 @@ function AfterConnecting() {
       try {
         setLoading(true);
         const response = await axios.get(
-          `https://uniisphere-backend-latest.onrender.com/api/users/profile/?userId=${userId}`,
+          `https://uniisphere-1.onrender.com/api/users/profile/?userId=${userId}`,
           {
             headers: {
               Authorization: `Bearer ${authToken}`,

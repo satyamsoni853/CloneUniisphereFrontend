@@ -16,6 +16,8 @@
 .ProfileEditSection-left-main-container {
   width: 25%;
   display: flex;
+  position: relative;
+  
   flex-direction: column;
   box-sizing: border-box;
 }

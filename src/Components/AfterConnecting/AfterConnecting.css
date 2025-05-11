@@ -5,7 +5,7 @@
   align-items: flex-start;
   width: 100%;
   min-height: 100vh;
-  padding: 1rem;
+  /* padding: 1rem; */
   box-sizing: border-box;
 }
 
@@ -117,7 +117,8 @@
   font-weight: 600;
   color: #666;
 }
-.afterconnectinginProfile-about{
+
+.afterconnectinginProfile-about {
   text-transform: capitalize;
 }
 
@@ -224,8 +225,6 @@
   border-top: 10px solid #f9f6f6;
   border-bottom: 10px solid #f9f6f6;
   padding: 1.5rem;
-  /* width: 600px; */
-  
 }
 
 .afterconnectinginProfile-full-section-goal-button {
@@ -236,18 +235,14 @@
   cursor: pointer;
   font-size: 0.875rem;
 }
-.afterconnectinginProfile-full-section-Back{
+
+.afterconnectinginProfile-full-section-Back,
+.afterconnectinginProfile-full-section-Forward,
+.afterconnectinginProfile-full-section-left-btn,
+.afterconnectinginProfile-full-section-right-btn {
   font-size: 2rem;
 }
-.afterconnectinginProfile-full-section-Forward{
-  font-size: 2rem;
-}
-.afterconnectinginProfile-full-section-left-btn {
-  font-size: 2rem;
-}
-.afterconnectinginProfile-full-section-right-btn{
-  font-size: 2rem;
-}
+
 /* Upload Slider */
 .afterconnectinginProfile-full-section-upload-slider-box {
   border-bottom: 10px solid #f9f6f6;
@@ -361,7 +356,8 @@
   width: 100%;
   overflow: hidden;
 }
-.afterconnectinginProfile-full-section-heading{
+
+.afterconnectinginProfile-full-section-heading {
   font-size: 1.6rem;
   font-weight: 600;
 }
@@ -484,7 +480,6 @@
 
 .afterconnectinginProfile-full-section-para {
   text-align: center;
-  
   font-size: 0.875rem;
   color: #666;
 }
@@ -547,63 +542,64 @@
     width: 60%;
   }
 
-  .afterconnectinginProfile-full-section-container {
-    max-width: 500px;
+  .afterconnectinginInterest-right-main-container {
+    width: 40%;
+    padding-left: 20px;
+    justify-content: flex-start;
   }
-}
-@media only screen and (min-width:1023px) and (max-width:1368px){
+
   .afterconnectinginProfile-full-section-mainParent {
- 
-  margin-top: 70px;
-}
-  .afterconnectinginInterest-left-main-container{
-    display: none;
+    margin-top: 70px;
   }
-  .afterconnectinginInterest-right-main-container{
+
+  .afterconnectinginProfile-full-section-container {
     width: 100%;
-   
-    display: flex;
-    padding-left: 50px;
+    margin: 0;
+    max-width: 550px;
   }
-  .afterconnectinginProfile-full-section-container{
-    width: 100%;
-     margin:0;
-  }
-  .afterconnectinginInterest-main-container{
-    
-    display: flex;
+
+  .afterconnectinginInterest-main-container {
     padding: 0 20px;
     justify-content: space-between;
   }
 
   .afterconnectinginProfile-full-section-profile-info p:nth-child(2),
-  .afterconnectinginProfile-full-section-profile-info p:nth-child(3)
-  {
-      
-      padding-top: 8px;
-       
+  .afterconnectinginProfile-full-section-profile-info p:nth-child(3) {
+    padding-top: 8px;
   }
 }
-@media only screen and (min-width:1023px) and (max-width:1368px) and (orientation:landscape){
-  .afterconnectinginInterest-left-main-container{
-    display: block;
-  }
-  .afterconnectinginProfile-full-section-mainParent {
 
-  margin-top: 0px;
-}
-  .afterconnectinginProfile-full-section-container{
+/* Tablet Landscape: Restore Left Section (1023px to 1368px, landscape) */
+@media only screen and (min-width: 1023px) and (max-width: 1368px) and (orientation: landscape) {
+  .afterconnectinginInterest-left-main-container {
+    display: flex;
+    width: 25%;
+  }
+
+  .afterconnectinginFullFlowerSectionPage-middle-main-container {
+    width: 50%;
+  }
+
+  .afterconnectinginInterest-right-main-container {
+    width: 25%;
+  }
+
+  .afterconnectinginProfile-full-section-mainParent {
+    margin-top: 0;
+  }
+
+  .afterconnectinginProfile-full-section-container {
     width: 100%;
     margin-left: 10px;
     max-width: 500px;
   }
-  .afterconnectinginInterest-main-container{
-    
-    display: block;
-     
+
+  .afterconnectinginInterest-main-container {
+    display: flex;
   }
 }
- 
+
+/* Mobile: Hide Both Left and Right Sections (below 900px) */
 @media (max-width: 900px) {
   .afterconnectinginInterest-main-container {
     flex-wrap: wrap;
@@ -638,17 +634,6 @@
 
 /* Mobile Adjustments (below 768px) */
 @media (max-width: 768px) {
-  .afterconnectinginProfile-full-section-mainParent {
-
-  margin-top: 0px;
-}
-  .afterconnectinginProfile-full-section-mainParent {
-    width: 100%;
-  }
-
-  .afterconnectinginProfile-full-section-container{
-    margin: 0;
-  }
   .afterconnectinginProfile-full-section-top-nav-section {
     display: flex;
   }
@@ -706,26 +691,16 @@
 
   .afterconnectinginProfile-full-section-top-nav-section {
     display: flex;
-    
-  }
- 
-  .afterconnectinginProfile-full-section-profile-header {
-    justify-content: end;
-    width: 100%;
-    gap: 1rem;
-   
   }
 
-  .afterconnectinginProfile-full-section-profile-info{
-    width: 100%;
-    display: flex;
-    align-items: flex-end;
-    padding: 0;
+  .afterconnectinginProfile-full-section-profile-header {
+    justify-content: center;
+    gap: 1rem;
   }
+
   .afterconnectinginProfile-full-section-imageContainer {
-     
-    width: 100px;
-     
+    height: 6rem;
+    width: 6rem;
   }
 
   .afterconnectinginProfile-full-section-name {
@@ -745,12 +720,9 @@
   .afterconnectinginProfile-full-section-connectionsDetails span {
     font-size: 1.25rem;
   }
- .afterconnectinginProfile-full-section-right-btn,
-.afterconnectinginProfile-full-section-left-btn {
-  display: none;
-}
+
   .afterconnectinginProfile-full-section-each-slide {
-    flex: 0 0 108%;
+    flex: 0 0 100%;
   }
 
   .afterconnectinginProfile-full-section-experince-inner-div {
@@ -765,8 +737,8 @@
   }
 
   .afterconnectinginProfile-full-section-collab-image {
-    width: 80px;
-    height: 50px;
+    height: 3rem;
+    width: 3rem;
   }
 
   .afterconnectinginProfile-full-section-buttons-section {
@@ -778,9 +750,9 @@
     height: 1.5rem;
     font-size: 0.875rem;
   }
-  
 }
 
+/* Extra Small Mobile (below 320px) */
 @media (max-width: 320px) {
   .afterconnectinginProfile-full-section-container {
     width: 100%;
@@ -792,10 +764,10 @@
     overflow-x: hidden;
   }
 
-   /* .afterconnectinginProfile-full-section-slide-track{
-    flex: 0 0 90%;
-   }
-    */
+  .afterconnectinginProfile-full-section-imageContainer {
+    height: 3rem;
+    width: 3rem;
+  }
 
   .afterconnectinginProfile-full-section-btn {
     width: 100%;

@@ -635,3 +635,12 @@
 }
 
  
+/* Hide navbar on desktop and tablet (min-width: 750px) */
+@media (min-width: 780px) {
+  .mobile-navbar {
+    display: none;
+  }
+  .mobile-navbar-container {
+    display: none;
+  }
+}

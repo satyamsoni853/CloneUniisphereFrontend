@@ -1048,3 +1048,8 @@ input:checked + .slider {
     height: 50px;
   }
 }
+@media (max-width: 780px) {
+ .desktop-navbar-1  {
+display: none;
+}
+}
