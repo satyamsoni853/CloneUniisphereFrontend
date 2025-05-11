@@ -360,9 +360,9 @@ function ProfileEditSection() {
                       <Link to={`/PersonalInfoUpdate/${userId}`}>
                         <FiEdit className="Followers-middle-section-2-icon-public" />
                       </Link>
-                      <div className="name-container">
-                        <p>{name}</p>
+                      <div className="Followers-middle-name-container">
                         <span>(He/Him)</span>
+                        <p>{name}</p>
                       </div>
                     </div>
                     <p className="Followers-middle-section-2-profile-info-public-title">

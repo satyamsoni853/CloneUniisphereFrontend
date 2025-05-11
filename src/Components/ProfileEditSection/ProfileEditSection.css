@@ -14,10 +14,12 @@
 
 /* Left container */
 .ProfileEditSection-left-main-container {
-  width: 25%;
+  width: 30%;
+ padding: 0 !important ;
+ margin: 0 !important;
   display: flex;
   position: relative;
-  
+  align-items: flex-start;
   flex-direction: column;
   box-sizing: border-box;
 }
@@ -138,16 +140,22 @@
 /* Profile info */
 .Followers-middle-section-2-profile-info-public {
   display: flex;
+ 
   flex-direction: column;
   align-items: end;
   justify-content: center;
   gap: 8px;
 }
+.Followers-middle-name-container{
+  display: flex;
+  align-items: center;
+}
 
 .Followers-middle-section-2-nameAndEdit-public {
   display: flex;
   align-items: center;
-  gap: 10px;
+ gap: 20px;
+ 
 }
 
 .Followers-middle-section-2-nameAndEdit-public p {
@@ -396,158 +404,157 @@
 @media (max-width: 480px) {
   /* ProfileEditSection.css - Mobile Only (≤767px) */
 
-/* Main Container */
-.ProfileEditSection-main-container {
-  flex-direction: column;
-  padding: 10px;
-  height: auto;
-  width: 100%;
-  box-sizing: border-box;
-}
+  /* Main Container */
+  .ProfileEditSection-main-container {
+    flex-direction: column;
+    padding: 10px;
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
 
-/* Left Container */
-.ProfileEditSection-left-main-container {
-  display: none; /* Hidden on mobile */
-}
+  /* Left Container */
+  .ProfileEditSection-left-main-container {
+    display: none; /* Hidden on mobile */
+  }
 
-/* Middle Container */
-.ProfileEditSection-middle-main-container {
-  width: 100%;
-  padding: 10px 0;
-  margin-bottom: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  /* Middle Container */
+  .ProfileEditSection-middle-main-container {
+    width: 100%;
+    padding: 10px 0;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-/* Right Container */
-.ProfileEditSection-right-main-container {
-  display: none; /* Hidden on mobile */
-}
+  /* Right Container */
+  .ProfileEditSection-right-main-container {
+    display: none; /* Hidden on mobile */
+  }
 
-/* Middle Section */
-.Followers-middle-section-2-middle-section-public {
-  width: 100%; /* Full width for mobile */
-  margin-top: 0;
-  box-shadow: none;
-  padding: 10px;
-  border-radius: 8px;
-}
+  /* Middle Section */
+  .Followers-middle-section-2-middle-section-public {
+    width: 100%; /* Full width for mobile */
+    margin-top: 0;
+    box-shadow: none;
+    padding: 10px;
+    border-radius: 8px;
+  }
 
-/* Profile Header */
-.Followers-middle-section-2-profile-header-public {
-  display: flex;
-  flex-direction: row-reverse;
-  width: 90%;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5px;
-  font-size: 18px;
-  margin: 10px 10px;
-  text-align: center;
-  gap: 10px;
-}
+  /* Profile Header */
+  .Followers-middle-section-2-profile-header-public {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 90%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    font-size: 18px;
+    margin: 10px 10px;
+    text-align: center;
+    gap: 10px;
+  }
 
-.Followers-middle-section-2-collabsDetails-public span,
-.Followers-middle-section-2-connectionsDetails-public span {
-  font-weight: 500;
-  font-size: 30px;
-  text-align: center;
-}
+  .Followers-middle-section-2-collabsDetails-public span,
+  .Followers-middle-section-2-connectionsDetails-public span {
+    font-weight: 500;
+    font-size: 30px;
+    text-align: center;
+  }
 
-.Followers-middle-section-2-profile-header-public div {
-  display: flex;
-  flex-direction: column-reverse;
-}
+  .Followers-middle-section-2-profile-header-public div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 
-/* Profile Image */
-.Followers-middle-section-2-imageContainer-public {
-  position: relative;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-bottom: 20px;
-}
+  /* Profile Image */
+  .Followers-middle-section-2-imageContainer-public {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
 
-.Followers-middle-section-2-profile-pic-public {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  .Followers-middle-section-2-profile-pic-public {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-/* Profile Picture Edit */
-.profile-picture-edit-label {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: #007bff;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
+  /* Profile Picture Edit */
+  .profile-picture-edit-label {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #007bff;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
 
-.edit-icon {
-  color: white;
-  font-size: 16px;
-}
+  .edit-icon {
+    color: white;
+    font-size: 16px;
+  }
 
-/* Profile Info */
-.Followers-middle-section-2-profile-info-public {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  line-height: 1.2;
-  margin: 10px 10px;
-}
+  /* Profile Info */
+  .Followers-middle-section-2-profile-info-public {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    line-height: 1.2;
+    margin: 10px 10px;
+  }
 
-.Followers-middle-section-2-profile-info-public-title {
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 2.1;
-}
+  .Followers-middle-section-2-profile-info-public-title {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 2.1;
+  }
 
-.Followers-middle-section-2-profile-info-public-address {
-  font-size: 16px;
-  font-weight: 400;
-}
+  .Followers-middle-section-2-profile-info-public-address {
+    font-size: 16px;
+    font-weight: 400;
+  }
 
-/* Name and Edit */
-.Followers-middle-section-2-nameAndEdit-public {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  font-size: 20px;
-  gap: 5px;
-}
+  /* Name and Edit */
+  .Followers-middle-section-2-nameAndEdit-public {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 20px;
+    gap: 5px;
+  }
 
-.Followers-middle-section-2-nameAndEdit-public p {
-  font-size: 22px;
-  font-weight: 500;
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-}
+  .Followers-middle-section-2-nameAndEdit-public p {
+    font-size: 22px;
+    font-weight: 500;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+  }
 
-.Followers-middle-section-2-nameAndEdit-public p span {
-  font-size: 15px;
-  font-weight: 400;
-  color: #9e9b9b;
-  margin-right: 3px;
-}
+  .Followers-middle-section-2-nameAndEdit-public p span {
+    font-size: 15px;
+    font-weight: 400;
+    color: #9e9b9b;
+    margin-right: 3px;
+  }
 
-/* Profile Buttons */
-.Followers-middle-section-2-profile-buttons-public {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin: 10px 10px;
-  margin-bottom: 10px;
-}
-
+  /* Profile Buttons */
+  .Followers-middle-section-2-profile-buttons-public {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin: 10px 10px;
+    margin-bottom: 10px;
+  }
 }
