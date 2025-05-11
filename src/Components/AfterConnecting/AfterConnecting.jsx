@@ -18,7 +18,11 @@ import uploadimage3 from "./UploadImage3.png";
 import { Link } from "react-router-dom";
 
 function AfterConnecting() {
-  const { userId } = useParams();
+  let { userId } = useParams();
+  if (!userId) {
+    userId = localStorage.getItem("SearchUserId");
+  }
+  console.log("userId used:", userId);
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [loading, setLoading] = useState(true);
@@ -131,10 +135,10 @@ function AfterConnecting() {
   const [isExpanded, setIsExpanded] = useState(false);
   const color = ["#F3FDF4", "#FDF9F9", "#eaead6", "#F7F7F7"];
   const educationColors = [
-    "#FFD1DC", // Soft Pink
-    "#C1E1C1", // Light Green
-    "#ADD8E6", // Light Blue
-    "#FFFACD", // Lemon Chiffon
+    "#FFD1DC", 
+    "#C1E1C1", 
+    "#ADD8E6", 
+    "#FFFACD", 
   ];
 
   useEffect(() => {
@@ -146,6 +150,7 @@ function AfterConnecting() {
   useEffect(() => {
     const fetchProfileData = async () => {
       const authToken = localStorage.getItem("authToken");
+  //    console.log("authToken", authToken);
 
       if (!authToken) {
         setError("Authentication required");
@@ -154,10 +159,17 @@ function AfterConnecting() {
         return;
       }
 
+      if (!userId) {
+        setError("No userId provided");
+        setProfileData(defaultData);
+        setLoading(false);
+        return;
+      }
+
       try {
         setLoading(true);
         const response = await axios.get(
-          `https://uniisphere-1.onrender.com/api/users/profile/?userId=${userId}`,
+          `https://uniisphere-backend-latest.onrender.com/api/users/profile/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${authToken}`,
