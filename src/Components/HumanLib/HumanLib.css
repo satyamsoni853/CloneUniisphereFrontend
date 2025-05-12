@@ -1098,3 +1098,92 @@
     padding: 5px 0;
     font-size: 1rem;
   }
+
+  /* human lib comming soon   */
+
+
+  /* Styling for the "Not Enough Users" page in Phase 2 */
+.HumanLib-not-enough-users {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 30vh;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background-color: white; /* White background as shown in the image */
+  border: 1px solid #ddd; /* Light border around the content */
+  border-radius: 40px;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Optional: Add decorative shapes in the background (using pseudo-elements) */
+.HumanLib-not-enough-users::before,
+.HumanLib-not-enough-users::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.HumanLib-not-enough-users::before {
+  top: -50px;
+  left: -50px;
+  width: 150px;
+  height: 150px;
+  background-color: #ffe5b4; /* Light peach */
+}
+
+.HumanLib-not-enough-users::after {
+  bottom: -50px;
+  right: -50px;
+  width: 150px;
+  height: 150px;
+  background-color: #b3e5fc; /* Light blue */
+}
+
+/* Close button styling (X button in the top-right corner) */
+.HumanLib-not-enough-users::after {
+  content: '✕';
+  position: absolute;
+  top: 15px;
+  right: px;
+  font-size: 30px;
+  color: #666;
+  cursor: pointer;
+}
+
+/* Adjust title for this page */
+.HumanLib-not-enough-users .HumanLib-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Adjust description for this page */
+.HumanLib-not-enough-users .HumanLib-description {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+/* Style the "Visit Again Later" button */
+.HumanLib-not-enough-users .HumanLib-button.HumanLib-start {
+  background-color: #007bff; /* Blue to match the image */
+  color: #fff;
+  padding: 12px 40px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 25px;
+  margin-bottom: 25px;
+}
+
+.HumanLib-not-enough-users .HumanLib-button.HumanLib-start:hover {
+  background-color: #0056b3; /* Slightly darker blue on hover */
+}
