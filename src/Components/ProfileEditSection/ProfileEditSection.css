@@ -15,10 +15,9 @@
 /* Left container */
 .ProfileEditSection-left-main-container {
   width: 30%;
- padding: 0 !important ;
- margin: 0 !important;
+
   display: flex;
-  position: relative;
+  /* position: relative; */
   align-items: flex-start;
   flex-direction: column;
   box-sizing: border-box;

@@ -129,7 +129,7 @@ function NetworkPage() {
       }
 
       const response = await axios.get(
-        "https://uniisphere-1.onrender.com/users/getAll",
+        "https://uniisphere-backend-latest.onrender.com/api/users/getAll",
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -191,7 +191,7 @@ function NetworkPage() {
       }
 
       const response = await fetch(
-        "https://uniisphere-1.onrender.com/api/getPending",
+        "https://uniisphere-backend-latest.onrender.com/api/connections/getPending",
         {
           method: "POST",
           headers: {
@@ -267,7 +267,7 @@ function NetworkPage() {
 
     try {
       const response = await fetch(
-        `https://uniisphere-1.onrender.com/api/accept/${connectionId}`,
+        `https://uniisphere-backend-latest.onrender.com/api/connections/accept/${connectionId}`,
         {
           method: "POST",
           headers: {
@@ -313,7 +313,7 @@ function NetworkPage() {
 
     try {
       const response = await fetch(
-        `https://uniisphere-1.onrender.com/api/decline/${connectionId}`,
+        `https://uniisphere-backend-latest.onrender.com/api/connections/decline/${connectionId}`,
         {
           method: "POST",
           headers: {
@@ -497,12 +497,12 @@ function NetworkPage() {
                                 className="networkpage-connect-icon"
                                 onClick={handleConnectClick}
                               >
-                                <img src={ConnectSvg} alt="Connect" />
+                                {/* <img src={ConnectSvg} alt="Connect" /> */}
                               </div>
                             </div>
                             <div className="networkpage-stats">
-                              <span>{user.connections} connect</span>
-                              <span>{user.collaborations} collaborate</span>
+                              {/* <span>{user.connections} connect</span> */}
+                              {/* <span>{user.collaborations} collaborate</span> */}
                             </div>
                           </div>
                           {!isMobile  && (
@@ -511,9 +511,9 @@ function NetworkPage() {
                                 {user.username}
                               </h2>
                               <p className="catchup-text">
-                                Catch up with {user.username}! Share updates,
-                                collaborate on projects, or start a new
-                                conversation.
+                                {/* Catch up with {user.username}! Share updates,  */}
+                                {/* collaborate on projects, or start a new
+                                conversation. */}
                               </p>
                             </div>
                           )}
@@ -609,8 +609,7 @@ function NetworkPage() {
                   <button
                     className="networkpage-action-btn  CATCHUP-Btn "
                     onClick={() => handleCatchUpClick()}
-                  >
-                       NEW CONNECTION
+                  >CATCHUP
                   </button>
                   <button
                     className="networkpage-action-btn REQUEST-Btn"
@@ -622,7 +621,8 @@ function NetworkPage() {
                     className="networkpage-action-btn NEW-CONNECTION-Btn"
                     onClick={handleNewConnectionClick}
                   >
-                    CATCHUP
+                    
+                       NEW CONNECTION
                   
                   </button>
                 </div>

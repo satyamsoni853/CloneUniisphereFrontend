@@ -200,7 +200,7 @@ const Books = () => {
               className="main-books-nav-arrow main-books-right-arrow"
               onClick={handleNext}
             >
-              <IoIosArrowForward className="Forword-backword-book-btn" />
+              {/* <IoIosArrowForward className="Forword-backword-book-btn" /> */}
             </button>
           </div>
         </div>

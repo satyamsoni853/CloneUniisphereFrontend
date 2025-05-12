@@ -233,7 +233,7 @@ function MobileMiddleSection() {
 
     try {
       const response = await axios.post(
-        `https://uniisphere-backend-latest.onrender.com/api/connect/${receiverId}`,
+        `https://uniisphere-backend-latest.onrender.com/api/connections/connect/${receiverId}`,
         {
           userId: authData.userId,
           senderName: userData.name || "Anonymous",

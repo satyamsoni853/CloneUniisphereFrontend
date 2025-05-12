@@ -10,6 +10,7 @@
   margin-left: 20px;
   position: fixed;
   top: 75px;
+  left: 0;
   height: 32vh;
   overflow-y: scroll;
   scrollbar-width: none;

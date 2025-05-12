@@ -13,6 +13,8 @@ import CommingSoon from './Components/ComingSoon/ComingSoon.jsx'
 import Guiednest from "./Components/Guiednest/Guiednest.jsx";
 import BlogDescription from "./Components/BlogDescription/BlogDescription.jsx";
 import Help from "./Components/Help/Help.jsx";
+import Terms from './Components/TermsAndCondition/TermsAndCondition.jsx'
+import PrivacyPolicy from './Components/PrivacyPolicy/PrivacyPolicy.jsx'
 
 
 // Lazy load other components
@@ -112,6 +114,8 @@ function App() {
             <Route path="/coming-soon" element={< CommingSoon />} />
             <Route path='/blog-description' element={<BlogDescription/>} />
             <Route path='/helpform' element={<Help/>} />
+            <Route path='/PrivacyPolicy' element={<PrivacyPolicy/>} />
+            <Route path='/Terms' element={<Terms/>} />
 
           </Routes>
         </Suspense>
