@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+.InternzoneComingSoon-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background: linear-gradient(135deg, #1a0b2e, #2e1b4e, #1b263b); */
+  position: relative;
+  overflow: hidden;
+  padding-top: 50px;
+}
+.FreenlancingComingSoon-main-heading{
+    text-align: start;
+    margin-bottom: 30px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+
+@keyframes InternzoneComingSoonParticles {
+  0% {
+    background-position: 0 0, 10px 10px;
+  }
+  100% {
+    background-position: 100px 100px, 110px 110px;
+  }
+}
+
+.InternzoneComingSoon-content {
+  text-align: center;
+  padding: 1rem;
+  max-width: 1200px;
+  z-index: 2;
+}
+
+.InternzoneComingSoon-title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: black;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(0, 255, 255, 0.7);
+}
+
+.InternzoneComingSoon-subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: black;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+.InternzoneComingSoon-form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.InternzoneComingSoon-input {
+  padding: 1.2rem 1.5rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 1.5rem 0 0 1.5rem;
+  background: rgba(255, 255HB, 255, 0.95);
+  color: #000;
+  width: 100%;
+  max-width: 400px;
+  outline: none;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+.InternzoneComingSoon-input:focus {
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+}
+
+.InternzoneComingSoon-button {
+  padding: 1.2rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0 1.5rem 1.5rem 0;
+  background: #00f7ff;
+  color: #1a0b2e;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.InternzoneComingSoon-glow-button {
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.7), 0 0 40px rgba(0, 255, 255, 0.4);
+}
+
+.InternzoneComingSoon-button:hover {
+  background: #00d4ff;
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.9), 0 0 60px rgba(0, 255, 255, 0.6);
+}
+
+.InternzoneComingSoon-timer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.InternzoneComingSoon-timer-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.InternzoneComingSoon-timer-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 30px rgba(0, 255, 255, 0.5);
+}
+
+.InternzoneComingSoon-timer-value {
+  display: block;
+  font-size: 3rem;
+  font-weight: 700;
+  color: black;
+}
+
+.InternzoneComingSoon-timer-label {
+  font-size: 1rem;
+  color: black;
+}
+
+.InternzoneComingSoon-bounce {
+  animation: InternzoneComingSoonBounce 2s infinite ease-in-out;
+}
+
+@keyframes InternzoneComingSoonBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.InternzoneComingSoon-glow {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(0, 255, 255, 0.7);
+}
+
+.InternzoneComingSoon-fade-in {
+  animation: InternzoneComingSoonFadeIn 1.8s ease-out;
+}
+
+@keyframes InternzoneComingSoonFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.InternzoneComingSoon-slide-up {
+  animation: InternzoneComingSoonSlideUp 1.2s ease-out;
+}
+
+@keyframes InternzoneComingSoonSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.InternzoneComingSoon-description{
+  display: flex;
+  margin-bottom:25px;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+}
+
+.InternzoneComingSoon-description-heading{
+  font-size: 30px;
+  text-align: start;
+  font-weight: 700;
+}
+.InternzoneComingSoon-description-text{
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  text-align: justify;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .InternzoneComingSoon-title {
+    font-size: 3rem;
+  }
+
+  .InternzoneComingSoon-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .InternzoneComingSoon-input, .InternzoneComingSoon-button {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .InternzoneComingSoon-timer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .InternzoneComingSoon-timer-value {
+    font-size: 2.5rem;
+  }
+
+  .InternzoneComingSoon-timer-label {
+    font-size: 0.9rem;
+  }
+  .InternzoneComingSoon-description-heading{
+  font-size: 28px;
+   
+}
+.InternzoneComingSoon-description-text{
+  font-size: 20px;
+ 
+}
+
+}
+
+@media (max-width: 480px) {
+  .InternzoneComingSoon-title {
+    font-size: 2.5rem;
+  }
+    .InternzoneComingSoon-description-heading{
+  font-size: 25px;
+   
+}
+.InternzoneComingSoon-description-text{
+  font-size: 17px;
+ 
+}
+
+  .InternzoneComingSoon-subtitle {
+    font-size: 1rem;
+  }
+
+  .InternzoneComingSoon-form {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .InternzoneComingSoon-input {
+    border-radius: 1.5rem;
+    max-width: 100%;
+  }
+
+  .InternzoneComingSoon-button {
+    border-radius: 1.5rem;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .InternzoneComingSoon-timer {
+    grid-template-columns: 1fr;
+  }
+}
