@@ -15,6 +15,12 @@ import BlogDescription from "./Components/BlogDescription/BlogDescription.jsx";
 import Help from "./Components/Help/Help.jsx";
 import Terms from './Components/TermsAndCondition/TermsAndCondition.jsx'
 import PrivacyPolicy from './Components/PrivacyPolicy/PrivacyPolicy.jsx'
+import FreelancingComingSoon from "./Components/AllComingSoon/FreelancingComingSoon.jsx";
+import SkillupComingSoon from "./Components/AllComingSoon/SkillupComingSoon.jsx";
+import GuiednestComingSoon from "./Components/AllComingSoon/GuiednestComingSoon.jsx";
+import InternzoneComingSoon from "./Components/AllComingSoon/InternzoneComingSoon.jsx";
+import EventsComingSoon from "./Components/AllComingSoon/EventsComingSoon.jsx";
+import CommunityComingSoon from "./Components/AllComingSoon/CommunityComingSoon.jsx";
 
 
 // Lazy load other components
@@ -116,6 +122,12 @@ function App() {
             <Route path='/helpform' element={<Help/>} />
             <Route path='/PrivacyPolicy' element={<PrivacyPolicy/>} />
             <Route path='/Terms' element={<Terms/>} />
+            <Route path='/freelancingcomingsoon' element={<FreelancingComingSoon/>} />
+            <Route path='/Skillupcomingsoon' element={<SkillupComingSoon/>} />
+            <Route path='/Guiednestcomingsoon' element={<GuiednestComingSoon/>} />
+            <Route path='/Internzonecomingsoon' element={<InternzoneComingSoon/>} />
+            <Route path='/EventsComingSoon' element={<EventsComingSoon/>} />
+            <Route path='/CommunityComingSoon' element={<CommunityComingSoon/>} />
 
           </Routes>
         </Suspense>

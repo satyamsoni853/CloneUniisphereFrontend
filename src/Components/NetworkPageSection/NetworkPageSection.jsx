@@ -608,7 +608,7 @@ function NetworkPage() {
                 <div className="networkpage-buttons">
                   <button
                     className="networkpage-action-btn  CATCHUP-Btn "
-                    onClick={() => handleCatchUpClick()}
+                    onClick={() => isMobile ? handleNewConnectionClick() :handleCatchUpClick()}
                   >CATCHUP
                   </button>
                   <button
@@ -619,7 +619,7 @@ function NetworkPage() {
                   </button>
                   <button
                     className="networkpage-action-btn NEW-CONNECTION-Btn"
-                    onClick={handleNewConnectionClick}
+                    onClick={()=>isMobile ? handleCatchUpClick() : handleNewConnectionClick()}
                   >
                     
                        NEW CONNECTION

@@ -11,7 +11,7 @@ body {
   overflow-x: hidden;
 }
 
-.ComingSoon-container {
+.SkillupComingSoon-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -21,9 +21,15 @@ body {
   overflow: hidden;
   padding-top: 50px;
 }
+.FreenlancingComingSoon-main-heading{
+    text-align: start;
+    margin-bottom: 30px;
+    font-size: 22px;
+    font-weight: 700;
+}
 
 
-@keyframes ComingSoonParticles {
+@keyframes SkillupComingSoonParticles {
   0% {
     background-position: 0 0, 10px 10px;
   }
@@ -32,14 +38,14 @@ body {
   }
 }
 
-.ComingSoon-content {
+.SkillupComingSoon-content {
   text-align: center;
   padding: 1rem;
   max-width: 1200px;
   z-index: 2;
 }
 
-.ComingSoon-title {
+.SkillupComingSoon-title {
   font-size: 4rem;
   font-weight: 700;
   color: black;
@@ -47,7 +53,7 @@ body {
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(0, 255, 255, 0.7);
 }
 
-.ComingSoon-subtitle {
+.SkillupComingSoon-subtitle {
   font-size: 1.5rem;
   font-weight: 300;
   color: black;
@@ -55,13 +61,13 @@ body {
   line-height: 1.6;
 }
 
-.ComingSoon-form {
+.SkillupComingSoon-form {
   display: flex;
   justify-content: center;
   margin-bottom: 3rem;
 }
 
-.ComingSoon-input {
+.SkillupComingSoon-input {
   padding: 1.2rem 1.5rem;
   font-size: 1.2rem;
   border: none;
@@ -74,11 +80,11 @@ body {
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
 }
 
-.ComingSoon-input:focus {
+.SkillupComingSoon-input:focus {
   box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
 }
 
-.ComingSoon-button {
+.SkillupComingSoon-button {
   padding: 1.2rem 2rem;
   font-size: 1.2rem;
   font-weight: 600;
@@ -90,17 +96,17 @@ body {
   transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.ComingSoon-glow-button {
+.SkillupComingSoon-glow-button {
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.7), 0 0 40px rgba(0, 255, 255, 0.4);
 }
 
-.ComingSoon-button:hover {
+.SkillupComingSoon-button:hover {
   background: #00d4ff;
   transform: translateY(-3px);
   box-shadow: 0 0 30px rgba(0, 255, 255, 0.9), 0 0 60px rgba(0, 255, 255, 0.6);
 }
 
-.ComingSoon-timer {
+.SkillupComingSoon-timer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
@@ -108,7 +114,7 @@ body {
   margin: 0 auto;
 }
 
-.ComingSoon-timer-card {
+.SkillupComingSoon-timer-card {
   background: rgba(255, 255, 255, 0.1);
   padding: 1.5rem;
   border-radius: 1.5rem;
@@ -117,28 +123,28 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.ComingSoon-timer-card:hover {
+.SkillupComingSoon-timer-card:hover {
   transform: scale(1.1);
   box-shadow: 0 12px 30px rgba(0, 255, 255, 0.5);
 }
 
-.ComingSoon-timer-value {
+.SkillupComingSoon-timer-value {
   display: block;
   font-size: 3rem;
   font-weight: 700;
   color: black;
 }
 
-.ComingSoon-timer-label {
+.SkillupComingSoon-timer-label {
   font-size: 1rem;
   color: black;
 }
 
-.ComingSoon-bounce {
-  animation: ComingSoonBounce 2s infinite ease-in-out;
+.SkillupComingSoon-bounce {
+  animation: SkillupComingSoonBounce 2s infinite ease-in-out;
 }
 
-@keyframes ComingSoonBounce {
+@keyframes SkillupComingSoonBounce {
   0%, 100% {
     transform: translateY(0);
   }
@@ -147,15 +153,15 @@ body {
   }
 }
 
-.ComingSoon-glow {
+.SkillupComingSoon-glow {
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(0, 255, 255, 0.7);
 }
 
-.ComingSoon-fade-in {
-  animation: ComingSoonFadeIn 1.8s ease-out;
+.SkillupComingSoon-fade-in {
+  animation: SkillupComingSoonFadeIn 1.8s ease-out;
 }
 
-@keyframes ComingSoonFadeIn {
+@keyframes SkillupComingSoonFadeIn {
   from {
     opacity: 0;
     transform: translateY(40px);
@@ -166,11 +172,11 @@ body {
   }
 }
 
-.ComingSoon-slide-up {
-  animation: ComingSoonSlideUp 1.2s ease-out;
+.SkillupComingSoon-slide-up {
+  animation: SkillupComingSoonSlideUp 1.2s ease-out;
 }
 
-@keyframes ComingSoonSlideUp {
+@keyframes SkillupComingSoonSlideUp {
   from {
     opacity: 0;
     transform: translateY(50px);
@@ -181,20 +187,20 @@ body {
   }
 }
 
-.ComingSoon-description{
+.SkillupComingSoon-description{
   display: flex;
-  margin-top: 25px;
+  margin-bottom:25px;
   flex-direction: column;
   gap: 20px;
   max-width: 800px;
 }
 
-.ComingSoon-description-heading{
+.SkillupComingSoon-description-heading{
   font-size: 30px;
   text-align: start;
   font-weight: 700;
 }
-.ComingSoon-description-text{
+.SkillupComingSoon-description-text{
   font-size: 22px;
   font-weight: 400;
   line-height: 1;
@@ -204,36 +210,36 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .ComingSoon-title {
+  .SkillupComingSoon-title {
     font-size: 3rem;
   }
 
-  .ComingSoon-subtitle {
+  .SkillupComingSoon-subtitle {
     font-size: 1.2rem;
   }
 
-  .ComingSoon-input, .ComingSoon-button {
+  .SkillupComingSoon-input, .SkillupComingSoon-button {
     font-size: 1rem;
     padding: 1rem;
   }
 
-  .ComingSoon-timer {
+  .SkillupComingSoon-timer {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 
-  .ComingSoon-timer-value {
+  .SkillupComingSoon-timer-value {
     font-size: 2.5rem;
   }
 
-  .ComingSoon-timer-label {
+  .SkillupComingSoon-timer-label {
     font-size: 0.9rem;
   }
-  .ComingSoon-description-heading{
+  .SkillupComingSoon-description-heading{
   font-size: 28px;
    
 }
-.ComingSoon-description-text{
+.SkillupComingSoon-description-text{
   font-size: 20px;
  
 }
@@ -241,40 +247,40 @@ body {
 }
 
 @media (max-width: 480px) {
-  .ComingSoon-title {
+  .SkillupComingSoon-title {
     font-size: 2.5rem;
   }
-    .ComingSoon-description-heading{
+    .SkillupComingSoon-description-heading{
   font-size: 25px;
    
 }
-.ComingSoon-description-text{
+.SkillupComingSoon-description-text{
   font-size: 17px;
  
 }
 
-  .ComingSoon-subtitle {
+  .SkillupComingSoon-subtitle {
     font-size: 1rem;
   }
 
-  .ComingSoon-form {
+  .SkillupComingSoon-form {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
   }
 
-  .ComingSoon-input {
+  .SkillupComingSoon-input {
     border-radius: 1.5rem;
     max-width: 100%;
   }
 
-  .ComingSoon-button {
+  .SkillupComingSoon-button {
     border-radius: 1.5rem;
     width: 100%;
     max-width: 300px;
   }
 
-  .ComingSoon-timer {
+  .SkillupComingSoon-timer {
     grid-template-columns: 1fr;
   }
 }

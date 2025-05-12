@@ -11,7 +11,7 @@ body {
   overflow-x: hidden;
 }
 
-.ComingSoon-container {
+.EventsComingSoon-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -21,9 +21,15 @@ body {
   overflow: hidden;
   padding-top: 50px;
 }
+.FreenlancingComingSoon-main-heading{
+    text-align: start;
+    margin-bottom: 30px;
+    font-size: 22px;
+    font-weight: 700;
+}
 
 
-@keyframes ComingSoonParticles {
+@keyframes EventsComingSoonParticles {
   0% {
     background-position: 0 0, 10px 10px;
   }
@@ -32,14 +38,14 @@ body {
   }
 }
 
-.ComingSoon-content {
+.EventsComingSoon-content {
   text-align: center;
   padding: 1rem;
   max-width: 1200px;
   z-index: 2;
 }
 
-.ComingSoon-title {
+.EventsComingSoon-title {
   font-size: 4rem;
   font-weight: 700;
   color: black;
@@ -47,7 +53,7 @@ body {
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(0, 255, 255, 0.7);
 }
 
-.ComingSoon-subtitle {
+.EventsComingSoon-subtitle {
   font-size: 1.5rem;
   font-weight: 300;
   color: black;
@@ -55,13 +61,13 @@ body {
   line-height: 1.6;
 }
 
-.ComingSoon-form {
+.EventsComingSoon-form {
   display: flex;
   justify-content: center;
   margin-bottom: 3rem;
 }
 
-.ComingSoon-input {
+.EventsComingSoon-input {
   padding: 1.2rem 1.5rem;
   font-size: 1.2rem;
   border: none;
@@ -74,11 +80,11 @@ body {
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
 }
 
-.ComingSoon-input:focus {
+.EventsComingSoon-input:focus {
   box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
 }
 
-.ComingSoon-button {
+.EventsComingSoon-button {
   padding: 1.2rem 2rem;
   font-size: 1.2rem;
   font-weight: 600;
@@ -90,17 +96,17 @@ body {
   transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.ComingSoon-glow-button {
+.EventsComingSoon-glow-button {
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.7), 0 0 40px rgba(0, 255, 255, 0.4);
 }
 
-.ComingSoon-button:hover {
+.EventsComingSoon-button:hover {
   background: #00d4ff;
   transform: translateY(-3px);
   box-shadow: 0 0 30px rgba(0, 255, 255, 0.9), 0 0 60px rgba(0, 255, 255, 0.6);
 }
 
-.ComingSoon-timer {
+.EventsComingSoon-timer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
@@ -108,7 +114,7 @@ body {
   margin: 0 auto;
 }
 
-.ComingSoon-timer-card {
+.EventsComingSoon-timer-card {
   background: rgba(255, 255, 255, 0.1);
   padding: 1.5rem;
   border-radius: 1.5rem;
@@ -117,28 +123,28 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.ComingSoon-timer-card:hover {
+.EventsComingSoon-timer-card:hover {
   transform: scale(1.1);
   box-shadow: 0 12px 30px rgba(0, 255, 255, 0.5);
 }
 
-.ComingSoon-timer-value {
+.EventsComingSoon-timer-value {
   display: block;
   font-size: 3rem;
   font-weight: 700;
   color: black;
 }
 
-.ComingSoon-timer-label {
+.EventsComingSoon-timer-label {
   font-size: 1rem;
   color: black;
 }
 
-.ComingSoon-bounce {
-  animation: ComingSoonBounce 2s infinite ease-in-out;
+.EventsComingSoon-bounce {
+  animation: EventsComingSoonBounce 2s infinite ease-in-out;
 }
 
-@keyframes ComingSoonBounce {
+@keyframes EventsComingSoonBounce {
   0%, 100% {
     transform: translateY(0);
   }
@@ -147,15 +153,15 @@ body {
   }
 }
 
-.ComingSoon-glow {
+.EventsComingSoon-glow {
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(0, 255, 255, 0.7);
 }
 
-.ComingSoon-fade-in {
-  animation: ComingSoonFadeIn 1.8s ease-out;
+.EventsComingSoon-fade-in {
+  animation: EventsComingSoonFadeIn 1.8s ease-out;
 }
 
-@keyframes ComingSoonFadeIn {
+@keyframes EventsComingSoonFadeIn {
   from {
     opacity: 0;
     transform: translateY(40px);
@@ -166,11 +172,11 @@ body {
   }
 }
 
-.ComingSoon-slide-up {
-  animation: ComingSoonSlideUp 1.2s ease-out;
+.EventsComingSoon-slide-up {
+  animation: EventsComingSoonSlideUp 1.2s ease-out;
 }
 
-@keyframes ComingSoonSlideUp {
+@keyframes EventsComingSoonSlideUp {
   from {
     opacity: 0;
     transform: translateY(50px);
@@ -181,20 +187,20 @@ body {
   }
 }
 
-.ComingSoon-description{
+.EventsComingSoon-description{
   display: flex;
-  margin-top: 25px;
+  margin-bottom:25px;
   flex-direction: column;
   gap: 20px;
   max-width: 800px;
 }
 
-.ComingSoon-description-heading{
+.EventsComingSoon-description-heading{
   font-size: 30px;
   text-align: start;
   font-weight: 700;
 }
-.ComingSoon-description-text{
+.EventsComingSoon-description-text{
   font-size: 22px;
   font-weight: 400;
   line-height: 1;
@@ -204,36 +210,36 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .ComingSoon-title {
+  .EventsComingSoon-title {
     font-size: 3rem;
   }
 
-  .ComingSoon-subtitle {
+  .EventsComingSoon-subtitle {
     font-size: 1.2rem;
   }
 
-  .ComingSoon-input, .ComingSoon-button {
+  .EventsComingSoon-input, .EventsComingSoon-button {
     font-size: 1rem;
     padding: 1rem;
   }
 
-  .ComingSoon-timer {
+  .EventsComingSoon-timer {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 
-  .ComingSoon-timer-value {
+  .EventsComingSoon-timer-value {
     font-size: 2.5rem;
   }
 
-  .ComingSoon-timer-label {
+  .EventsComingSoon-timer-label {
     font-size: 0.9rem;
   }
-  .ComingSoon-description-heading{
+  .EventsComingSoon-description-heading{
   font-size: 28px;
    
 }
-.ComingSoon-description-text{
+.EventsComingSoon-description-text{
   font-size: 20px;
  
 }
@@ -241,40 +247,40 @@ body {
 }
 
 @media (max-width: 480px) {
-  .ComingSoon-title {
+  .EventsComingSoon-title {
     font-size: 2.5rem;
   }
-    .ComingSoon-description-heading{
+    .EventsComingSoon-description-heading{
   font-size: 25px;
    
 }
-.ComingSoon-description-text{
+.EventsComingSoon-description-text{
   font-size: 17px;
  
 }
 
-  .ComingSoon-subtitle {
+  .EventsComingSoon-subtitle {
     font-size: 1rem;
   }
 
-  .ComingSoon-form {
+  .EventsComingSoon-form {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
   }
 
-  .ComingSoon-input {
+  .EventsComingSoon-input {
     border-radius: 1.5rem;
     max-width: 100%;
   }
 
-  .ComingSoon-button {
+  .EventsComingSoon-button {
     border-radius: 1.5rem;
     width: 100%;
     max-width: 300px;
   }
 
-  .ComingSoon-timer {
+  .EventsComingSoon-timer {
     grid-template-columns: 1fr;
   }
 }
