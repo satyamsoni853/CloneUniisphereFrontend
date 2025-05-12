@@ -745,37 +745,37 @@ function DesktopNavbar() {
           </div>
 
           <div className="connections-item">
-            <Link to="/coming-soon" className="connection-link">
+            <Link to="/Guiednestcomingsoon" className="connection-link">
               MentorShip
             </Link>
           </div>
 
           <div className="connections-item">
-            <Link to="/coming-soon" className="connection-link">
+            <Link to="/Skillupcomingsoon" className="connection-link">
               Skillup
             </Link>
           </div>
 
           <div className="connections-item">
-            <Link to="/coming-soon" className="connection-link">
+            <Link to="/freelancingcomingsoon" className="connection-link">
               Freelancing
             </Link>
           </div>
 
           <div className="connections-item">
-            <Link to="/coming-soon" className="connection-link">
+            <Link to="/Internzonecomingsoon" className="connection-link">
               Intern Zone
             </Link>
           </div>
 
           <div className="connections-item">
-            <Link to="/coming-soon" className="connection-link">
+            <Link to="/CommunityComingSoon" className="connection-link">
               Community
             </Link>
           </div>
 
           <div className="connections-item">
-            <Link to="/coming-soon" className="connection-link">
+            <Link to="/EventsComingSoon" className="connection-link">
               Events
             </Link>
           </div>
