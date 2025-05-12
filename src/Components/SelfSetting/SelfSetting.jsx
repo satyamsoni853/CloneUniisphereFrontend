@@ -166,17 +166,17 @@ function SelfSetting({ onSignOut }) {
             </div>
             <div className="settings-menu-item">
               <IoMdPeople className="settings-icon" />
-              <span>Help Center</span>
+              <span><Link to="/helpform" >Help Center</Link></span>
               <span className="settings-arrow"></span>
             </div>
             <div className="settings-menu-item">
               <SiGnuprivacyguard className="settings-icon" />
-              <span>Privacy & Policy</span>
+              <span><Link to="/PrivacyPolicy" >Privacy & Policy</Link></span>
               <span className="settings-arrow"></span>
             </div>
             <div className="settings-menu-item">
               <FaBook className="settings-icon" />
-              <span>User Agreement</span>
+              <span><Link to="/Terms" >User Agreement</Link></span>
               <span className="settings-arrow"></span>
             </div>
             <div className="settings-menu-item">

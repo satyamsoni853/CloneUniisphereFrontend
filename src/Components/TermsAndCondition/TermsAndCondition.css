@@ -1,0 +1,123 @@
+.terms-and-condition-main-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+}
+
+.terms-and-conditions-logo-and-cancel {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.terms-and-conditions-logo {
+    height: 90px;
+    width: 90px;
+    object-fit: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.terms-and-condition-cross {
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.terms-and-condition-cross:hover {
+    color: #555;
+}
+
+.terms-and-conditons-heading {
+    font-size: 4rem;
+    font-weight: 700;
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+.terms-and-condition-text-container {
+    width: 80%;
+    max-width: 1000px;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.terms-and-condition-text {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    letter-spacing: 0.05rem;
+    text-align: justify;
+}
+
+/* Tablet screens (≤768px) */
+@media (max-width: 768px) {
+    .terms-and-condition-main-container {
+        padding: 1.5rem 0.5rem;
+    }
+
+    .terms-and-conditions-logo {
+        height: 50px;
+        width: 50px;
+    }
+
+    .terms-and-condition-cross {
+        font-size: 1.5rem;
+    }
+
+    .terms-and-conditons-heading {
+        font-size: 2.5rem;
+    }
+
+    .terms-and-condition-text-container {
+        width: 90%;
+    }
+
+    .terms-and-condition-text {
+        font-size: 1rem;
+        letter-spacing: 0.03rem;
+    }
+}
+
+/* Mobile screens (≤480px) */
+@media (max-width: 480px) {
+    .terms-and-condition-main-container {
+        padding: 1rem 0.5rem;
+    }
+
+    .terms-and-conditions-logo {
+        height: 40px;
+        width: 40px;
+    }
+
+    .terms-and-condition-cross {
+        font-size: 1.2rem;
+    }
+
+    .terms-and-conditons-heading {
+        font-size: 1.8rem;
+    }
+
+    .terms-and-condition-text-container {
+        width: 95%;
+        margin-top: 1rem;
+    }
+
+    .terms-and-condition-text {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        letter-spacing: 0.02rem;
+        text-align: left; /* Left-aligned for better mobile readability */
+    }
+}

@@ -483,11 +483,11 @@ const Blog = () => {
                             <div className="desktop-blog-likes">
                               {blog.likes} Likes • {blog.views} Views
                             </div>
-                            <div className="desktop-blog-icons">
+                            {/* <div className="desktop-blog-icons">
                               <img className="desktop-blog-icon-share" src={Share} alt="Share" />
                               <img className="desktop-blog-icon" src={Comment} alt="Comment" />
                               <img className="desktop-blog-icon" src={Like} alt="Like" />
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>
