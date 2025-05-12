@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react';
-import './ComingSoon.css';
+import { useState, useEffect } from "react";
+import "./ComingSoon.css";
+import Background from '../Background/Background.jsx' 
+import DesktopNavbar from '../DesktopNavbar/DesktopNavbar.jsx'
 
 function ComingSoon() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email) {
       alert(`Subscribed with ${email}! Get ready for the big reveal!`);
-      setEmail('');
+      setEmail("");
     } else {
-      alert('Please enter a valid email.');
+      alert("Please enter a valid email.");
     }
   };
 
@@ -49,7 +51,14 @@ function ComingSoon() {
   }, []);
 
   return (
+    <>   
+    <div className="ComingSoon-container-navbar">
+    <DesktopNavbar/>
+    </div>
     <div className="ComingSoon-container">
+    <div className="ComingSoon-container-background">
+      <Background/>
+    </div>
       <div className="ComingSoon-particles"></div>
       <div className="ComingSoon-content">
         <h1 className="ComingSoon-title ComingSoon-glow ComingSoon-bounce">
@@ -91,8 +100,20 @@ function ComingSoon() {
             <span className="ComingSoon-timer-label">Seconds</span>
           </div>
         </div>
+        <div className="ComingSoon-description">
+          <span className="ComingSoon-description-heading">Description of Feature</span>
+          <span className="ComingSoon-description-text">
+            Internzone hooks you up with real internships from startups,
+            renowned Companies , NGOs, and student ventures which are matched to
+            your skills, interests, and goals. These internships are also
+            remote-friendly, verified, and built to boost your experience before
+            you even graduate.
+          </span>
+        </div>
       </div>
     </div>
+
+    </>
   );
 }
 

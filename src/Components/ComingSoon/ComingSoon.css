@@ -19,6 +19,7 @@ body {
   /* background: linear-gradient(135deg, #1a0b2e, #2e1b4e, #1b263b); */
   position: relative;
   overflow: hidden;
+  padding-top: 50px;
 }
 
 
@@ -180,6 +181,27 @@ body {
   }
 }
 
+.ComingSoon-description{
+  display: flex;
+  margin-top: 25px;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+}
+
+.ComingSoon-description-heading{
+  font-size: 30px;
+  text-align: start;
+  font-weight: 700;
+}
+.ComingSoon-description-text{
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  text-align: justify;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .ComingSoon-title {
@@ -207,12 +229,29 @@ body {
   .ComingSoon-timer-label {
     font-size: 0.9rem;
   }
+  .ComingSoon-description-heading{
+  font-size: 28px;
+   
+}
+.ComingSoon-description-text{
+  font-size: 20px;
+ 
+}
+
 }
 
 @media (max-width: 480px) {
   .ComingSoon-title {
     font-size: 2.5rem;
   }
+    .ComingSoon-description-heading{
+  font-size: 25px;
+   
+}
+.ComingSoon-description-text{
+  font-size: 17px;
+ 
+}
 
   .ComingSoon-subtitle {
     font-size: 1rem;
