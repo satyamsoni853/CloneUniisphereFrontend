@@ -1,140 +1,280 @@
-.coming-soon-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  /* min-height: 100vh; */
-  text-align: center;
-  padding: 20px;
-  background: inherit;
+
+
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  width: 100vw;
+}
+
+body {
+
   overflow-x: hidden;
 }
 
-.coming-soon-title {
-  font-size: 48px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 20px;
-  opacity: 0;
-  transform: translateY(50px);
-  animation: fadeInUp 1s ease-out 0.5s forwards;
+.ComingSoon-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background: linear-gradient(135deg, #1a0b2e, #2e1b4e, #1b263b); */
+  position: relative;
+  overflow: hidden;
+  padding-top: 50px;
 }
 
-.coming-soon-message {
-  font-size: 24px;
-  color: #666;
-  margin-bottom: 10px;
-  opacity: 0;
-  transform: translateY(50px);
-  animation: fadeInUp 1s ease-out 0.7s forwards;
+
+@keyframes ComingSoonParticles {
+  0% {
+    background-position: 0 0, 10px 10px;
+  }
+  100% {
+    background-position: 100px 100px, 110px 110px;
+  }
 }
 
-.coming-soon-sub-message {
-  font-size: 18px;
-  color: #888;
-  margin-bottom: 30px;
-  opacity: 0;
-  transform: translateY(50px);
-  animation: fadeInUp 1s ease-out 0.9s forwards;
+.ComingSoon-content {
+  text-align: center;
+  padding: 1rem;
+  max-width: 1200px;
+  z-index: 2;
 }
 
-.coming-soon-link {
-  font-size: 18px;
-  color: #007bff;
-  text-decoration: none;
-  padding: 10px 20px;
-  border: 2px solid #007bff;
-  border-radius: 5px;
-  transition: background-color 0.3s, color 0.3s, transform 0.3s;
-  opacity: 0;
-  transform: scale(0.8);
-  animation: popIn 0.5s ease-out 1.1s forwards;
+.ComingSoon-title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: black;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(0, 255, 255, 0.7);
 }
 
-.coming-soon-link:hover {
-  background-color: #007bff;
-  color: #fff;
+.ComingSoon-subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: black;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+.ComingSoon-form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.ComingSoon-input {
+  padding: 1.2rem 1.5rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 1.5rem 0 0 1.5rem;
+  background: rgba(255, 255HB, 255, 0.95);
+  color: #000;
+  width: 100%;
+  max-width: 400px;
+  outline: none;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+.ComingSoon-input:focus {
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+}
+
+.ComingSoon-button {
+  padding: 1.2rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0 1.5rem 1.5rem 0;
+  background: #00f7ff;
+  color: #1a0b2e;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ComingSoon-glow-button {
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.7), 0 0 40px rgba(0, 255, 255, 0.4);
+}
+
+.ComingSoon-button:hover {
+  background: #00d4ff;
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.9), 0 0 60px rgba(0, 255, 255, 0.6);
+}
+
+.ComingSoon-timer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.ComingSoon-timer-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ComingSoon-timer-card:hover {
   transform: scale(1.1);
+  box-shadow: 0 12px 30px rgba(0, 255, 255, 0.5);
 }
 
-/* Keyframes for animations */
-@keyframes fadeInUp {
+.ComingSoon-timer-value {
+  display: block;
+  font-size: 3rem;
+  font-weight: 700;
+  color: black;
+}
+
+.ComingSoon-timer-label {
+  font-size: 1rem;
+  color: black;
+}
+
+.ComingSoon-bounce {
+  animation: ComingSoonBounce 2s infinite ease-in-out;
+}
+
+@keyframes ComingSoonBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.ComingSoon-glow {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(0, 255, 255, 0.7);
+}
+
+.ComingSoon-fade-in {
+  animation: ComingSoonFadeIn 1.8s ease-out;
+}
+
+@keyframes ComingSoonFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-@keyframes popIn {
+.ComingSoon-slide-up {
+  animation: ComingSoonSlideUp 1.2s ease-out;
+}
+
+@keyframes ComingSoonSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
   }
 }
 
-@keyframes colorShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 400% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+.ComingSoon-description{
+  display: flex;
+  margin-top: 25px;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+}
+
+.ComingSoon-description-heading{
+  font-size: 30px;
+  text-align: start;
+  font-weight: 700;
+}
+.ComingSoon-description-text{
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  text-align: justify;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .coming-soon-title {
-    font-size: 36px;
-    margin-bottom: 15px;
+  .ComingSoon-title {
+    font-size: 3rem;
   }
 
-  .coming-soon-message {
-    font-size: 20px;
-    margin-bottom: 8px;
+  .ComingSoon-subtitle {
+    font-size: 1.2rem;
   }
 
-  .coming-soon-sub-message {
-    font-size: 16px;
-    margin-bottom: 20px;
+  .ComingSoon-input, .ComingSoon-button {
+    font-size: 1rem;
+    padding: 1rem;
   }
 
-  .coming-soon-link {
-    font-size: 16px;
-    padding: 8px 16px;
+  .ComingSoon-timer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
 
-  .coming-soon-container {
-    padding: 15px;
+  .ComingSoon-timer-value {
+    font-size: 2.5rem;
   }
+
+  .ComingSoon-timer-label {
+    font-size: 0.9rem;
+  }
+  .ComingSoon-description-heading{
+  font-size: 28px;
+   
+}
+.ComingSoon-description-text{
+  font-size: 20px;
+ 
+}
+
 }
 
 @media (max-width: 480px) {
-  .coming-soon-title {
-    font-size: 28px;
-    margin-bottom: 10px;
+  .ComingSoon-title {
+    font-size: 2.5rem;
+  }
+    .ComingSoon-description-heading{
+  font-size: 25px;
+   
+}
+.ComingSoon-description-text{
+  font-size: 17px;
+ 
+}
+
+  .ComingSoon-subtitle {
+    font-size: 1rem;
   }
 
-  .coming-soon-message {
-    font-size: 16px;
-    margin-bottom: 6px;
+  .ComingSoon-form {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
 
-  .coming-soon-sub-message {
-    font-size: 14px;
-    margin-bottom: 15px;
+  .ComingSoon-input {
+    border-radius: 1.5rem;
+    max-width: 100%;
   }
 
-  .coming-soon-link {
-    font-size: 14px;
-    padding: 6px 12px;
+  .ComingSoon-button {
+    border-radius: 1.5rem;
+    width: 100%;
+    max-width: 300px;
   }
 
-  .coming-soon-container {
-    padding: 10px;
+  .ComingSoon-timer {
+    grid-template-columns: 1fr;
   }
 }

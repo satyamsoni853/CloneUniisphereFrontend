@@ -50,16 +50,19 @@ function HumanLib() {
         );
         const data = await response.data;
         setOnlineUsers(data); // Store the list of online users
-        showSuccessToast("Fetched online users successfully.");
-        // Proceed to Phase 3
-        setPhase(3);
-        setIsPhase3TimerActive(true);
+        if (data.length === 0) {
+          // If no users are online, we stay in Phase 2 and show the "not enough users" page
+          showErrorToast("Not enough users online to connect. Please try again later.");
+        } else {
+          showSuccessToast("Fetched online users successfully.");
+          // Proceed to Phase 3
+          setPhase(3);
+          setIsPhase3TimerActive(true);
+        }
       } catch (err) {
-        showErrorToast("Failed to fetch online users. Proceeding to connect...");
+        showErrorToast("Failed to fetch online users. Please try again.");
         console.error(err);
-        // Optionally proceed to Phase 3 even if the API fails
-        setPhase(3);
-        setIsPhase3TimerActive(true);
+        setOnlineUsers([]); // Ensure onlineUsers is empty on error
       }
     } else if (phase === 3 && isPhase3TimerActive) {
       return;
@@ -238,6 +241,23 @@ function HumanLib() {
     </div>
   );
 
+  // New component for "Not Enough Users" page in Phase 2
+  const NotEnoughUsersPage = () => (
+    <div className="HumanLib-not-enough-users">
+      <h2 className="HumanLib-title">Human Library</h2>
+      <p className="HumanLib-description">
+        Human Library we are waiting for enough users for you to try this feature.
+      </p>
+      <button
+        className="HumanLib-button HumanLib-start"
+        onClick={() => handleNextPhase()}
+      >
+        Visit Again Later
+      </button>
+    
+    </div>
+  );
+
   // Existing toast functions
   const showErrorToast = (message) => {
     setToastMessage(message);
@@ -285,46 +305,50 @@ function HumanLib() {
               </div>
             </div>
           ) : phase === 2 ? (
-            <div className="HumanLib-second-page-content-phase2">
-              <div className="HumanLib-image-container-phase2">
-                <div className="HumanLib-concentric-circles-phase2">
-                  <div className="HumanLib-circle-phase2 HumanLib-circle-pink-phase2"></div>
-                  <div className="HumanLib-circle-phase2 HumanLib-circle-blue-phase2"></div>
-                  <div className="HumanLib-central-image-phase2"></div>
-                  <div className="HumanLib-orbiting-image-phase2 HumanLib-orbiting-image-1-phase2"></div>
-                  <div className="HumanLib-orbiting-image-phase2 HumanLib-orbiting-image-2-phase2"></div>
-                  <div className="HumanLib-orbiting-image-phase2 HumanLib-orbiting-image-3-phase2"></div>
-                  <div className="HumanLib-orbiting-image-phase2 HumanLib-orbiting-image-4-phase2"></div>
+            onlineUsers.length === 0 ? (
+              <NotEnoughUsersPage />
+            ) : (
+              <div className="HumanLib-second-page-content-phase2">
+                <div className="HumanLib-image-container-phase2">
+                  <div className="HumanLib-concentric-circles-phase2">
+                    <div className="HumanLib-circle-phase2 HumanLib-circle-pink-phase2"></div>
+                    <div className="HumanLib-circle-phase2 HumanLib-circle-blue-phase2"></div>
+                    <div className="HumanLib-central-image-phase2"></div>
+                    <div className="HumanLib-orbiting-image-phase2 HumanLib-orbiting-image-1-phase2"></div>
+                    <div className="HumanLib-orbiting-image-phase2 HumanLib-orbiting-image-2-phase2"></div>
+                    <div className="HumanLib-orbiting-image-phase2 HumanLib-orbiting-image-3-phase2"></div>
+                    <div className="HumanLib-orbiting-image-phase2 HumanLib-orbiting-image-4-phase2"></div>
+                  </div>
+                </div>
+                <h2 className="HumanLib-title">
+                  Get connected with the ones who are just like you. And want to share their feelings
+                </h2>
+                <p className="HumanLib-description">
+                  With just a click, get connected to another student who will never judge your feelings.
+                </p>
+                {/* Display online users */}
+                <div className="HumanLib-online-users">
+                  <h3>Online Users</h3>
+                  {onlineUsers.length === 0 ? (
+                    <p>No users online or click "Start searching" to fetch.</p>
+                  ) : (
+                    <ul>
+                      {onlineUsers.map((user) => (
+                        <li key={user.userId}>{user.nickname || "Anonymous"}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+                <div className="HumanLib-button-container">
+                  <button
+                    className="HumanLib-button HumanLib-start"
+                    onClick={() => handleNextPhase()}
+                  >
+                    Start searching
+                  </button>
                 </div>
               </div>
-              <h2 className="HumanLib-title">
-                Get connected with the ones who are just like you. And want to share their feelings
-              </h2>
-              <p className="HumanLib-description">
-                With just a click, get connected to another student who will never judge your feelings.
-              </p>
-              {/* Display online users */}
-              <div className="HumanLib-online-users">
-                <h3>Online Users</h3>
-                {onlineUsers.length === 0 ? (
-                  <p>No users online or click "Start searching" to fetch.</p>
-                ) : (
-                  <ul>
-                    {onlineUsers.map((user) => (
-                      <li key={user.userId}>{user.nickname || "Anonymous"}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-              <div className="HumanLib-button-container">
-                <button
-                  className="HumanLib-button HumanLib-start"
-                  onClick={() => handleNextPhase()}
-                >
-                  Start searching
-                </button>
-              </div>
-            </div>
+            )
           ) : phase === 3 ? (
             <div className="HumanLib-third-page-content">
               <div className="HumanLib-image-container">
