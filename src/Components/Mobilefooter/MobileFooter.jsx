@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./MobileFooter.css"; // Import CSS for styling
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { IoNotifications } from "react-icons/io5";
 
 import AddBlack from "./AddBlackIcon.svg";
 import AddWhite from "./AddWhiteIcon.svg";
