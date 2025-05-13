@@ -246,52 +246,52 @@
 }
 .connections-card-1{
  
-  box-shadow: 0 2px 5px 2px #a7e1eb7b;
+  background-color: #DA3E39;
   padding-bottom: 10px;
 }
 .connections-card :nth-child(2) {
   margin-top: 15px;
-  box-shadow: 0 2px 5px 2px rgba(233, 149, 198, 0.429);
+  background-color:  #e995c66d;
   padding-bottom: 10px;
 }
 .connections-card :nth-child(3) {
   margin-top: 15px;
-  box-shadow: 0 2px 5px 2px #474fe96a;
+  background-color:  #474fe96a;
   padding-bottom: 10px;
 }
 .connections-card :nth-child(4) {
   margin-top: 15px;
-  box-shadow: 0 2px 5px 2px rgba(21, 75, 84, 0.338);
+  background-color:  #E9877A;
   padding-bottom: 10px;
 }
 .connections-card :nth-child(5) {
   margin-top: 15px;
-  box-shadow: 0 2px 5px 2px #8d61e38c;
+  background-color:  #8d61e38c;
   padding-bottom: 10px;
 }
 .connections-card :nth-child(6) {
   margin-top: 15px;
-  box-shadow: 0 2px 5px 2px #73d2868c;
+  background-color:  #61e3798c;
   padding-bottom: 10px;
 }
 .connections-card :nth-child(7) {
   margin-top: 15px;
-  box-shadow: 0 2px 5px 2px #896c8d8c;
+  background-color:  #38A3AC;
   padding-bottom: 10px;
 }
 .connections-card :nth-child(8) {
   margin-top: 15px;
-  box-shadow: 0 2px 5px 2px #8676be8c;
+  background-color:  #889095;
   padding-bottom: 10px;
 }
 .connections-card :nth-child(9) {
   margin-top: 15px;
-  box-shadow: 0 2px 5px 2px #3687618c;
+background-color:  #DFC463;
   padding-bottom: 10px;
 }
 .connections-card :nth-child(10) {
   margin-top: 15px;
-  box-shadow: 0 2px 5px 2px #df92d08c;
+ background-color:  #a5bc7c8c;
   padding-bottom: 10px;
 }
 
@@ -305,15 +305,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .connections-item:hover {
-  background-color: #f8f8f8;
+  background-color: #f4f0f0;
 }
 
 .connections-item.active {
-  background-color: #e6f0ff;
+  background-color: #edf0f6;
   color: #3b82f6;
 }
 

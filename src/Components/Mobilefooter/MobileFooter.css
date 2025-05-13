@@ -72,38 +72,36 @@
 
 
 
-.mobile-connections-card :nth-child(1) {
-  /* box-shadow: 0 2px 5px 2px #a7e1eb7b; */
-}
+ 
 .mobile-connection-connection{
-    box-shadow: 0 2px 5px 2px #a7e1eb7b;
+    background-color:  #DA3E39;
 }
 .mobile-connections-card :nth-child(2) {
-  box-shadow: 0 2px 5px 2px rgba(233, 149, 198, 0.429);
+  background-color:  #e995c66d;
 }
 .mobile-connections-card :nth-child(3) {
-  box-shadow: 0 2px 5px 2px #474fe96a;
+  background-color:  #474fe96a;
 }
 .mobile-connections-card :nth-child(4) {
-  box-shadow: 0 2px 5px 2px rgba(21, 75, 84, 0.338);
+  background-color:  #E9877A;
 }
 .mobile-connections-card :nth-child(5) {
-  box-shadow: 0 2px 5px 2px #8d61e38c;
+  background-color:  #8d61e38c;
 }
 .mobile-connections-card :nth-child(6) {
-  box-shadow: 0 2px 5px 2px #61e3798c;
+  background-color:  #61e3798c;
 }
 .mobile-connections-card :nth-child(7) {
-  box-shadow: 0 2px 5px 2px #61e3798c;
+  background-color:  #38A3AC; 
 }
 .mobile-connections-card :nth-child(8) {
-  box-shadow: 0 2px 5px 2px #61e3798c;
+  background-color:  #889095;
 }
 .mobile-connections-card :nth-child(9) {
-  box-shadow: 0 2px 5px 2px #a5bc7c8c;
+  background-color:  #DFC463;
 }
 .mobile-connections-card :nth-child(10) {
-  box-shadow: 0 2px 5px 2px #a5bc7c8c;
+  background-color:  #a5bc7c8c;
 }
 
 

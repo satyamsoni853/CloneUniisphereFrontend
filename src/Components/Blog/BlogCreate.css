@@ -6,7 +6,8 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding: 20px; /* Internal padding for content spacing */
+margin-bottom: 20px;
+ padding-top: 100px; /* Internal padding for content spacing */
 }
 
 .desktop-blog-create-header {
