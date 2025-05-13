@@ -1147,15 +1147,7 @@
 }
 
 /* Close button styling (X button in the top-right corner) */
-.HumanLib-not-enough-users::after {
-  content: '✕';
-  position: absolute;
-  top: 15px;
-  right: px;
-  font-size: 30px;
-  color: #666;
-  cursor: pointer;
-}
+
 
 /* Adjust title for this page */
 .HumanLib-not-enough-users .HumanLib-title {
