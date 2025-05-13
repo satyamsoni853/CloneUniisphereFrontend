@@ -62,7 +62,7 @@ function GuiednestComingSoon() {
      
       <div className="GuiednestComingSoon-content">
         <div className="FreenlancingComingSoon-main-heading">
-            Guiednest
+            MentorShip
         </div>
         <h1 className="GuiednestComingSoon-title GuiednestComingSoon-glow GuiednestComingSoon-bounce">
           Launching Soon!
