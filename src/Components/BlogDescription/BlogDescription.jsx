@@ -5,8 +5,12 @@ import MobileNavbar from "../MobileNavbar/MobileNavbar";
 import "./BlogDescription.css";
 import BlogImage from "./blogdescription.svg";
 import MobileFooter from "../Mobilefooter/MobileFooter";
+import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 export default function BlogDescription() {
+  const navigate = useNavigate();
+
   const posts = [
     {
       imageSrc: BlogImage,
@@ -17,6 +21,12 @@ export default function BlogDescription() {
     {
       imageSrc: BlogImage,
       title: "Mr. Survivor of Steal",
+      date: "24-04-2025",
+      text: "We’d love your feedback! Would you like to take a quick one-step survey? We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?",
+    },
+    {
+      imageSrc: BlogImage,
+      title: "2019 Era V/S 2025 Era",
       date: "24-04-2025",
       text: "We’d love your feedback! Would you like to take a quick one-step survey? We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?We’d love your feedback! Would you like to take a quick one-step survey?",
     },
@@ -38,7 +48,8 @@ export default function BlogDescription() {
     const fetchBlogData = async () => {
       try {
         // Retrieve token and userId from localStorage
-        const token = localStorage.getItem("token") || localStorage.getItem("authToken");
+        const token =
+          localStorage.getItem("token") || localStorage.getItem("authToken");
         const userId = localStorage.getItem("userId");
 
         if (!token || !userId) {
@@ -97,7 +108,16 @@ export default function BlogDescription() {
       </div>
       {/* Blog list section */}
       <div className="blog-description-page">
-        <h1 className="blog-description-title">Your Blog</h1>
+        <div className="blog-description-title">
+          <span>
+            <IoArrowBackCircleOutline
+              onClick={() => {
+                !showDefault ? setShowDefault(true) : navigate(-1);
+              }}
+            />
+          </span>{" "}
+          Your Blog
+        </div>
         {showDefault && (
           <div className="blog-description-cards-container">
             {posts.map((post, index) => (
@@ -116,8 +136,12 @@ export default function BlogDescription() {
                 />
                 <div className="blog-description-card-content">
                   <div className="blog-description-card-header">
-                    <h2 className="blog-description-card-title">{post.title}</h2>
-                    <span className="blog-description-card-date">{post.date}</span>
+                    <h2 className="blog-description-card-title">
+                      {post.title}
+                    </h2>
+                    <span className="blog-description-card-date">
+                      {post.date}
+                    </span>
                   </div>
                   <p className="blog-description-card-text">
                     {isMobile ? post.text.slice(0, 120) : post.text}
@@ -138,8 +162,12 @@ export default function BlogDescription() {
               />
               <div className="single-blog-section-card-content">
                 <div className="single-blog-section-card-header">
-                  <h2 className="single-blog-section-card-title">{post.title}</h2>
-                  <span className="single-blog-section-card-date">{post.date}</span>
+                  <h2 className="single-blog-section-card-title">
+                    {post.title}
+                  </h2>
+                  <span className="single-blog-section-card-date">
+                    {post.date}
+                  </span>
                 </div>
                 <p className="single-blog-section-card-text">{post.text}</p>
               </div>
@@ -147,7 +175,9 @@ export default function BlogDescription() {
           </div>
         )}
       </div>
-      <MobileFooter />
+      <div className="blog-description-mobile-footer">
+        <MobileFooter />
+      </div>
     </>
   );
 }

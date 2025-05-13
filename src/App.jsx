@@ -21,6 +21,7 @@ import GuiednestComingSoon from "./Components/AllComingSoon/GuiednestComingSoon.
 import InternzoneComingSoon from "./Components/AllComingSoon/InternzoneComingSoon.jsx";
 import EventsComingSoon from "./Components/AllComingSoon/EventsComingSoon.jsx";
 import CommunityComingSoon from "./Components/AllComingSoon/CommunityComingSoon.jsx";
+import MentorshipComingSoon from "./Components/AllComingSoon/MentorshipComingSoon.jsx";
 
 
 // Lazy load other components
@@ -128,6 +129,7 @@ function App() {
             <Route path='/Internzonecomingsoon' element={<InternzoneComingSoon/>} />
             <Route path='/EventsComingSoon' element={<EventsComingSoon/>} />
             <Route path='/CommunityComingSoon' element={<CommunityComingSoon/>} />
+            <Route path='/MentorshipComingSoon' element={<MentorshipComingSoon/>} />
 
           </Routes>
         </Suspense>

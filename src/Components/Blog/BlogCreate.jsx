@@ -655,6 +655,9 @@ const BlogCreate = () => {
             <div className="blog-create-section-wrapper">
               <header className="blog-create-header">
                 <img
+                onClick={()=>{
+                  navigate(-1)
+                }}
                   className="blog-create-backIcon"
                   src={backIcon}
                   alt="Back"

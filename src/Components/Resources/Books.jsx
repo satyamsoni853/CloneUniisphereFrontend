@@ -5,8 +5,12 @@ import { IoIosArrowForward } from "react-icons/io";
 import { IoArrowBackCircleOutline, IoChevronBack } from "react-icons/io5";
 import DesktopNavbar from "../DesktopNavbar/DesktopNavbar";
 import Background from "../Background/Background";
+import { useNavigate } from "react-router-dom";
 
 const Books = () => {
+
+const navigate = useNavigate()
+
   // State for API books, loading, and error
   const [apiBooks, setApiBooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -237,7 +241,11 @@ const Books = () => {
         <div className="mobile-main-books-main-wrapper">
           <div className="mobile-main-books-parent">
             <div className="mobile-books-main-heading">
-              <IoArrowBackCircleOutline className="mobile-books-backIcon" />
+              <IoArrowBackCircleOutline className="mobile-books-backIcon"
+              onClick={()=>{
+                navigate(-1)
+              }}
+              />
               <h1 className="mobile-main-books-main-title">
                 All you need at one place to be successful in your Student Life.
               </h1>
