@@ -18,6 +18,7 @@
   /* scrollbar-width: none; */
   /* -ms-overflow-style: none; */
   position: fixed;
+  overflow: hidden;
   bottom: 60px;
   left: 20px;
 }
