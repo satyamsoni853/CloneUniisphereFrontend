@@ -181,7 +181,7 @@ function MobileNavbar() {
   // Handle profile click
   const handleProfileClick = (userId) => {
     localStorage.setItem("SearchUserId", userId);
-    navigate(`/FollowerMiddleSectionPrivacy/${userId}`);
+    navigate(`/AfterConnecting/${userId}`);
     setShowResults(false);
     setSearchQuery("");
   };

@@ -144,7 +144,7 @@
 }
 
 .step.completed {
-  background-color: red;
+  background-color:green;
 }
 
 .step:not(.completed) {
