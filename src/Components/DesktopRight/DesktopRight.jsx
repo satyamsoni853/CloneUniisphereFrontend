@@ -7,17 +7,15 @@ import ProfileImage from "./profileImage.jpeg";
 import ConnectAndCollaborateSvg from "./connectAndCollaborate.svg";
 import BottomMessagesWidget from "../BottomMessagesWidget/BottomMessagesWidget";
 
-// Dummy data for suggestions in case API fails
-const dummySuggestions = [];
-
 function DesktopRightSection() {
   const [connect, setConnect] = useState(0);
   const [collaborate, setCollaborate] = useState(0);
   const [userId, setUserId] = useState(null);
   const [error, setError] = useState(null);
   const [profileData, setProfileData] = useState(null);
-  const [suggestions, setSuggestions] = useState([]); // State for dynamic suggestions
+  const [suggestions, setSuggestions] = useState([]); 
   const [loading, setLoading] = useState(true);
+  const [suggestionsError, setSuggestionsError] = useState(null);
 
   const getAuthData = () => {
     const storedToken = localStorage.getItem("authToken");
@@ -28,64 +26,72 @@ function DesktopRightSection() {
   useEffect(() => {
     const fetchData = async () => {
       const authData = getAuthData();
-
       if (!authData) {
-        console.error("No authentication data available");
-        setError("Authentication required");
-        setSuggestions(dummySuggestions); // Use dummy data if no auth
+        setError("Authentication data not found");
         setLoading(false);
         return;
       }
-
+      
       setUserId(authData.userId);
 
       try {
-        // Fetch profile data
         const profileResponse = await axios.get(
-          `https://uniisphere-backend-latest.onrender.com/getProfile/profile/?userId=${authData.userId}`,
+          `https://uniisphere-backend-latest.onrender.com/api/users/profile`,
           {
+            params: {
+              userId: authData.userId
+            },
             headers: {
               Authorization: `Bearer ${authData.token}`,
             },
           }
         );
 
-        const username = profileResponse.data[0].username;
-        const profilePictureUrl = profileResponse.data[0].profilePictureUrl;
-        localStorage.setItem("profilePicture", profilePictureUrl);
-        localStorage.setItem("username", username);
-
         if (profileResponse.data && profileResponse.data.length > 0) {
           const userData = profileResponse.data[0];
           setProfileData(userData);
 
+          // Store user data in localStorage
+          localStorage.setItem("profilePicture", userData.profilePictureUrl || "");
+          localStorage.setItem("username", userData.username || "");
+
+          // Set connection counts
           const connectCount = userData._count?.connections1 || 0;
           const collaborateCount = userData._count?.connections2 || 0;
           setConnect(connectCount);
           setCollaborate(collaborateCount);
         }
 
-        // Fetch suggestions with GET request and userId in body
+        // Fetch suggestions
         const suggestionsResponse = await axios({
           method: "get",
           url: `https://uniisphere-backend-latest.onrender.com/api/suggestions`,
-          data: { userId: authData.userId }, // Sending userId in body
+          params: {
+            limit: 5 // Limit to 5 suggestions for the sidebar
+          },
           headers: {
             Authorization: `Bearer ${authData.token}`,
-            "Content-Type": "application/json",
           },
         });
 
-        // Map the API response to the required suggestion format
-        const fetchedSuggestions = suggestionsResponse.data.map((user) => ({
-          img: user.profilePictureUrl || ProfileImage, // Fallback to default image
-          name: `${user.firstName || ""} ${user.lastName || ""}`.trim() || "Unknown User",
-          university: user.university || "University not specified",
-        }));
+        if (suggestionsResponse.data.success) {
+          const fetchedSuggestions = suggestionsResponse.data.data.map((user) => ({
+            id: user.id,
+            img: user.profilePictureUrl || ProfileImage,
+            name: `${user.firstName || ""} ${user.lastName || ""}`.trim() || "Unknown User",
+            username: user.username,
+            headline: user.headline || "No headline available",
+            matchScore: user.matchScore,
+            mutualConnections: user.matchScore.mutualConnections
+          }));
 
-        setSuggestions(fetchedSuggestions);
+          setSuggestions(fetchedSuggestions);
+        } else {
+          setSuggestionsError("Failed to load suggestions");
+        }
       } catch (error) {
-        setSuggestions(dummySuggestions); // Use dummy data on error
+        console.error("Error fetching profile data:", error);
+        setError("Failed to load profile data");
       } finally {
         setLoading(false);
       }
@@ -101,22 +107,18 @@ function DesktopRightSection() {
 
   const getProfilePictureUrl = () => {
     if (!profileData) return ProfileImage;
+    return profileData.profilePictureUrl || ProfileImage;
+  };
 
-    return (
-      profileData.profilePictureUrl ||
-      profileData.profileImageUrl ||
-      profileData.avatarUrl ||
-      profileData.photoUrl ||
-      profileData.profilePicture ||
-      ProfileImage
-    );
+  const getHeadline = () => {
+    if (!profileData) return "";
+    return profileData.headline || profileData.college || "No headline available";
   };
 
   return (
     <div className="right-section-container">
       <div className="rightsection">
         {loading && <div className="loading">Loading profile data...</div>}
-
         {error && <div className="error-message">{error}</div>}
 
         <div className="profile-card">
@@ -141,6 +143,7 @@ function DesktopRightSection() {
           <h3 className="profile-name">{getFullName()}</h3>
           <p className="profile-company">{profileData?.username || "Uniisphere"}</p>
           <p className="profile-location">{profileData?.location || "Location not specified"}</p>
+          <p className="profile-headline">{getHeadline()}</p>
           <p className="profile-bio">
             {profileData?.About || "Bio not available"}
             <span className="see-more"> .....see more</span>
@@ -149,15 +152,22 @@ function DesktopRightSection() {
 
         <div className="suggested-cards">
           <h4 className="suggested-title">Suggestions</h4>
-          {suggestions.map((suggestion, index) => (
-            <div key={index} className="suggestion-card">
+          {suggestionsError && <div className="error-message">{suggestionsError}</div>}
+          {suggestions.map((suggestion) => (
+            <div key={suggestion.id} className="suggestion-card">
               <img src={suggestion.img} alt={suggestion.name} className="suggestion-img" />
               <div className="suggestion-info">
                 <p className="suggestion-name">{suggestion.name}</p>
-                <p className="suggestion-university">{suggestion.university}</p>
+                <p className="suggestion-username">@{suggestion.username}</p>
+                <p className="suggestion-headline">{suggestion.headline}</p>
+                {suggestion.mutualConnections > 0 && (
+                  <p className="mutual-connections">
+                    {suggestion.mutualConnections} mutual connection{suggestion.mutualConnections !== 1 ? 's' : ''}
+                  </p>
+                )}
               </div>
-              <button>
-                <img className="Desktop-connect-btn" src={ConnectImage} alt="" />
+              <button className="connect-button">
+                <img className="Desktop-connect-btn" src={ConnectImage} alt="Connect" />
               </button>
             </div>
           ))}
