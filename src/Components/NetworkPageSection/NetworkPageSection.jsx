@@ -389,14 +389,12 @@ function NetworkPage() {
   };
 
   useEffect(() => {
-
-    console.log(isMobile)
     if (isMobile) {
-      setShowCatchUpMode(true);
+      setShowCatchUpMode(false);
       setShowRequestMode(false);
-      setShowNewConnectionMode(false);
+      setShowNewConnectionMode(true);
     }
-  },[isMobile]);
+  }, [isMobile]);
 
   return (
     <div className="networkpage-main-container">
@@ -470,7 +468,7 @@ function NetworkPage() {
                     )}
                   </div>
                 ) : showCatchUpMode ? (
-                  <div className="networkpage-grid catchup-mode">
+                  <div className="catchup-mode">
                     {connectionsLoading ? (
                       <div>Loading users...</div>
                     ) : error ? (
@@ -519,16 +517,21 @@ function NetworkPage() {
                               {/* <span>{user.collaborations} collaborate</span> */}
                             </div>
                           </div>
-                          {!isMobile && (
-                            <div className="catchup-container">
-                              <h2 className="catchup-heading">
-                                {user.username}
-                              </h2>
-                              <p className="catchup-text">
-                                {/* Catch up with {user.username}! Share updates,  */}
-                                {/* collaborate on projects, or start a new
-                                conversation. */}
-                              </p>
+                          {(isMobile || showCatchUpMode) && (
+                            <div className="networkpage-mobile-catchup">
+                              <div
+                                key={user.id}
+                                className="catchup-container mobile"
+                              >
+                                <h2 className="catchup-heading">
+                                  {user.username}
+                                </h2>
+                                <p className="catchup-text">
+                                  Catch up with {user.username}! Share updates,
+                                  collaborate on projects, or start a new
+                                  conversation.
+                                </p>
+                              </div>
                             </div>
                           )}
                         </div>
@@ -538,7 +541,7 @@ function NetworkPage() {
                     )}
                   </div>
                 ) : (
-                  <div className="networkpage-grid new-connection-mode">
+                  <div className="new-connection-mode">
                     {connectionsLoading ? (
                       <div>Loading users...</div>
                     ) : error ? (
@@ -547,7 +550,7 @@ function NetworkPage() {
                       connections.map((user, index) => (
                         <div className="new-connection-wrapper" key={user.id}>
                           <div
-                            className="networkpage-card "
+                            className="new-connection-networkpage-card"
                             style={{
                               backgroundColor:
                                 backgroundColors[
@@ -579,9 +582,10 @@ function NetworkPage() {
                                 className="networkpage-connect-icon"
                                 onClick={() => handleConnectClick(user.id)}
                               >
-                                <img src={ConnectSvg} alt="Connect" />
-                                {activeCardId[user.id] && (
+                                {activeCardId[user.id] ? (
                                   <p className="text-green-600">Request Sent</p>
+                                ) : (
+                                  <img src={ConnectSvg} alt="Connect" />
                                 )}
                               </div>
                             </div>
@@ -590,24 +594,6 @@ function NetworkPage() {
                               <span>{user.collaborations} collaborate</span>
                             </div>
                           </div>
-
-                          {(isMobile || showCatchUpMode) && (
-                            <div className="networkpage-mobile-catchup">
-                              <div
-                                key={user.id}
-                                className="catchup-container mobile"
-                              >
-                                <h2 className="catchup-heading">
-                                  {user.username}
-                                </h2>
-                                <p className="catchup-text">
-                                  Catch up with {user.username}! Share updates,
-                                  collaborate on projects, or start a new
-                                  conversation.
-                                </p>
-                              </div>
-                            </div>
-                          )}
                         </div>
                       ))
                     ) : (
@@ -619,11 +605,7 @@ function NetworkPage() {
                 <div className="networkpage-buttons">
                   <button
                     className="networkpage-action-btn  CATCHUP-Btn "
-                    onClick={() =>
-                      isMobile
-                        ? handleNewConnectionClick()
-                        : handleCatchUpClick()
-                    }
+                    onClick={handleCatchUpClick}
                   >
                     CATCHUP
                   </button>
@@ -635,11 +617,7 @@ function NetworkPage() {
                   </button>
                   <button
                     className="networkpage-action-btn NEW-CONNECTION-Btn"
-                    onClick={() =>
-                      isMobile
-                        ? handleCatchUpClick()
-                        : handleNewConnectionClick()
-                    }
+                    onClick={handleNewConnectionClick}
                   >
                     NEW CONNECTION
                   </button>
