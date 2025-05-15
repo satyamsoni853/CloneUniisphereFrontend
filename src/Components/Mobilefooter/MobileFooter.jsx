@@ -2,8 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./MobileFooter.css"; // Import CSS for styling
+
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { IoNotifications } from "react-icons/io5";
+ 
 
 import AddBlack from "./AddBlackIcon.svg";
 import AddWhite from "./AddWhiteIcon.svg";
@@ -227,7 +229,11 @@ function MobileFooter() {
       navigate("/");
     } catch (error) {
       console.error("Error creating post:", error, error?.response?.data);
-      setError(error?.response?.data?.message || error.message || "Failed to create post. Please try again.");
+      setError(
+        error?.response?.data?.message ||
+          error.message ||
+          "Failed to create post. Please try again."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -239,37 +245,30 @@ function MobileFooter() {
         <Link to="/View">
           <img
             src={homeActive ? HomeBlack : HomeWhite}
-            style={
-              homeActive
-                ? { width: "30px", height: "30px" }
-                : null
-            }
+            style={homeActive ? { width: "30px", height: "30px" } : null}
             alt="Home"
             className="mobile-footer-icon"
             onClick={() => toggleIcon("home")}
           />
         </Link>
-        <img
-          src={notificationActive ? NotificationBlack : NotificationWhite}
-          style={
-            notificationActive
-              ? { width: "40px", height: "40px" }
-              : null
-          }
-          alt="Notification"
-
-          className="mobile-footer-icon"
-          onClick={() => toggleIcon("notification")}
-          aria-disabled="true"
-        />
+        <Link>
+          <div 
+          onClick={()=>{
+             toggleIcon("notification");
+            setNotificationActive(!notificationActive);
+          }}
+          className="mobile-footer-notification-icon">
+            {notificationActive ? (
+              <IoMdNotificationsOutline />
+            ) : (
+              <IoNotifications />
+            )}
+          </div>
+        </Link>
         <img
           src={addActive ? AddBlack : AddWhite}
           alt="Add"
-          style={
-            addActive
-              ? { width: "33px", height: "33px" }
-              : null
-          }
+          style={addActive ? { width: "33px", height: "33px" } : null}
           className="mobile-footer-add-icon"
           onClick={() => {
             toggleIcon("add");
@@ -280,12 +279,7 @@ function MobileFooter() {
           <img
             src={calendarActive ? ClenderBlack : ClenderWhite}
             alt="Calendar"
-
-            style={
-              calendarActive
-                ? { width: "33px", height: "33px" }
-                : null
-            }
+            style={calendarActive ? { width: "33px", height: "33px" } : null}
             className="mobile-footer-icon"
             onClick={() => toggleIcon("calendar")}
             aria-disabled="true"
@@ -294,11 +288,7 @@ function MobileFooter() {
         <img
           src={networkActive ? NetworkBlack : NetworkWhite}
           alt="Network"
-          style={
-            networkActive
-              ? { width: "40px", height: "40px" }
-              : null
-          }
+          style={networkActive ? { width: "40px", height: "40px" } : null}
           className="mobile-footer-icon"
           onClick={() => {
             toggleIcon("network");
@@ -309,65 +299,64 @@ function MobileFooter() {
       {showNetwork && (
         <div className="mobile-connections-card">
           <div className="mobile-connections-item mobile-connection-connection">
-  <Link to="/NetworkPage" className="connection-link">
-    Connection
-  </Link>
-</div>
+            <Link to="/NetworkPage" className="connection-link">
+              Connection
+            </Link>
+          </div>
 
-<div className="mobile-connections-item">
-  <Link to="/Books" className="connection-link">
-    Eduvault
-  </Link>
-</div>
+          <div className="mobile-connections-item">
+            <Link to="/Books" className="connection-link">
+              Eduvault
+            </Link>
+          </div>
 
-<div className="mobile-connections-item active">
-  <Link to="/HumanLib" className="connection-link">
-    Human Library
-  </Link>
-</div>
+          <div className="mobile-connections-item active">
+            <Link to="/HumanLib" className="connection-link">
+              Human Library
+            </Link>
+          </div>
 
-<div className="mobile-connections-item">
-  <Link to="/libblog" className="connection-link">
-    Blog
-  </Link>
-</div>
+          <div className="mobile-connections-item">
+            <Link to="/libblog" className="connection-link">
+              Blog
+            </Link>
+          </div>
 
-<div className="mobile-connections-item">
-  <Link to="/MentorshipComingSoon" className="connection-link">
-    MentorShip
-  </Link>
-</div>
+          <div className="mobile-connections-item">
+            <Link to="/MentorshipComingSoon" className="connection-link">
+              MentorShip
+            </Link>
+          </div>
 
-<div className="mobile-connections-item">
-  <Link to="/SkillupComingSoon" className="connection-link">
-    Skillup
-  </Link>
-</div>
+          <div className="mobile-connections-item">
+            <Link to="/SkillupComingSoon" className="connection-link">
+              Skillup
+            </Link>
+          </div>
 
-<div className="mobile-connections-item">
-  <Link to="/FreelancingComingSoon" className="connection-link">
-    Freelancing
-  </Link>
-</div>
+          <div className="mobile-connections-item">
+            <Link to="/FreelancingComingSoon" className="connection-link">
+              Freelancing
+            </Link>
+          </div>
 
-<div className="mobile-connections-item">
-  <Link to="/InternzoneComingSoon" className="connection-link">
-    Intern Zone
-  </Link>
-</div>
+          <div className="mobile-connections-item">
+            <Link to="/InternzoneComingSoon" className="connection-link">
+              Intern Zone
+            </Link>
+          </div>
 
-<div className="mobile-connections-item">
-  <Link to="/CommunityComingSoon" className="connection-link">
-    Community
-  </Link>
-</div>
+          <div className="mobile-connections-item">
+            <Link to="/CommunityComingSoon" className="connection-link">
+              Community
+            </Link>
+          </div>
 
-<div className="mobile-connections-item">
-  <Link to="/EventsComingSoon" className="connection-link">
-    Events
-  </Link>
-</div>
-
+          <div className="mobile-connections-item">
+            <Link to="/EventsComingSoon" className="connection-link">
+              Events
+            </Link>
+          </div>
         </div>
       )}
       {showUploadSection && (
