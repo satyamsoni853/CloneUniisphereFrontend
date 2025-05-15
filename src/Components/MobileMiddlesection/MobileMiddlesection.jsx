@@ -59,7 +59,7 @@ function MobileMiddleSection() {
   const [toastType, setToastType] = useState('success');
 
   const userData = {
-    profilePicture: profilePhoto,
+    profilePicture: profilePictureUrl,
     name: "VIJAY PRASAD",
     education: "University of Delhi",
     workPlace: "Works at Google",
@@ -187,8 +187,8 @@ function MobileMiddleSection() {
           _id: post.id,
           authorId: post.user?.id,
           profilePhoto: post.user?.profilePictureUrl || Profileimage,
-          authorName: post.user?.username || "Unknown Author",
-          authorDetails: post.user?.headline || "University of Delhi | Works at Google",
+          authorName: post.user?.username,
+          authorDetails: post.user?.headline,
           mediaUrl: post.mediaUrl || [MiddlemainImage],
           caption: post.content,
           createdAt: post.createdAt,

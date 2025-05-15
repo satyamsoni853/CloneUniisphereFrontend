@@ -25,11 +25,13 @@ function ProfileEditSection() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [profilePic, setProfilePic] = useState(image);
-  const [collabs, setCollabs] = useState(10);
-  const [connections, setConnections] = useState(50);
+  const [collabs, setCollabs] = useState();
+  const [connections, setConnections] = useState();
   const [name, setName] = useState("John Doe");
-  const [title, setTitle] = useState("Building Uniisphere|Masters Union");
-  const [address, setAddress] = useState("New York, USA");
+  const [title, setTitle] = useState("");
+  const [college, setCollege] = useState("");
+  const [address, setAddress] = useState("");
+  const [degree, setDegree] = useState("");
   const [buttons, setButtons] = useState(["Message", "Connect "]);
   const [skills, setSkills] = useState([]);
   const [interests, setInterests] = useState([]);
@@ -169,12 +171,13 @@ function ProfileEditSection() {
 
       // Set basic profile info
       setProfilePic(user.profilePictureUrl || image);
-      setCollabs(user.collabs || 10);
-      setConnections(user._count?.connections1 || 50);
-      setName(user.username || "John Doe");
-      setTitle(user.headline || "Building Uniisphere|Masters Union");
-      setAddress(user.location || "New York, USA");
-      
+      setCollabs(user._count?.connections2);
+      setConnections(user._count?.connections1);
+      setName(user.username);
+      setTitle(user.headline);
+      setAddress(user.location);
+      setCollege(user.college);
+      setDegree(user.degree);
       // Process skills and interests
       const processedSkills = processArray(user.Skills);
       const processedInterests = processArray(user.Interests);
@@ -236,7 +239,6 @@ function ProfileEditSection() {
             },
             maxBodyLength: Infinity,
             maxContentLength: Infinity,
-            // Log request configuration
             onUploadProgress: (progressEvent) => {
               console.log(
                 "Upload progress:",
@@ -375,10 +377,10 @@ function ProfileEditSection() {
 
                   <div className="Followers-middle-section-2-profile-buttons-public">
                     <button className="Followers-middle-section-2-btn-public">
-                      Master Union
+                      {college}
                     </button>
                     <button className="Followers-middle-section-2-btn-public">
-                      SBM
+                      {degree}
                     </button>
                   </div>
 
