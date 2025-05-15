@@ -688,8 +688,10 @@
 /* Small Mobile (below 480px) */
 @media (max-width: 480px) {
   .afterconnectinginProfile-full-section-container {
-    width: 95%;
+    width: 100%;
     padding: 0.5rem;
+     margin: 0;
+    box-shadow: none;
   }
 
   .afterconnectinginProfile-full-section-top-nav-section {

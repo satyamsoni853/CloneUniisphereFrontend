@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useId, useCallback } from "react";
 import axios from "axios";
 import "./NetworkPageSection.css";
 import ProfilePhoto from "./ProfilePhoto.svg";
@@ -10,6 +10,8 @@ import MobileFooter from "../Mobilefooter/MobileFooter.jsx";
 import redXIcon from "./Close.svg";
 import greenCheckIcon from "./Check.svg";
 import MobileNavbar from "../MobileNavbar/MobileNavbar.jsx";
+import { faSleigh } from "@fortawesome/free-solid-svg-icons";
+import { isObject } from "lodash";
 
 // DUMMY_DATA - Used for testing when API is not available
 const DUMMY_DATA = [
@@ -351,8 +353,11 @@ function NetworkPage() {
     "#ffe4e1",
   ];
 
-  const handleConnectClick = () => {
-    setShowRightSection(true);
+  const [activeCardId, setActiveCardId] = useState({}); // start with nothing clicked
+
+  const handleConnectClick = (userId) => {
+    alert("Request sent");
+    setActiveCardId((prev) => ({ ...prev, [userId]: true }));
   };
 
   const handleCloseRightSection = () => {
@@ -383,6 +388,15 @@ function NetworkPage() {
     setUseDummyData((prev) => !prev);
   };
 
+  useEffect(() => {
+
+    console.log(isMobile)
+    if (isMobile) {
+      setShowCatchUpMode(true);
+      setShowRequestMode(false);
+      setShowNewConnectionMode(false);
+    }
+  },[isMobile]);
 
   return (
     <div className="networkpage-main-container">
@@ -505,7 +519,7 @@ function NetworkPage() {
                               {/* <span>{user.collaborations} collaborate</span> */}
                             </div>
                           </div>
-                          {!isMobile  && (
+                          {!isMobile && (
                             <div className="catchup-container">
                               <h2 className="catchup-heading">
                                 {user.username}
@@ -531,9 +545,8 @@ function NetworkPage() {
                       <div>Error: {error}</div>
                     ) : connections.length > 0 ? (
                       connections.map((user, index) => (
-                        <div className="new-connection-wrapper" key={user.id} >
+                        <div className="new-connection-wrapper" key={user.id}>
                           <div
-                            
                             className="networkpage-card "
                             style={{
                               backgroundColor:
@@ -564,9 +577,12 @@ function NetworkPage() {
                             <div className="networkpage-actions">
                               <div
                                 className="networkpage-connect-icon"
-                                onClick={handleConnectClick}
+                                onClick={() => handleConnectClick(user.id)}
                               >
                                 <img src={ConnectSvg} alt="Connect" />
+                                {activeCardId[user.id] && (
+                                  <p className="text-green-600">Request Sent</p>
+                                )}
                               </div>
                             </div>
                             <div className="networkpage-stats">
@@ -575,10 +591,8 @@ function NetworkPage() {
                             </div>
                           </div>
 
-                          
-                          {(isMobile || showCatchUpMode )&& (
-                              <div className="networkpage-mobile-catchup">
-                              
+                          {(isMobile || showCatchUpMode) && (
+                            <div className="networkpage-mobile-catchup">
                               <div
                                 key={user.id}
                                 className="catchup-container mobile"
@@ -587,16 +601,13 @@ function NetworkPage() {
                                   {user.username}
                                 </h2>
                                 <p className="catchup-text">
-                                  Catch up with {user.username}! Share
-                                  updates, collaborate on projects, or start
-                                  a new conversation.
+                                  Catch up with {user.username}! Share updates,
+                                  collaborate on projects, or start a new
+                                  conversation.
                                 </p>
                               </div>
-                          
-                        </div>
+                            </div>
                           )}
-                         
-                        
                         </div>
                       ))
                     ) : (
@@ -608,8 +619,13 @@ function NetworkPage() {
                 <div className="networkpage-buttons">
                   <button
                     className="networkpage-action-btn  CATCHUP-Btn "
-                    onClick={() => isMobile ? handleNewConnectionClick() :handleCatchUpClick()}
-                  >CATCHUP
+                    onClick={() =>
+                      isMobile
+                        ? handleNewConnectionClick()
+                        : handleCatchUpClick()
+                    }
+                  >
+                    CATCHUP
                   </button>
                   <button
                     className="networkpage-action-btn REQUEST-Btn"
@@ -619,11 +635,13 @@ function NetworkPage() {
                   </button>
                   <button
                     className="networkpage-action-btn NEW-CONNECTION-Btn"
-                    onClick={()=>isMobile ? handleCatchUpClick() : handleNewConnectionClick()}
+                    onClick={() =>
+                      isMobile
+                        ? handleCatchUpClick()
+                        : handleNewConnectionClick()
+                    }
                   >
-                    
-                       NEW CONNECTION
-                  
+                    NEW CONNECTION
                   </button>
                 </div>
               </div>
@@ -643,11 +661,10 @@ function NetworkPage() {
         </div>
       )}
       {isMobile && <MobileFooter />}
- 
-     <div className="Network-right-section" >
-     <DesktopRightSection  />
-     </div>
- 
+
+      <div className="Network-right-section">
+        <DesktopRightSection />
+      </div>
     </div>
   );
 }
