@@ -10,9 +10,11 @@ import firstSvg from "./firstSvg.svg";
 import secondSvg from "./secondSvg.svg";
 import thirdSvg from "./thirdSvg.svg";
 import rightSectionProfileSvg from "./rightSectionProfileSvg.svg";
-import { IoFilter, IoSearch } from "react-icons/io5";
+import { IoArrowBackCircleOutline, IoFilter, IoSearch } from "react-icons/io5";
 import DesktopNavbar from "../DesktopNavbar/DesktopNavbar.jsx";
 import Background from "../Background/Background.jsx";
+import MobileNavbar from "../MobileNavbar/MobileNavbar.jsx";
+import MobileFooter from "../Mobilefooter/MobileFooter.jsx";
 import "./InternshipSection.css";
 import { Link } from "react-router-dom";
 
@@ -21,6 +23,7 @@ const InternshipSection = () => {
     <>
       <div className="Another-Internship-section-desktop-navbar-and-background">
         <DesktopNavbar />
+        <MobileNavbar />
         <Background />
       </div>
       <div className="Another-Internship-section-main-container">
@@ -152,6 +155,144 @@ const InternshipSection = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="mobile-Internship-section-main-container">
+        <nav className="mobile-Internship-nav">
+          <div className="mobile-Internship-back-arrow">
+            {" "}
+            <IoArrowBackCircleOutline />{" "}
+          </div>
+          <div className="mobile-Internship-nav-links">
+            <Link href="#" className="mobile-Internship-nav-link">
+              Find Gigs
+            </Link>
+            <Link href="#" className="mobile-Internship-nav-link">
+              Post Gigs
+            </Link>
+          </div>
+        </nav>
+      </div>
+
+      <div className="mobile-Internship-section-search-bar">
+        <div className="mobile-Internship-section-search-container">
+          <input
+            type="text"
+            placeholder="Search Internship"
+            className="mobile-Internship-section-search-input"
+          />
+          <div className="mobile-Internship-section-search-icon">
+            <IoSearch className="mobile-Internship-section-icon" />
+          </div>
+        </div>
+        <button className="mobile-Internship-section-filter-button">
+          All Filter <IoFilter className="mobile-Internship-section-icon" />
+        </button>
+      </div>
+
+      <div className="mobile-Internship-section-content-container">
+        <div className="mobile-Internship-section-content-container-left">
+          <div className="mobile-Internship-section-content-description">
+            <div className="mobile-Internship-section-content-blur"></div>
+            <div className="mobile-Internship-section-one-line">
+              Internships that
+              <div className="mobile-Internship-section-right-circle">
+                <div className="mobile-Internship-section-left-circle">
+                  <div className="mobile-Internship-section-inner-border">
+                    <div className="mobile-Internship-section-inner-white"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="mobile-Internship-section-one-line">
+              {" "}
+              enhance{" "}
+              <div className="mobile-Internship-section-profile-border">
+                <div className="mobile-Internship-section-profile-div">
+                  <img src={DeveloperPic} alt="" />
+                </div>
+              </div>
+              your
+            </div>
+            <div className="mobile-Internship-section-one-line">
+              Profile
+              <div className="mobile-Internship-section-slider-bar-section">
+                <div className="mobile-Internship-section-slider-bar">
+                  <div className="mobile-Internship-section-horizontal-slide"></div>
+                  <div className="mobile-Internship-section-vertical-slide"></div>
+                </div>
+                <div className="mobile-Internship-section-slider-photos">
+                  <img src={SliderPic} alt="SliderPic" />
+                  <img src={SliderPic} alt="SliderPic" />
+                  <img src={SliderPic} alt="SliderPic" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="mobile-Internship-section-content-container-right">
+          <div className="mobile-Internship-section-content-right-top">
+            <div className="mobile-Internship-section-top-left">
+              <img src={girlSvg} alt="" />
+            </div>
+            <div className="mobile-Internship-section-top-right">
+              <div className="mobile-Internship-section-small-images-section">
+                <div className="mobile-Internship-section-image">
+                  <img src={firstSvg} alt="" />
+                </div>
+                <div className="mobile-Internship-section-image">
+                  <img src={secondSvg} alt="" />
+                </div>
+                <div className="mobile-Internship-section-image">
+                  <img src={thirdSvg} alt="" />
+                </div>
+              </div>
+              <div className="mobile-Internship-section-boy-div">
+                <img src={boyRectangle} alt="" />
+                <img src={boySvg} alt="" />
+              </div>
+            </div>
+          </div>
+
+          <div className="mobile-Internship-section-content-right-down">
+            <div className="mobile-Internship-section-content-right-first-child">
+              <h1>Latest</h1>
+              <h3>Frontend</h3>
+              <h3>UI/UX</h3>
+              <h3>Backend</h3>
+            </div>
+            <div className="mobile-Internship-section-content-right-second-child">
+              <div className="mobile-Internship-section-content-right-image">
+                <img src={rightSectionProfileSvg} alt="" />
+              </div>
+              <h1>1.2k</h1>
+              <div className="mobile-Internship-section-content-right-buttons">
+                <button>
+                  UI/UX <span>219</span>
+                </button>
+                <button>
+                  Frontend <span>451</span>
+                </button>
+                <button>
+                  Backend <span>999</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="mobile-Internship-section-buttons">
+              <button className="mobile-Internship-section-left-button">
+                Explore
+              </button>
+              <button className="mobile-Internship-section-right-button">
+                <img src={buttonImg} alt="" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mobile-Internship-footer">
+        <MobileFooter />
       </div>
     </>
   );

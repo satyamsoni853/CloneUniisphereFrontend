@@ -597,3 +597,455 @@
     left: 19%;
   }
 }
+
+/*Media query to switch the view  */
+
+@media screen and (min-width: 768px) {
+  .mobile-Internship-section-main-container {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 767px) {
+  .Another-Internship-section-main-container {
+    display: none;
+  }
+}
+
+/* Media query for the mobile responsive */
+
+.mobile-Internship-section-main-container {
+  padding: 10px;
+  width: 100%;
+}
+
+.mobile-Internship-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.mobile-Internship-back-arrow {
+  font-size: 35px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mobile-Internship-nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.mobile-Internship-nav-link {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.mobile-Internship-search-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Search Bar Section */
+.mobile-Internship-section-search-bar {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  justify-content: space-around;
+}
+
+.mobile-Internship-section-search-container {
+  display: flex;
+  width: 60%;
+  box-shadow: 8px 8px 4px 0 #00000040;
+  align-items: center;
+  border-radius: 10px;
+  height: 35px;
+}
+
+.mobile-Internship-section-search-input {
+  border: none;
+  height: 100%;
+  padding: 0 20px;
+  outline: none;
+  font-size: 14px;
+  width: 100%;
+}
+.mobile-Internship-section-search-input::placeholder {
+  font-size: 14px;
+  color: #464848;
+  font-weight: 600;
+}
+
+.mobile-Internship-section-search-icon {
+  width: 25px;
+  display: flex;
+  font-size: 15px;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  border-radius: 15px;
+  background-color: #ffc9b3;
+  cursor: pointer;
+  margin-right: 10px;
+  /* Placeholder for icon; replace with actual SVG or image in production */
+}
+
+.mobile-Internship-section-filter-button {
+  display: flex;
+  gap: 10px;
+  color: #464848;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  width: 125px;
+  font-size: 15px;
+  font-weight: 600;
+  height: 30px;
+  background-color: #fff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 8px 8px 4px 0 #00000040;
+  cursor: pointer;
+}
+
+.mobile-Internship-footer {
+  display: none;
+  justify-content: center;
+}
+
+.mobile-Internship-section-content-container {
+  display: flex;
+  width: 100%;
+  overflow-x: hidden;
+  flex-direction: column;
+  padding: 5px 10px;
+}
+.mobile-Internship-section-content-container-left {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.mobile-Internship-section-content-description {
+  font-size: 40px;
+  position: relative;
+  padding: 10px;
+  font-weight: 600;
+  width: 100%;
+}
+.mobile-Internship-section-content-blur {
+  background-image: url("./ellipse.svg");
+  position: absolute;
+  height: 440px;
+  top: -70px;
+  z-index: -1000;
+  left: -30px;
+  width: 500px;
+  border-radius: 50%;
+}
+.mobile-Internship-section-one-line {
+  display: flex;
+  align-items: center;
+}
+.mobile-Internship-section-right-circle {
+  height: 50px;
+  margin-left: 20px;
+  display: inline-block;
+  position: relative;
+  width: 50px;
+  border-radius: 50%;
+  background-color: #52b6ff;
+}
+.mobile-Internship-section-left-circle {
+  height: 50px;
+  left: -10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 50px;
+  border-radius: 50%;
+  background-color: #a68cff;
+}
+.mobile-Internship-section-inner-border {
+  border: 2px dotted white;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  border-radius: 50%;
+}
+.mobile-Internship-section-inner-white {
+  background-color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.mobile-Internship-section-profile-border {
+  width: 70px;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 70px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dotted black;
+}
+.mobile-Internship-section-profile-div {
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+.mobile-Internship-section-profile-div img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.mobile-Internship-section-slider-bar-section {
+  background-color: white;
+  width: 180px;
+  margin-left: 40px;
+  display: flex;
+  height: 40px;
+  border-radius: 50px;
+  border: 3px solid black;
+}
+.mobile-Internship-section-slider-bar {
+  width: 55%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+
+.mobile-Internship-section-horizontal-slide {
+  background-color: #363535;
+  width: 90px;
+  height: 8px;
+  border-radius: 10px;
+}
+.mobile-Internship-section-vertical-slide {
+  height: 16px;
+  width: 14px;
+  position: absolute;
+  background-color: #363535;
+  left: 30%;
+  border-radius: 10px;
+}
+.mobile-Internship-section-slider-photos {
+  display: flex;
+  align-items: center;
+}
+.mobile-Internship-section-slider-photos img {
+  height: 32px;
+  width: 32px;
+}
+.mobile-Internship-section-slider-photos img:nth-child(2) {
+  margin-left: -15px;
+}
+.mobile-Internship-section-slider-photos img:nth-child(3) {
+  margin-left: -15px;
+}
+
+.mobile-Internship-section-buttons {
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mobile-Internship-section-left-button {
+  width: 200px;
+  height: 60px;
+  background: #363535;
+  border-radius: 60px;
+  font-size: 25px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+}
+.mobile-Internship-section-right-button {
+  width: 200px;
+  height: 60px;
+  cursor: pointer;
+  background: #5781f0;
+  border-radius: 60px;
+  font-size: 25px;
+  font-weight: 600;
+  color: white;
+  position: relative;
+}
+.mobile-Internship-section-right-button img {
+  position: absolute;
+  bottom: 0;
+  left: 18%;
+  cursor: pointer;
+}
+
+.mobile-Internship-section-content-container-right {
+  width: 100%;
+
+  height: 100%;
+  display: flex;
+}
+.mobile-Internship-section-content-right-top {
+  display: flex;
+  width: 100%;
+  height: 50%;
+}
+.mobile-Internship-section-content-right-down {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  gap: 70px;
+  position: relative;
+}
+.mobile-Internship-section-top-left {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #e6e9ff;
+  width: 145px;
+  z-index: 10000000;
+  border-radius: 40px;
+  height: 205px;
+  justify-content: end;
+}
+.mobile-Internship-section-top-right {
+  gap: 15px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 50%;
+}
+.mobile-Internship-section-top-left img:last-child {
+  margin-left: 4px;
+  margin-bottom: 50px;
+  height: 320px;
+  width: 240px;
+}
+.mobile-Internship-section-small-images-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.mobile-Internship-section-image {
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  border-radius: 50%;
+}
+.mobile-Internship-section-small-images-section div:nth-child(1) {
+  background-color: #84593f59;
+}
+.mobile-Internship-section-small-images-section div:nth-child(2) {
+  background-color: #f97220;
+  margin-right: 150px;
+}
+.mobile-Internship-section-small-images-section div:nth-child(3) {
+  background-color: #e2bc6959;
+  margin-top: -20px;
+}
+.mobile-Internship-section-boy-div {
+  position: relative;
+}
+.mobile-Internship-section-boy-div img:last-child {
+  position: absolute;
+  bottom: 0;
+}
+
+.mobile-Internship-section-content-right-first-child {
+  height: 220px;
+  width: 210px;
+  background-color: #ddc15a33;
+  border-radius: 20px;
+  padding: 10px 30px;
+  display: flex;
+  margin-right: 220px;
+  box-shadow: 8px 8px 4px 0 #00000040;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.mobile-Internship-section-content-right-first-child h1 {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.mobile-Internship-section-content-right-first-child h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.mobile-Internship-section-content-right-second-child {
+  height: 280px;
+  position: absolute;
+  width: 210px;
+  padding: 20px 30px;
+  bottom: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 20px;
+  left: 40%;
+  box-shadow: 8px 8px 4px 0 #00000040;
+}
+
+.mobile-Internship-section-content-right-image {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  border-radius: 50%;
+  top: -5%;
+  object-fit: cover;
+  background-color: black;
+}
+.mobile-Internship-section-content-right-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.mobile-Internship-section-content-right-second-child h1 {
+  font-size: 30px;
+  font-weight: 600;
+}
+.mobile-Internship-section-content-right-buttons button {
+  width: 170px;
+  height: 40px;
+  align-items: center;
+  display: flex;
+  font-weight: 600;
+  font-size: 16px;
+  justify-content: space-around;
+  border-radius: 10px;
+}
+.mobile-Internship-section-content-right-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.mobile-Internship-section-content-right-buttons button:nth-child(1) {
+  background-color: #db3e3933;
+}
+.mobile-Internship-section-content-right-buttons button:nth-child(2) {
+  background-color: #a07a9733;
+}
+.mobile-Internship-section-content-right-buttons button:nth-child(3) {
+  background-color: #2a9da733;
+}

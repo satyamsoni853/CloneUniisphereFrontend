@@ -252,3 +252,225 @@
     max-width: 70%;
   }
 }
+
+/* Mobile and desktop view switch css  */
+
+@media screen and (min-width: 768px) {
+  .mobile-freelancing-container {
+  display: none !important;
+  }
+}
+@media (max-width: 767px) {
+  .Another-freelancing-section {
+    display: none;
+  }
+}
+/*Mobile view  */
+
+.mobile-freelancing-container {
+  padding: 20px 10px 60px 10px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.mobile-freelancing-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.mobile-freelancing-back-arrow {
+  font-size: 35px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mobile-freelancing-nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.mobile-freelancing-nav-link {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.mobile-freelancing-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+}
+
+.mobile-freelancing-search-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Search Bar Section */
+.mobile-freelancing-section-search-bar {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  justify-content: space-around;
+}
+
+.mobile-freelancing-section-search-container {
+  display: flex;
+  width: 60%;
+  box-shadow: 8px 8px 4px 0 #00000040;
+  align-items: center;
+  border-radius: 10px;
+  height: 35px;
+}
+
+.mobile-freelancing-section-search-input {
+  border: none;
+  height: 100%;
+  padding: 0 20px;
+  outline: none;
+  font-size: 14px;
+  width: 100%;
+}
+.mobile-freelancing-section-search-input::placeholder {
+  font-size: 14px;
+  color: #464848;
+  font-weight: 600;
+}
+
+.mobile-freelancing-section-search-icon {
+  width: 25px;
+  display: flex;
+  font-size: 15px;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  border-radius: 15px;
+  background-color: #ffc9b3;
+  cursor: pointer;
+  margin-right: 10px;
+  /* Placeholder for icon; replace with actual SVG or image in production */
+}
+
+.mobile-freelancing-section-filter-button {
+  display: flex;
+  gap: 10px;
+  color: #464848;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  width: 125px;
+  font-size: 15px;
+  font-weight: 600;
+  height: 30px;
+  background-color: #fff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 8px 8px 4px 0 #00000040;
+  cursor: pointer;
+}
+
+/* Category Buttons Section */
+.mobile-freelancing-section-categories {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.mobile-freelancing-section-category-button {
+  background-color: #ffffff;
+  border: none;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  border-radius: 15px;
+  box-shadow: 8px 8px 4px 0 #00000040;
+  padding: 10px 20px;
+  font-size: 13px;
+  color: #464848;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.mobile-freelancing-section-category-button:hover {
+  background-color: #e0e0e0;
+}
+
+.mobile-freelancing-mentor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 10px;
+  row-gap: 15px;
+  padding: 0px 15px;
+}
+
+.mobile-freelancing-mentor-card {
+  border-radius: 15px;
+  box-shadow: 8px 8px 4px 0 #00000040;
+  display: flex;
+  height: 257px;
+  width: 170px;
+  padding: 10px 15px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-freelancing-profile-name-and-image {
+  display: flex;
+
+  gap: 10px;
+  align-items: center;
+}
+.mobile-freelancing-profile-name-and-image img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.mobile-freelancing-profile-name-and-image h1 {
+  font-size: 18px;
+  font-weight: 600;
+}
+.mobile-freelancing-description-and-skills {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.mobile-freelancing-description-and-skills h1 {
+  font-weight: 600;
+  font-size: 16px;
+  text-align: center;
+}
+.mobile-freelancing-description-and-skills p {
+  font-size: 14px;
+  font-weight: 400;
+
+  text-align: justify;
+}
+.mobile-freelancing-visit-btn {
+  width: 120px;
+  height: 35px;
+  background-color: #4b4eff;
+  font-size: 22px;
+  color: white;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  margin: auto;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.mobile-freelancing-footer {
+  display: flex;
+  justify-content: center;
+}
