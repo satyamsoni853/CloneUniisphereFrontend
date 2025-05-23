@@ -22,7 +22,9 @@ import InternzoneComingSoon from "./Components/AllComingSoon/InternzoneComingSoo
 import EventsComingSoon from "./Components/AllComingSoon/EventsComingSoon.jsx";
 import CommunityComingSoon from "./Components/AllComingSoon/CommunityComingSoon.jsx";
 import MentorshipComingSoon from "./Components/AllComingSoon/MentorshipComingSoon.jsx";
-
+import FreelancingSection from "./Components/FreelancingSection/FreelancingSection.jsx";
+import InternshipSection from "./Components/InternshipSection/InternshipSection.jsx"
+import ModernSkills from "./Components/ModernSkills/ModernSkills.jsx";
 
 // Lazy load other components
 const View = lazy(() => import("./Components/View/View.jsx"));
@@ -130,6 +132,9 @@ function App() {
             <Route path='/EventsComingSoon' element={<EventsComingSoon/>} />
             <Route path='/CommunityComingSoon' element={<CommunityComingSoon/>} />
             <Route path='/MentorshipComingSoon' element={<MentorshipComingSoon/>} />
+            <Route path='/FreelancingSection' element={<FreelancingSection/>} />
+            <Route path='/InternshipSection' element={<InternshipSection/>} />
+            <Route path='/ModernSkills' element={<ModernSkills/>} />
 
           </Routes>
         </Suspense>
