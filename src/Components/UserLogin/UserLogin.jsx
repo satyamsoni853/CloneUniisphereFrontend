@@ -8,6 +8,7 @@ import Background from "../Background/Background";
 import Unispherelogo from "./Unispherelogo.png";
 import "./Userloginfile.css";
 import Toast from '../Common/Toast';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 function UserLogin() {
   const [showPassword, setShowPassword] = useState(false);
@@ -87,6 +88,15 @@ function UserLogin() {
 
   const handleGoogleLogin = async () => {
     // Implement Google login logic here
+  };
+    const handleSuccess = (credentialResponse) => {
+    console.log("Google signup Success:", credentialResponse);
+    // आप credentialResponse.credential को backend को भेज सकते हैं
+  };
+
+  const handleError = () => {
+    console.log("Google signup Failed");
+    alert("Google Sign-in Failed. Please try again.");
   };
 
   return (
@@ -188,7 +198,7 @@ function UserLogin() {
 
           <div className="button-container">
             <button
-              className="login-singup-button login-btn"
+              className="login-singup-button-1 login-btn"
               type="button"
               onClick={handleLogin}
               disabled={isLoading} // Disable button during loading
@@ -208,18 +218,12 @@ function UserLogin() {
           </div>
 
           <div className="google-container">
-            <button
-              className="google-btn"
-              style={{ display: "flex", alignItems: "center" }}
-              disabled={isLoading} // Disable Google button during loading
-            >
-              <Link
-                to="/GoogleLogin"
-                style={{ display: "flex", alignItems: "center" }}
-              >
-                <FcGoogle className="google-icon" /> Google
-              </Link>
-            </button>
+           
+            <GoogleOAuthProvider clientId="255322663976-62hm6bttf78vpsn941dhndkdobefd12v.apps.googleusercontent.com" >
+              <GoogleLogin onSuccess={handleSuccess}
+              onError={handleError}
+               />
+            </GoogleOAuthProvider>
           </div>
 
           <p className="signup-text">

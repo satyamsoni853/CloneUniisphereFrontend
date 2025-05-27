@@ -251,20 +251,7 @@ function MobileFooter() {
             onClick={() => toggleIcon("home")}
           />
         </Link>
-        <Link>
-          <div 
-          onClick={()=>{
-             toggleIcon("notification");
-            setNotificationActive(!notificationActive);
-          }}
-          className="mobile-footer-notification-icon">
-            {notificationActive ? (
-              <IoMdNotificationsOutline />
-            ) : (
-              <IoNotifications />
-            )}
-          </div>
-        </Link>
+     
         <img
           src={addActive ? AddBlack : AddWhite}
           alt="Add"

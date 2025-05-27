@@ -1,35 +1,32 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef, memo } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Background from "../Background/Background";
 import "./MobileNavbar.css";
 import { FiSearch } from "react-icons/fi";
-import Messageicon from "./Messageicon.png";
-import Usericon from "./Usericon.png";
+import { IoIosArrowForward } from "react-icons/io";
+import SendMsg from './send.svg';
+import Vector from './vector.svg';
+import UserIcon from "./Usericon.png";
 import axios from "axios";
 import debounce from "lodash/debounce";
-import { IoIosArrowForward } from "react-icons/io";
 
-// Icons
-import UserIcon from "./Usericon.png";
-
-function MobileNavbar() {
-  // Search functionality state
+// Memoize to prevent unnecessary re-renders
+const MobileNavbar = memo(() => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [activeTab, setActiveTab] = useState("Trend");
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId") || "your-user-id-here";
   const token = localStorage.getItem("authToken");
+  const searchContainerRef = useRef(null);
 
-  const searchContainerRef = useRef(null); // Ref for the search container
-
-  // Search-related state
+  // Static data (can be fetched from API in a real app)
   const buttonscolor = ["#DB3E3933", "#DDC058", "#A17A97"];
-  const [activeTab, setActiveTab] = useState("Trend");
-  const [recentSearches] = useState([]); // Initialize as empty array
+  const [recentSearches] = useState([]);
   const [suggestedUsers] = useState([
     {
       id: 7,
@@ -63,21 +60,21 @@ function MobileNavbar() {
   const [events] = useState([]);
   const [news] = useState([]);
 
-  // Combine filtered recent searches with search results
+  // Combined search results
   const filteredRecentSearches = recentSearches.filter((search) =>
-    search.name.toLowerCase().includes(searchQuery.toLowerCase())
+    search.name?.toLowerCase().includes(searchQuery.toLowerCase())
   );
   const combinedRecentResults = searchQuery
     ? [
-      ...filteredRecentSearches,
-      ...searchResults.filter(
-        (result) =>
-          !filteredRecentSearches.some((search) => search.id === result.id)
-      ),
-    ]
+        ...filteredRecentSearches,
+        ...searchResults.filter(
+          (result) =>
+            !filteredRecentSearches.some((search) => search.id === result.id)
+        ),
+      ]
     : recentSearches;
 
-  // Click outside handler to close the search results
+  // Handle clicks outside to close search results
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -87,25 +84,17 @@ function MobileNavbar() {
         setShowResults(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Handle keydown events (e.g., Esc to close)
+  // Handle Escape key to close search results
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        setShowResults(false);
-      }
+      if (event.key === "Escape") setShowResults(false);
     };
-
     document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   // Fetch profiles by username
@@ -114,9 +103,10 @@ function MobileNavbar() {
     setError(null);
     try {
       const response = await axios.get(
-        `https://uniisphere-backend-latest.onrender.com/api/users/profile/?search=${encodeURIComponent(username)}`
+        `https://uniisphere-backend-latest.onrender.com/api/users/profile/?search=${encodeURIComponent(
+          username
+        )}`
       );
-      console.log("Search API Response:", response.data);
       setSearchResults(Array.isArray(response.data) ? response.data : []);
     } catch (err) {
       console.error("Search error:", err);
@@ -141,24 +131,15 @@ function MobileNavbar() {
             },
           }
         );
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch conversations: ${response.status}`);
-        }
-
+        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
         const data = await response.json();
-        const unread = data.filter(
-          (msg) => msg.status === "unread" || !msg.read
-        );
+        const unread = data.filter((msg) => msg.status === "unread" || !msg.read);
         setUnreadCount(unread.length);
       } catch (err) {
         console.error("Error fetching unread messages:", err);
       }
     };
-
-    if (token) {
-      fetchUnreadMessages();
-    }
+    if (token) fetchUnreadMessages();
   }, [userId, token]);
 
   // Debounced search
@@ -179,31 +160,28 @@ function MobileNavbar() {
   };
 
   // Handle profile click
-  const handleProfileClick = (userId) => {
+  const handleProfileClick = useCallback((userId) => {
     localStorage.setItem("SearchUserId", userId);
     navigate(`/AfterConnecting/${userId}`);
     setShowResults(false);
     setSearchQuery("");
-  };
+  }, [navigate]);
 
   // Handle key press for accessibility
-  const handleKeyDown = (e, userId) => {
-    if (e.key === "Enter" || e.key === " ") {
-      handleProfileClick(userId);
-    }
-  };
+  const handleKeyDown = useCallback((e, userId) => {
+    if (e.key === "Enter" || e.key === " ") handleProfileClick(userId);
+  }, [handleProfileClick]);
 
   // Handle logo click
   const handleLogoClick = () => {
     if (!userId || userId === "your-user-id-here") {
-      console.error("User ID not found in localStorage");
       setError("Please log in to access your profile");
       return;
     }
     navigate(`/ProfileEditSection/${userId}`);
   };
 
-  // Initial load - fetch all profiles
+  // Initial fetch
   useEffect(() => {
     fetchProfiles();
   }, [fetchProfiles]);
@@ -214,14 +192,15 @@ function MobileNavbar() {
       <div className="mobile-navbar">
         {/* Logo */}
         <img
-          src={Usericon}
+          src={Vector}
           alt="Logo"
           className="mobile-navbar-logo"
-          onClick={handleLogoClick}
+          // onClick={handleLogoClick}
           style={{ cursor: "pointer" }}
+          loading="lazy"
         />
 
-        {/* Search Bar with Results */}
+        {/* Search Bar */}
         <div className="mobile-navbar-search-container" ref={searchContainerRef}>
           <div className="mobile-navbar-search">
             <FiSearch className="mobile-navbar-search-icon" />
@@ -232,13 +211,14 @@ function MobileNavbar() {
               value={searchQuery}
               onChange={handleSearchChange}
               onFocus={() => setShowResults(true)}
+              aria-label="Search for users"
             />
           </div>
 
-          {/* Search Bar with Updated Interface */}
+          {/* Search Results Dropdown */}
           {showResults && (
             <div className="mobile-search-results">
-              {/* Recent Searches Section with Search Results */}
+              {/* Recent Searches */}
               <div className="mobile-search-section">
                 <h4 className="mobile-search-section-title">Recent</h4>
                 <div className="mobile-recent-search-list">
@@ -255,6 +235,8 @@ function MobileNavbar() {
                           onClick={() => handleProfileClick(item.id)}
                           onKeyDown={(e) => handleKeyDown(e, item.id)}
                           tabIndex={0}
+                          role="button"
+                          aria-label={`View profile of ${item.name || item.username}`}
                         >
                           <img
                             src={item.profilePictureUrl || UserIcon}
@@ -266,9 +248,9 @@ function MobileNavbar() {
                           <span className="mobile-recent-search-name">
                             {item.name || item.username}
                           </span>
+                          <IoIosArrowForward className="mobile-recent-search-arrow" />
                         </div>
                       ))}
-                      <IoIosArrowForward className="mobile-recent-search-arrow" />
                     </div>
                   ) : (
                     <div className="mobile-search-no-results">
@@ -278,7 +260,7 @@ function MobileNavbar() {
                 </div>
               </div>
 
-              {/* Suggested Users Section */}
+              {/* Suggested Users */}
               <div className="mobile-search-section">
                 <h4 className="mobile-search-section-title">Suggested</h4>
                 {suggestedUsers.map((user) => (
@@ -288,6 +270,8 @@ function MobileNavbar() {
                     onClick={() => handleProfileClick(user.id)}
                     onKeyDown={(e) => handleKeyDown(e, user.id)}
                     tabIndex={0}
+                    role="button"
+                    aria-label={`View profile of ${user.name}`}
                   >
                     <img
                       src={user.profilePictureUrl || UserIcon}
@@ -316,21 +300,18 @@ function MobileNavbar() {
                 <div className="mobile-search-tabs">
                   {["Trend", "Event", "News"].map((tab, index) => (
                     <button
-                      style={{
-                        backgroundColor:
-                          buttonscolor[index % buttonscolor.length],
-                      }}
                       key={tab}
                       onClick={() => setActiveTab(tab)}
-                      className={`mobile-search-tab-button ${activeTab === tab ? "active" : ""
-                        }`}
+                      className={`mobile-search-tab-button ${activeTab === tab ? "active" : ""}`}
+                      style={{ backgroundColor: buttonscolor[index % buttonscolor.length] }}
+                      aria-pressed={activeTab === tab}
                     >
                       {tab}
                     </button>
                   ))}
                 </div>
 
-                {/* Content based on active tab */}
+                {/* Tab Content */}
                 {activeTab === "Trend" ? (
                   <div className="mobile-trend-results">
                     {trends.map((trend) => (
@@ -363,9 +344,7 @@ function MobileNavbar() {
                           />
                           <div className="mobile-event-info">
                             <p className="mobile-event-title">{event.title}</p>
-                            <p className="mobile-event-description">
-                              {event.description}
-                            </p>
+                            <p className="mobile-event-description">{event.description}</p>
                           </div>
                         </div>
                       ))
@@ -401,17 +380,23 @@ function MobileNavbar() {
           )}
         </div>
 
-        {/* Message Icon with Unread Badge */}
-        <Link to="/MessageMobileInbox">
-          <img
-            src={Messageicon}
-            alt="Message"
-            className="mobile-navbarr-icon"
-          />
+        {/* Message Icon */}
+        <Link to="/MessageMobileInbox" aria-label="Messages">
+          <div className="mobile-navbarr-icon-wrapper">
+            <img
+              src={SendMsg}
+              alt="Message"
+              className="mobile-navbarr-icon"
+              loading="lazy"
+            />
+            {unreadCount > 0 && (
+              <span className="mobile-unread-badge">{unreadCount}</span>
+            )}
+          </div>
         </Link>
       </div>
     </div>
   );
-}
+});
 
 export default MobileNavbar;

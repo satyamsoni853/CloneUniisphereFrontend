@@ -11,7 +11,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoSendOutline } from "react-icons/io5";
 import { FcLike } from "react-icons/fc";
 import Background from "../Background/Background";
-import profilePhoto from "./profilephoto.png";
+import profilePictureUrl from "./profilephoto.png";
 import ShareIcon from "./Share.svg";
 import LikeIcon from "./Like.svg";
 import CommentIcon from "./Comment.svg";
@@ -24,6 +24,14 @@ import xIcon from "./X.svg";
 import { SearchIcon } from "lucide-react";
 import Toast from '../Common/Toast';
 
+// Dummy story data
+const dummyStories = [
+  { id: 1, username: "Arun_LEVE", image: "https://via.placeholder.com/60?text=Arun" },
+  { id: 2, username: "Kartikey_584", image: "https://via.placeholder.com/60?text=Kartikey" },
+  { id: 3, username: "Abhishek_ba", image: "https://via.placeholder.com/60?text=Abhishek" },
+  { id: 4, username: "Vijay_Prashad", image: "https://via.placeholder.com/60?text=Vijay" },
+];
+
 function MobileMiddleSection() {
   const [showComment, setShowComment] = useState(false);
   const [showCommentOptions, setShowCommentOptions] = useState(false);
@@ -32,7 +40,7 @@ function MobileMiddleSection() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedImages, setSelectedImages] = useState([]);
-  const [activeOptionsPostId, setActiveOptionsPostId] = useState(null);
+  const [activeLeftOptionsPostId, setActiveLeftOptionsPostId] = useState(null);
   const [activeCommentPostIndex, setActiveCommentPostIndex] = useState(null);
   const [activeSharePostIndex, setActiveSharePostIndex] = useState(null);
   const [newComment, setNewComment] = useState("");
@@ -47,7 +55,7 @@ function MobileMiddleSection() {
   const [connectionStatuses, setConnectionStatuses] = useState({});
   const [seeMore, setSeeMore] = useState({});
   const [currentSlides, setCurrentSlides] = useState({});
-  const optionsRef = useRef(null);
+  const leftOptionsRef = useRef(null);
   const commentModalRef = useRef(null);
   const shareModalRef = useRef(null);
   const imageModalRef = useRef(null);
@@ -67,9 +75,9 @@ function MobileMiddleSection() {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (optionsRef.current && !optionsRef.current.contains(event.target)) {
-        setActiveOptionsPostId(null);
-        console.log("Closed options menu by clicking outside.");
+      if (leftOptionsRef.current && !leftOptionsRef.current.contains(event.target)) {
+        setActiveLeftOptionsPostId(null);
+        console.log("Closed left options menu by clicking outside.");
       }
       if (
         showComment &&
@@ -253,7 +261,7 @@ function MobileMiddleSection() {
       }));
       setError(null);
     } catch (error) {
-      console.error("Connection request error:", err.response?.data || err.message);
+      console.error("Connection request error:", error.response?.data || error.message);
       setError(
         error.response?.data?.message || "Failed to send connection request."
       );
@@ -540,7 +548,7 @@ function MobileMiddleSection() {
 
   const handleOptionClick = (option, postId) => {
     console.log(`Selected option: ${option} for post ID: ${postId}`);
-    setActiveOptionsPostId(null);
+    setActiveLeftOptionsPostId(null);
   };
 
   const toggleSeeMore = (index) => {
@@ -612,8 +620,49 @@ function MobileMiddleSection() {
     setSelectedImageIndex((prev) => (prev + 1) % selectedImages.length);
   };
 
+  const handleStoryClick = (story) => {
+    console.log(`Viewing story for ${story.username}`);
+  };
+
+  const handleAddStory = () => {
+    console.log("Adding a new story");
+  };
+
   return (
     <div className="mobile-middle-middle-card">
+      {/* Stories Section */}
+      <div className="mobile-stories-container">
+        <div className="mobile-stories-scroll">
+          <div className="mobile-story-item" onClick={handleAddStory}>
+            <div className="mobile-story-image-container">
+              <img
+                src={userData.profilePicture || Profileimage}
+                alt="Your Story"
+                className="mobile-story-image"
+              />
+              <div className="mobile-story-add-icon">+</div>
+            </div>
+            <span className="mobile-story-username">Your Story</span>
+          </div>
+          {dummyStories.map((story) => (
+            <div
+              key={story.id}
+              className="mobile-story-item"
+              onClick={() => handleStoryClick(story)}
+            >
+              <div className="mobile-story-image-container">
+                <img
+                  src={story.image}
+                  alt={story.username}
+                  className="mobile-story-image"
+                />
+              </div>
+              <span className="mobile-story-username">{story.username}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {error && <div className="mobile-error-message">{error}</div>}
 
       {imageLoading ? (
@@ -624,96 +673,31 @@ function MobileMiddleSection() {
           const isSelf = authData && post.authorId === authData.userId;
           const isConnected = connections.some((conn) => conn.id === post.authorId);
           const isRequestSent = connectionStatuses[post.authorId] === "requested";
+          const showConnectIcon = !isSelf && !isConnected && !isRequestSent;
           const images = Array.isArray(post.mediaUrl) ? post.mediaUrl : [post.mediaUrl];
           const currentSlide = currentSlides[post._id] || 0;
 
           return (
             <div key={post._id || index} className="mobile-post-container">
               <div className="mobile-middle-profile-header">
-                <div className="mobile-image-and-name-holder">
-                  <div
-                    onClick={() => handleProfileClick(post.authorId || userId)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <img
-                      src={post.profilePhoto}
-                      alt="Profile"
-                      className="mobile-middle-profile-pic"
-                      onError={(e) => {
-                        e.target.src = Profileimage;
-                      }}
-                    />
-                  </div>
-                  <div className="mobile-middle-profile-info">
-                    <div className="mobile-middle-profile-top">
-                      <span className="mobile-middle-profile-name">
-                        {post.authorName}
-                      </span>
-                      <span className="mobile-middle-post-time">18h</span>
-                    </div>
-                    <p className="mobile-middle-profile-details">
-                      {post.authorDetails}
-                    </p>
-                  </div>
-                  <div className="mobile-middle-connect-container">
-                    {isSelf ? (
-                      <div className="mobile-connection-status-message">
-                        {/* You cannot send a connection request to yourself. */}
-                      </div>
-                    ) : isConnected ? (
-                      <div className="mobile-connection-status-message">
-                        Connection already exists.
-                      </div>
-                    ) : isRequestSent ? (
-                      <div className="mobile-connection-status-message">
-                        Request Sent!
-                      </div>
-                    ) : (
-                      <img
-                        src={ConnectMiddleImage}
-                        alt="Connect"
-                        className="mobile-middle-connect-image"
-                        onClick={() => sendConnectionRequest(post.authorId)}
-                        style={{ cursor: "pointer" }}
-                      />
-                    )}
-                  </div>
-                </div>
-                <div className="mobile-middle-options-container" ref={optionsRef}>
+                {/* Left Three-Dot Icon */}
+                <div className="mobile-middle-options-wrapper" ref={leftOptionsRef}>
                   <BsThreeDotsVertical
                     className="mobile-middle-options-icon"
                     onClick={() => {
-                      console.log(`Toggling options for post ID: ${post._id}`);
-                      setActiveOptionsPostId(
-                        activeOptionsPostId === post._id ? null : post._id
+                      console.log(`Toggling left options for post ID: ${post._id}`);
+                      setActiveLeftOptionsPostId(
+                        activeLeftOptionsPostId === post._id ? null : post._id
                       );
                     }}
                   />
-                  {activeOptionsPostId === post._id && (
+                  {activeLeftOptionsPostId === post._id && (
                     <div className="mobile-middle-options-dropdown">
                       <button
                         className="mobile-middle-options-item"
-                        onClick={() => handleOptionClick("Interest", post._id)}
+                        onClick={() => handleOptionClick("View Profile", post._id)}
                       >
-                        Interest
-                      </button>
-                      <button
-                        className="mobile-middle-options-item"
-                        onClick={() => handleOptionClick("Not Interested", post._id)}
-                      >
-                        Not Interested
-                      </button>
-                      <button
-                        className="mobile-middle-options-item"
-                        onClick={() => handleOptionClick("Block", post._id)}
-                      >
-                        Block
-                      </button>
-                      <button
-                        className="mobile-middle-options-item"
-                        onClick={() => handleOptionClick("Report", post._id)}
-                      >
-                        Report
+                        View Profile
                       </button>
                       <button
                         className="mobile-middle-options-item"
@@ -721,8 +705,62 @@ function MobileMiddleSection() {
                       >
                         Message
                       </button>
+                      <button
+                        className="mobile-middle-options-item"
+                        onClick={() => handleOptionClick("Follow", post._id)}
+                      >
+                        Follow
+                      </button>
                     </div>
                   )}
+                </div>
+
+                {/* Profile Section with Border */}
+                <div className="mobile-middle-profile-details-wrapper">
+                  <div className={`mobile-image-and-name-holder ${!showConnectIcon ? "no-connect-icon" : ""}`}>
+                    <div className="mobile-middle-connect-container">
+                      {isSelf ? (
+                        <div className="mobile-connection-status-message">
+                          {/* You cannot send a connection request to yourself. */}
+                        </div>
+                      ) : isConnected ? (
+                        <div className="mobile-connection-status-message">
+                          Connection already exists.
+                        </div>
+                      ) : isRequestSent ? (
+                        <div className="mobile-connection-status-message">
+                          Request Sent!
+                        </div>
+                      ) : (
+                        <img
+                          src={ConnectMiddleImage}
+                          alt="Connect"
+                          className="mobile-middle-connect-image"
+                          onClick={() => sendConnectionRequest(post.authorId)}
+                          style={{ cursor: "pointer" }}
+                        />
+                      )}
+                    </div>
+                    <div className="mobile-middle-profile-info">
+                      <div className="mobile-middle-profile-top">
+                        <span className="mobile-middle-profile-name">{post.authorName}</span>
+                      </div>
+                      <p className="mobile-middle-profile-details">{post.authorDetails}</p>
+                    </div>
+                    <div
+                      onClick={() => handleProfileClick(post.authorId || userId)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <img
+                        src={post.profilePhoto}
+                        alt="Profile"
+                        className="mobile-middle-profile-pic"
+                        onError={(e) => {
+                          e.target.src = Profileimage;
+                        }}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -737,8 +775,7 @@ function MobileMiddleSection() {
                     {images.map((url, imgIndex) => (
                       <div
                         key={imgIndex}
-                        className={`mobile-slider-item ${imgIndex === currentSlide ? "active" : ""
-                          }`}
+                        className={`mobile-slider-item ${imgIndex === currentSlide ? "active" : ""}`}
                       >
                         <img
                           src={url}
@@ -760,8 +797,7 @@ function MobileMiddleSection() {
                   {images.map((_, dotIndex) => (
                     <span
                       key={dotIndex}
-                      className={`mobile-slider-dot ${dotIndex === currentSlide ? "active" : ""
-                        }`}
+                      className={`mobile-slider-dot ${dotIndex === currentSlide ? "active" : ""}`}
                       onClick={() =>
                         setCurrentSlides((prev) => ({
                           ...prev,
@@ -774,12 +810,13 @@ function MobileMiddleSection() {
               </div>
 
               <div className="mobile-middle-action-bar">
+                <span className="mobile-middle-icon-count">{post.likes} Likes</span>
                 <div className="mobile-middle-action-icons">
                   <div
                     className="mobile-middle-icon-container"
                     onClick={() => handleLike(index)}
                   >
-                    <span className="mobile-middle-icon-count">{post.likes}</span>
+                    
                     {post.isLiked ? (
                       <FcLike
                         className="mobile-middle-icon liked"
@@ -799,7 +836,7 @@ function MobileMiddleSection() {
                     onClick={() => handleCommentClick(index)}
                   >
                     <span className="mobile-middle-icon-count">
-                      {post.comments.length}
+                      {/* {post.comments.length} */}
                     </span>
                     <img
                       src={CommentIcon}
@@ -881,7 +918,6 @@ function MobileMiddleSection() {
                 onClick={() => setShowCommentOptions(!showCommentOptions)}
                 className="mobile-Full-comment-section-menu-icon"
               />
-
             </div>
             <div className="mobile-Full-comment-section-photo-container">
               <div
@@ -1247,8 +1283,7 @@ function MobileMiddleSection() {
                 {selectedImages.map((url, imgIndex) => (
                   <div
                     key={imgIndex}
-                    className={`mobile-image-modal-slider-item ${imgIndex === selectedImageIndex ? "active" : ""
-                      }`}
+                    className={`mobile-image-modal-slider-item ${imgIndex === selectedImageIndex ? "active" : ""}`}
                   >
                     <img
                       src={url}
@@ -1273,8 +1308,7 @@ function MobileMiddleSection() {
                 {selectedImages.map((_, dotIndex) => (
                   <span
                     key={dotIndex}
-                    className={`mobile-image-modal-dot ${dotIndex === selectedImageIndex ? "active" : ""
-                      }`}
+                    className={`mobile-image-modal-dot ${dotIndex === selectedImageIndex ? "active" : ""}`}
                     onClick={() => setSelectedImageIndex(dotIndex)}
                   />
                 ))}

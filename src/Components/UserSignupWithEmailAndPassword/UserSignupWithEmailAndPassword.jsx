@@ -1,22 +1,22 @@
 import axios from "axios";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Background from "../Background/Background";
 import Unispherelogo from "./Unispherelogo.png";
 import "./UserSignupWithEmailAndPassword.css";
-import { useEffect } from "react";
 
-function UserSignupwithemailandpass() {
+function UserSignupWithEmailAndPass() {
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [repassword, setRepassword] = useState("");
   const [otp, setOtp] = useState(Array(6).fill("")); // Array to store 6 digits
   const [step, setStep] = useState(1);
   const [error, setError] = useState("");
-  const [successMessage, setSuccessMessage] = useState(""); // For success messages
-  const [isResendDisabled, setIsResendDisabled] = useState(false); // For resend button cooldown
-  const [cooldownTime, setCooldownTime] = useState(0); // For countdown timer
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isResendDisabled, setIsResendDisabled] = useState(false);
+  const [cooldownTime, setCooldownTime] = useState(0);
   const navigate = useNavigate();
-  const inputRefs = useRef([]); // Refs for OTP input boxes
+  const inputRefs = useRef([]);
 
   // Handle registration and OTP sending
   const handleRegister = async (e) => {
@@ -24,10 +24,15 @@ function UserSignupwithemailandpass() {
     setError("");
     setSuccessMessage("");
 
+    if (password !== repassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
     try {
       const response = await axios.post(
         "https://uniisphere-backend-latest.onrender.com/api/auth/register",
-        { email, username }
+        { email, password }
       );
       console.log("OTP sent:", response.data);
       setStep(2);
@@ -35,7 +40,7 @@ function UserSignupwithemailandpass() {
     } catch (err) {
       setError(
         err.response?.data?.message ||
-          "Failed to send OTP. Please check your email and username."
+          "Failed to send OTP. Please check your email and password."
       );
     }
   };
@@ -46,7 +51,7 @@ function UserSignupwithemailandpass() {
     setError("");
     setSuccessMessage("");
 
-    const otpString = otp.join(""); // Combine OTP digits
+    const otpString = otp.join("");
     try {
       const response = await axios.post(
         "https://uniisphere-backend-latest.onrender.com/api/auth/verifyOtp",
@@ -62,7 +67,7 @@ function UserSignupwithemailandpass() {
 
       console.log("Token received successfully:", token.substring(0, 10) + "...");
       navigate("/AfterOtpSection1", {
-        state: { email, username, token },
+        state: { email, token },
       });
     } catch (err) {
       console.error("OTP verification error:", err);
@@ -83,7 +88,7 @@ function UserSignupwithemailandpass() {
 
     try {
       setIsResendDisabled(true);
-      setCooldownTime(30); // Set 30-second cooldown
+      setCooldownTime(30);
 
       const response = await axios.post(
         "https://uniisphere-backend-latest.onrender.com/api/auth/resendOtp",
@@ -91,9 +96,8 @@ function UserSignupwithemailandpass() {
       );
       console.log("OTP resent:", response.data);
 
-      // Reset OTP input fields
       setOtp(Array(6).fill(""));
-      inputRefs.current[0]?.focus(); // Focus on first OTP input
+      inputRefs.current[0]?.focus();
 
       setSuccessMessage("New OTP sent to your email!");
     } catch (err) {
@@ -126,13 +130,11 @@ function UserSignupwithemailandpass() {
   const handleOtpChange = (e, index) => {
     const value = e.target.value;
 
-    // Only allow single digit
     if (/^[0-9]?$/.test(value)) {
       const newOtp = [...otp];
       newOtp[index] = value;
       setOtp(newOtp);
 
-      // Move to next input if a digit is entered
       if (value && index < 5) {
         inputRefs.current[index + 1].focus();
       }
@@ -152,7 +154,7 @@ function UserSignupwithemailandpass() {
     if (/^\d{6}$/.test(pastedData)) {
       const newOtp = pastedData.split("");
       setOtp(newOtp);
-      inputRefs.current[5].focus(); // Focus on the last input
+      inputRefs.current[5].focus();
     }
     e.preventDefault();
   };
@@ -206,13 +208,23 @@ function UserSignupwithemailandpass() {
                 />
               </div>
               <div>
-                <label>Username:</label>
+                <label>Password:</label>
                 <input
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
-                  placeholder="Enter your username"
+                  placeholder="Enter your password"
+                />
+              </div>
+              <div>
+                <label>Confirm Password:</label>
+                <input
+                  type="password"
+                  value={repassword}
+                  onChange={(e) => setRepassword(e.target.value)}
+                  required
+                  placeholder="Confirm your password"
                 />
               </div>
               <button className="login-singup-button" type="submit">
@@ -235,7 +247,7 @@ function UserSignupwithemailandpass() {
                     onChange={(e) => handleOtpChange(e, index)}
                     onKeyDown={(e) => handleKeyDown(e, index)}
                     ref={(el) => (inputRefs.current[index] = el)}
-                    autoFocus={index === 0} // Auto-focus first input
+                    autoFocus={index === 0}
                   />
                 ))}
               </div>
@@ -271,4 +283,4 @@ function UserSignupwithemailandpass() {
   );
 }
 
-export default UserSignupwithemailandpass;
+export default UserSignupWithEmailAndPass;
