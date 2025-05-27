@@ -43,8 +43,8 @@ function AfterOtpSection1() {
   // State for Step 3 (Interests & Skills)
   const [interestQuery, setInterestQuery] = useState("");
   const [skillQuery, setSkillQuery] = useState("");
-  const [interestSuggestion, setInterestSuggestion] = useState("");
-  const [skillSuggestion, setSkillSuggestion] = useState("");
+  const [interestSuggestionsFiltered, setInterestSuggestionsFiltered] = useState([]);
+  const [skillSuggestionsFiltered, setSkillSuggestionsFiltered] = useState([]);
   const [selectedInterests, setSelectedInterests] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [isInterestDropdownOpen, setIsInterestDropdownOpen] = useState(false);
@@ -333,39 +333,37 @@ function AfterOtpSection1() {
     ).slice(0, 5); // Limit to 5 suggestions
   };
 
-  // Get single interest suggestion based on input
-  const getSingleInterestSuggestion = () => {
+  // Get filtered interest suggestions based on input
+  const getInterestSuggestions = () => {
     const query = interestQuery.toLowerCase();
-    if (!query) return "";
     const courseInterests =
       courseInterestsSkillsMap[course]?.interests ||
       courseInterestsSkillsMap.default.interests;
-    const match = courseInterests.find((interest) =>
-      interest.toLowerCase().startsWith(query)
-    );
-    return match || "";
+    if (!query) return courseInterests.slice(0, 5); // Show top 5 interests when query is empty
+    return courseInterests
+      .filter((interest) => interest.toLowerCase().includes(query))
+      .slice(0, 5); // Limit to 5 suggestions
   };
 
-  // Get single skill suggestion based on input
-  const getSingleSkillSuggestion = () => {
+  // Get filtered skill suggestions based on input
+  const getSkillSuggestions = () => {
     const query = skillQuery.toLowerCase();
-    if (!query) return "";
     const courseSkills =
       courseInterestsSkillsMap[course]?.skills ||
       courseInterestsSkillsMap.default.skills;
-    const match = courseSkills.find((skill) =>
-      skill.toLowerCase().startsWith(query)
-    );
-    return match || "";
+    if (!query) return courseSkills.slice(0, 5); // Show top 5 skills when query is empty
+    return courseSkills
+      .filter((skill) => skill.toLowerCase().includes(query))
+      .slice(0, 5); // Limit to 5 suggestions
   };
 
   // Update suggestions when query changes
   useEffect(() => {
-    setInterestSuggestion(getSingleInterestSuggestion());
+    setInterestSuggestionsFiltered(getInterestSuggestions());
   }, [interestQuery, course]);
 
   useEffect(() => {
-    setSkillSuggestion(getSingleSkillSuggestion());
+    setSkillSuggestionsFiltered(getSkillSuggestions());
   }, [skillQuery, course]);
 
   useEffect(() => {
@@ -532,7 +530,6 @@ function AfterOtpSection1() {
     if (selectedInterests.includes(value)) return;
     setSelectedInterests([...selectedInterests, value]);
     setInterestQuery("");
-    setInterestSuggestion("");
     setIsInterestDropdownOpen(false);
   };
 
@@ -541,7 +538,6 @@ function AfterOtpSection1() {
     if (selectedSkills.includes(value)) return;
     setSelectedSkills([...selectedSkills, value]);
     setSkillQuery("");
-    setSkillSuggestion("");
     setIsSkillDropdownOpen(false);
   };
 
@@ -556,7 +552,7 @@ function AfterOtpSection1() {
   // Course Selection Handler
   const handleCourseSelect = (value) => {
     setCourse(value);
-    setCourseQuery(value); // Set input field to show selected course
+    setCourseQuery(value);
     setIsCourseDropdownOpen(false);
     setSelectedInterests([]);
     setSelectedSkills([]);
@@ -643,7 +639,7 @@ function AfterOtpSection1() {
             onChange={(e) => {
               setCourseQuery(e.target.value);
               setIsCourseDropdownOpen(true);
-              if (!e.target.value) setCourse(""); // Clear course if input is cleared
+              if (!e.target.value) setCourse("");
             }}
             onFocus={() => setIsCourseDropdownOpen(true)}
             onKeyDown={(e) => {
@@ -743,7 +739,13 @@ function AfterOtpSection1() {
       <Form onSubmit={handleThirdStepSubmit}>
         <Form.Group controlId="interests" className="mb-3">
           <Form.Label>Interests (Select up to 5)*</Form.Label>
-          <div className="course-interest-search relative" ref={interestRef}>
+          <div
+            style={{
+              position: "relative",
+              marginBottom: "10px",
+            }}
+            ref={interestRef}
+          >
             <Form.Control
               type="text"
               placeholder="Search interests"
@@ -755,33 +757,116 @@ function AfterOtpSection1() {
               onFocus={() => setIsInterestDropdownOpen(true)}
               onKeyDown={(e) => {
                 if (e.key === "Escape") setIsInterestDropdownOpen(false);
-                if (e.key === "Enter" && interestSuggestion) {
+                if (e.key === "Enter" && interestSuggestionsFiltered.length > 0) {
                   e.preventDefault();
-                  handleInterestSelect(interestSuggestion);
+                  handleInterestSelect(interestSuggestionsFiltered[0]);
                 }
               }}
-              className="w-full"
+              style={{
+                width: "100%",
+                padding: "8px",
+                fontSize: "16px",
+                borderRadius: "4px",
+                border: "1px solid #ced4da",
+              }}
             />
-            <span className="course-search-icon">🔍</span>
-            {isInterestDropdownOpen && interestSuggestion && (
-              <div className="course-interest-dropdown">
-                <div
-                  className="course-interest-item"
-                  onClick={() => handleInterestSelect(interestSuggestion)}
-                >
-                  {interestSuggestion}
-                </div>
+            <span
+              style={{
+                position: "absolute",
+                right: "10px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                color: "#666",
+              }}
+            >
+              🔍
+            </span>
+            {isInterestDropdownOpen && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "100%",
+                  left: "0",
+                  right: "0",
+                  maxHeight: "120px",
+                  overflowY: "auto",
+                  backgroundColor: "#fff",
+                  border: "1px solid #ccc",
+                  borderRadius: "5px",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  zIndex: 20,
+                  scrollbarWidth: "thin",
+                  scrollbarColor: "#888 #f1f1f1",
+                }}
+              >
+                {interestSuggestionsFiltered.map((interest, index) => (
+                  <div
+                    key={`interest-${index}`}
+                    onClick={() => handleInterestSelect(interest)}
+                    style={{
+                      padding: "10px",
+                      cursor: "pointer",
+                      borderBottom:
+                        index < interestSuggestionsFiltered.length - 1
+                          ? "1px solid #eee"
+                          : "none",
+                    }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.backgroundColor = "#f5f5f5")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.backgroundColor = "transparent")
+                    }
+                  >
+                    {interest}
+                  </div>
+                ))}
+                {interestSuggestionsFiltered.length === 0 && (
+                  <div
+                    style={{
+                      padding: "10px",
+                      color: "#666",
+                    }}
+                  >
+                    No matching interests
+                  </div>
+                )}
               </div>
             )}
           </div>
-          <div className="course-selected-items">
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "10px",
+              marginTop: "10px",
+              marginBottom: "15px",
+            }}
+          >
             {selectedInterests.map((interest, index) => (
               <span
                 key={`selected-interest-${interest}-${index}`}
-                className="course-selected-interest"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  background:
+                    "linear-gradient(180deg, rgba(68, 169, 177, 0.06) 0%, rgba(51, 255, 0, 0.06) 88.19%)",
+                  padding: "5px 10px",
+                  borderRadius: "15px",
+                  color: "#333",
+                }}
               >
                 {interest}
-                <span onClick={() => handleInterestRemove(interest)}>×</span>
+                <span
+                  onClick={() => handleInterestRemove(interest)}
+                  style={{
+                    color: "red",
+                    marginLeft: "5px",
+                    cursor: "pointer",
+                  }}
+                >
+                  ×
+                </span>
               </span>
             ))}
           </div>
@@ -789,7 +874,13 @@ function AfterOtpSection1() {
 
         <Form.Group controlId="skills" className="mb-3">
           <Form.Label>Skills (Select up to 5)*</Form.Label>
-          <div className="course-skill-search relative" ref={skillRef}>
+          <div
+            style={{
+              position: "relative",
+              marginBottom: "10px",
+            }}
+            ref={skillRef}
+          >
             <Form.Control
               type="text"
               placeholder="Search skills"
@@ -801,39 +892,122 @@ function AfterOtpSection1() {
               onFocus={() => setIsSkillDropdownOpen(true)}
               onKeyDown={(e) => {
                 if (e.key === "Escape") setIsSkillDropdownOpen(false);
-                if (e.key === "Enter" && skillSuggestion) {
+                if (e.key === "Enter" && skillSuggestionsFiltered.length > 0) {
                   e.preventDefault();
-                  handleSkillSelect(skillSuggestion);
+                  handleSkillSelect(skillSuggestionsFiltered[0]);
                 }
               }}
-              className="w-full"
+              style={{
+                width: "100%",
+                padding: "8px",
+                fontSize: "16px",
+                borderRadius: "4px",
+                border: "1px solid #ced4da",
+              }}
             />
-            <span className="course-skill-search">🔍</span>
-            {isSkillDropdownOpen && skillSuggestion && (
-              <div className="course-skill-dropdown">
-                <div
-                  className="course-skill-item"
-                  onClick={() => handleSkillSelect(skillSuggestion)}
-                >
-                  {skillSuggestion}
-                </div>
+            <span
+              style={{
+                position: "absolute",
+                right: "10px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                color: "#666",
+              }}
+            >
+              🔍
+            </span>
+            {isSkillDropdownOpen && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "100%",
+                  left: "0",
+                  right: "0",
+                  maxHeight: "120px",
+                  overflowY: "auto",
+                  backgroundColor: "#fff",
+                  border: "1px solid #ccc",
+                  borderRadius: "5px",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  zIndex: 20,
+                  scrollbarWidth: "thin",
+                  scrollbarColor: "#888 #f1f1f1",
+                }}
+              >
+                {skillSuggestionsFiltered.map((skill, index) => (
+                  <div
+                    key={`skill-${index}`}
+                    onClick={() => handleSkillSelect(skill)}
+                    style={{
+                      padding: "10px",
+                      cursor: "pointer",
+                      borderBottom:
+                        index < skillSuggestionsFiltered.length - 1
+                          ? "1px solid #eee"
+                          : "none",
+                    }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.backgroundColor = "#f5f5f5")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.backgroundColor = "transparent")
+                    }
+                  >
+                    {skill}
+                  </div>
+                ))}
+                {skillSuggestionsFiltered.length === 0 && (
+                  <div
+                    style={{
+                      padding: "10px",
+                      color: "#666",
+                    }}
+                  >
+                    No matching skills
+                  </div>
+                )}
               </div>
             )}
           </div>
-          <div className="course-selected-items">
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "10px",
+              marginTop: "10px",
+              marginBottom: "15px",
+            }}
+          >
             {selectedSkills.map((skill, index) => (
               <span
                 key={`selected-skill-${skill}-${index}`}
-                className="course-selected-skill"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  background:
+                    "linear-gradient(180deg, rgba(172, 137, 163, 0.06) 0%, rgba(103, 100, 100, 0.06) 100%)",
+                  padding: "5px 10px",
+                  borderRadius: "15px",
+                  color: "#333",
+                }}
               >
                 {skill}
-                <span onClick={() => handleSkillRemove(skill)}>×</span>
+                <span
+                  onClick={() => handleSkillRemove(skill)}
+                  style={{
+                    color: "red",
+                    marginLeft: "5px",
+                    cursor: "pointer",
+                  }}
+                >
+                  ×
+                </span>
               </span>
             ))}
           </div>
         </Form.Group>
 
-        <p className="text-sm text-gray-600 mt-2">
+        <p style={{ fontSize: "12px", color: "#4b5563", marginTop: "8px" }}>
           Select at least 2 interests and 2 skills, up to 5 each.
         </p>
         {error && <p className="error-text">{error}</p>}
@@ -929,7 +1103,7 @@ function AfterOtpSection1() {
           </div>
           {step === 1
             ? renderFirstStep()
-            : step == 2
+            : step === 2
             ? renderSecondStep()
             : step === 3
             ? renderThirdStep()

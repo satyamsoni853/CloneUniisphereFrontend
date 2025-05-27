@@ -7,8 +7,7 @@
   justify-content: center;
   display: flex;
   flex-direction: column;
-  margin-bottom: 40px;
-  /* overflow: hidden; */
+  margin-bottom: 30px;
  
 }
 
@@ -112,7 +111,6 @@
 .Profile-phot-main-conmmtainer{
   text-align: center;
 }
-
 
 .step.completed:nth-child(1) {
   background-color: #4CAF50; /* Green for Step 1 */
@@ -336,11 +334,4 @@
     /* display: none; */
     /* border-right: 20px solid white; */
     background-color: transparent;
-}
-
-
-.course-option{
-  height: 20px;
-  overflow: hidden;
-  border: 10px red;
 }
