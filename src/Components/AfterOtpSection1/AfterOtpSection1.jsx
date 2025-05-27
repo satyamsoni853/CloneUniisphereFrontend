@@ -37,10 +37,14 @@ function AfterOtpSection1() {
   const [college, setCollege] = useState("");
   const [semester, setSemester] = useState("");
   const [course, setCourse] = useState("");
+  const [courseQuery, setCourseQuery] = useState("");
+  const [isCourseDropdownOpen, setIsCourseDropdownOpen] = useState(false);
 
   // State for Step 3 (Interests & Skills)
   const [interestQuery, setInterestQuery] = useState("");
   const [skillQuery, setSkillQuery] = useState("");
+  const [interestSuggestion, setInterestSuggestion] = useState("");
+  const [skillSuggestion, setSkillSuggestion] = useState("");
   const [selectedInterests, setSelectedInterests] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [isInterestDropdownOpen, setIsInterestDropdownOpen] = useState(false);
@@ -53,7 +57,316 @@ function AfterOtpSection1() {
   // Refs for click-outside detection
   const interestRef = useRef(null);
   const skillRef = useRef(null);
+  const courseRef = useRef(null);
   const fileInputRef = useRef(null);
+
+  // Predefined list of 50 courses
+  const courseOptions = [
+    "B.E. (Bachelor of Engineering)",
+    "B.Tech in Computer Science and Engineering",
+    "B.Tech in Information Technology",
+    "B.Tech in Electronics and Communication Engineering",
+    "B.Tech in Mechanical Engineering",
+    "B.Tech in Civil Engineering",
+    "B.Tech in Electrical Engineering",
+    "B.Tech in Aerospace Engineering",
+    "B.Tech in Chemical Engineering",
+    "B.Tech in Biotechnology",
+    "B.Tech in Artificial Intelligence and Machine Learning",
+    "B.Tech in Cybersecurity",
+    "B.Tech in Internet of Things (IoT)",
+    "B.Tech in Data Science",
+    "B.Tech in Robotics and Automation",
+    "B.Tech in Automobile Engineering",
+    "B.Tech in Environmental Engineering",
+    "B.Tech in Biomedical Engineering",
+    "B.Tech in Avionics",
+    "B.Tech in Agricultural Engineering",
+    "B.Tech in Marine Engineering",
+    "B.Tech in Petroleum Engineering",
+    "B.Tech in Textile Engineering",
+    "B.Tech in Food Technology",
+    "B.Tech in Metallurgical Engineering",
+    "BBA in Finance",
+    "BBA in Marketing",
+    "BBA in Human Resource Management",
+    "BBA in International Business",
+    "BBA in Entrepreneurship",
+    "BBA in Digital Marketing",
+    "BBA in Aviation Management",
+    "BBA in Logistics and Supply Chain Management",
+    "BBA in Retail Management",
+    "BBA in Event Management",
+    "B.Com (Bachelor of Commerce)",
+    "B.Com (Hons) in Accounting and Finance",
+    "B.Com in Banking and Insurance",
+    "B.Com in Taxation",
+    "B.Sc in Computer Science",
+    "B.Sc in Information Technology",
+    "BCA (Bachelor of Computer Applications)",
+    "B.Sc in Data Science",
+    "B.Sc in Artificial Intelligence",
+    "B.Des (Bachelor of Design)",
+    "BBA LLB (Integrated Law and Business Administration)",
+    "B.Tech + MBA (Integrated)",
+    "B.Sc in Economics",
+    "BBA in Business Analytics",
+    "B.Sc in Animation and Multimedia",
+  ];
+
+  // Interest and Skill Suggestions
+  const interestSuggestions = [
+    "Acting", "Activism", "Advertising", "Aerospace", "Agriculture", "AI", "Algebra", "Algorithms",
+    "Anatomy", "Animation", "Anthropology", "App-Development", "Archaeology", "Architecture", "Art",
+    "Artificial Intelligence", "Astronomy", "Athletics", "Audio-Engineering", "Automation", "Aviation",
+    "Baking", "Banking", "Basketball", "Bioengineering", "Bioinformatics", "Biology", "Biomechanics",
+    "Biophysics", "Blogging", "Blockchain", "Board-Games", "Book-Club", "Botany", "Boxing", "Branding",
+    "Broadcasting", "Business", "Calligraphy", "Camping", "Career-Development", "Carpentry", "Chemistry",
+    "Chess", "Choir", "Cinematography", "Civil-Engineering", "Classical-Music", "Climate-Change", "Coding",
+    "Comedy", "Communication", "Community-Service", "Computer-Graphics", "Computer-Science", "Construction",
+    "Content-Creation", "Cooking", "Copywriting", "Counseling", "Creative-Writing", "Cricket", "Culinary-Arts",
+    "Cultural-Studies", "Cycling", "Dance", "Data-Analytics", "Data-Science", "Debate", "Design", "Digital-Art",
+    "Digital-Marketing", "Digital-Painting", "Diplomacy", "DIY", "Drama", "Drawing", "E-commerce", "Economics",
+    "Education", "Electrical-Engineering", "Electronics", "Embroidery", "Emergency-Medicine", "Engineering",
+    "English-Literature", "Entrepreneurship", "Environmentalism", "Esports", "Event-Planning", "Fashion",
+    "Fencing", "Film", "Finance", "Fine-Arts", "Fitness", "Flute", "Folk-Music", "Football", "Foreign-Languages",
+    "Forensics", "Forestry", "Gardening", "Gaming", "Genetics", "Geology", "Geography", "Graphic-Design",
+    "Gymnastics", "Handball", "Health", "Hiking", "History", "Hockey", "Home-Decor", "Hospitality", "Human-Rights",
+    "Illustration", "Improv", "Industrial-Design", "Information-Technology", "Innovation", "Instrumental-Music",
+    "Interior-Design", "International-Relations", "Investing", "Journalism", "Judo", "Karate", "Kickboxing",
+    "Knitting", "Law", "Leadership", "Literature", "Logistics", "Machine-Learning", "Magic", "Management",
+    "Manufacturing", "Marketing", "Martial-Arts", "Mathematics", "Mechanical-Engineering", "Media-Studies",
+    "Medicine", "Meditation", "Mentorship", "Metallurgy", "Meteorology", "Microbiology", "Military-Science",
+    "Mobile-App-Development", "Modeling", "Modern-Art", "Molecular-Biology", "Motorsport", "Mountaineering",
+    "Movie-Critique", "Multimedia", "Music", "Mythology", "Nanotechnology", "Networking", "Neuroscience",
+    "Nutrition", "Opera", "Painting", "Paleontology", "Paragliding", "Parkour", "Performing-Arts",
+    "Personal-Finance", "Personal-Training", "Philosophy", "Photography", "Physics", "Pilates", "Podcasting",
+    "Poetry", "Political-Science", "Pottery", "Programming", "Project-Management", "Psychology", "Public-Health",
+    "Public-Relations", "Public-Speaking", "Quantum-Computing", "Quantum-Physics", "Radio-Hosting", "Reading",
+    "Real-Estate", "Recycling", "Renewable-Energy", "Research", "Robotics", "Rocketry", "Rowing", "Rugby",
+    "Running", "Salsa", "Sculpture", "Self-Defense", "Sewing", "Singing", "Skateboarding", "Skating",
+    "Social-Media", "Social-Work", "Sociology", "Software-Development", "Sound-Engineering", "Space-Exploration",
+    "Spanish", "Speechwriting", "Spirituality", "Sports", "Stand-Up-Comedy", "Startups", "Stock-Trading",
+    "Storytelling", "Strategy-Games", "Street-Art", "Student-Government", "Sustainability", "Swimming",
+    "Table-Tennis", "Taekwondo", "Taxation", "Teaching", "Technical-Writing", "Technology", "Tennis", "Theater",
+    "Theology", "Tourism", "Trading", "Traditional-Dance", "Travel", "Urban-Planning", "UX-Design", "VFX",
+    "Video-Editing", "Videography", "Violin", "Virtual-Reality", "Volleyball", "Volunteering", "Web-Development",
+    "Weightlifting", "Wildlife-Conservation", "Windsurfing", "Woodworking", "Wrestling", "Writing", "Yoga",
+    "Zoology", "3D-Modeling", "3D-Printing", "Acoustic-Guitar", "Acting-Coaching", "Anime", "Aquaponics",
+    "Archery", "Astronomy-Photography", "Auto-Racing", "Ballet", "Barista-Skills", "Bartending", "Beer-Brewing",
+    "Birdwatching", "Blacksmithing", "Bodybuilding", "Bouldering", "Candle-Making", "Car-Restoration",
+    "Chess-Strategy",
+  ];
+
+  const skillSuggestions = [
+    "HTML", "CSS", "JavaScript", "React", "Vue.js", "Angular", "Bootstrap", "Tailwind CSS", "TypeScript",
+    "UI/UX", "Graphic Design", "Logo Design", "Typography", "Infographics", "Digital Illustration",
+    "Resume Designing", "Node.js", "Express.js", "Java", "Spring Boot", "Python", "Django", "Flask", "PHP",
+    "Laravel", "C#", ".NET", "C++", "API Development", "REST APIs", "GraphQL", "Web Scraping", "SQL",
+    "MySQL", "PostgreSQL", "MongoDB", "Oracle", "Data Visualization", "Git", "GitHub", "Docker", "Jenkins",
+    "CI/CD", "AWS", "Azure", "Firebase", "Cloud Computing", "Linux", "VS Code", "Agile/Scrum",
+    "Data Structures & Algorithms", "Smart Home Setup", "Jest", "Mocha", "Cypress", "Selenium", "JUnit",
+    "Software Testing", "Web Development", "WordPress", "App Development", "Game Development",
+    "Chatbot Development", "AR/VR", "IoT", "Automation", "Blockchain", "AI/ML", "Cybersecurity",
+    "Ethical Hacking", "Cloud Security", "App Monetization", "Animation", "Video Editing", "3D Modeling",
+    "NFT Art", "Interior Design", "Photography", "Stock Photography", "Virtual Reality Content",
+    "3D Printing", "Handmade Crafts", "DIY Home Decor", "Content Writing", "Copywriting", "Technical Writing",
+    "Ghostwriting", "Resume Writing", "Scriptwriting", "Blogging", "Research Writing", "Translation",
+    "Transcription", "Speech Writing", "Freelance Writing", "Copyediting", "Proofreading",
+    "Email Copywriting", "Public Relations Writing", "Social Media", "SEO", "Email Marketing",
+    "Ads Management", "Affiliate Marketing", "Influencer Marketing", "PR", "Market Research",
+    "Lead Generation", "Growth Hacking", "Sales Funnels", "Video Marketing", "Social Media Ads",
+    "Google Analytics", "Digital Fundraising", "Accounting", "Financial Analysis",
+    "Stock Trading", "Cryptocurrency", "Tax Filing", "Budgeting", "Crowdfunding", "Business Valuation",
+    "Investment Analysis", "Risk Management", "Business Consulting", "HR Management", "Business Proposal",
+    "E-commerce", "Dropshipping", "Product Listing", "Print-on-Demand", "B2B Sales", "Customer Retention",
+    "Online Courses", "Subscription Business", "Retail Management", "Public Speaking", "Negotiation",
+    "Conflict Resolution", "Time Management", "Leadership", "Networking", "Emotional Intelligence",
+    "Personal Branding", "Interviewing", "Problem-Solving", "Personal Development", "Stress Management",
+    "Meditation", "Relationship Building", "Workplace Communication", "Professional Dressing", "Job Search",
+    "Legal Knowledge", "Debt Management", "Resume Optimization", "Personal Finance", "Online Tutoring",
+    "Language Teaching", "Music Lessons", "Fitness Training", "Life Coaching", "Career Counseling",
+    "Exam Coaching", "Yoga", "Skill Training", "Dance Choreography", "Virtual Assistance", "Data Entry",
+    "Email Management", "Customer Support", "Travel Planning", "Project Management", "Event Planning",
+    "Document Formatting", "CRM Management", "Customer Retention", "Podcasting", "Podcast Editing",
+    "Voiceover", "Voice Modulation", "Mobile Repair", "Car Maintenance", "Home Repair", "Cooking",
+    "Nutrition", "First Aid", "Emergency Preparedness", "Gardening", "Public Transport Navigation",
+    "Apartment Hunting",
+  ];
+
+  // Mapping of courses to relevant interests and skills
+  const courseInterestsSkillsMap = {
+    "B.Tech in Computer Science and Engineering": {
+      interests: [
+        "Coding",
+        "Artificial Intelligence",
+        "Data Science",
+        "Algorithms",
+        "Computer Science",
+        "Software Development",
+        "Web Development",
+        "App Development",
+      ],
+      skills: [
+        "Python",
+        "Java",
+        "JavaScript",
+        "React",
+        "Node.js",
+        "SQL",
+        "Data Structures & Algorithms",
+        "Git",
+        "Web Development",
+        "API Development",
+      ],
+    },
+    "B.Tech in Information Technology": {
+      interests: [
+        "Information Technology",
+        "Networking",
+        "Cloud Computing",
+        "Cybersecurity",
+        "Web Development",
+      ],
+      skills: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "AWS",
+        "Azure",
+        "Web Development",
+        "Network Security",
+      ],
+    },
+    "BBA in Marketing": {
+      interests: [
+        "Marketing",
+        "Branding",
+        "Advertising",
+        "Digital Marketing",
+        "Social Media",
+      ],
+      skills: [
+        "SEO",
+        "Social Media",
+        "Email Marketing",
+        "Market Research",
+        "Ads Management",
+        "Google Analytics",
+      ],
+    },
+    "BBA in Finance": {
+      interests: [
+        "Finance",
+        "Investing",
+        "Personal Finance",
+        "Stock Trading",
+        "Economics",
+      ],
+      skills: [
+        "Financial Analysis",
+        "Accounting",
+        "Stock Trading",
+        "Budgeting",
+        "Investment Analysis",
+      ],
+    },
+    "B.Com (Bachelor of Commerce)": {
+      interests: [
+        "Accounting",
+        "Finance",
+        "Business",
+        "Economics",
+        "Taxation",
+      ],
+      skills: [
+        "Accounting",
+        "Tax Filing",
+        "Financial Analysis",
+        "Business Consulting",
+      ],
+    },
+    "B.Sc in Animation and Multimedia": {
+      interests: [
+        "Animation",
+        "Digital Art",
+        "Graphic Design",
+        "Multimedia",
+        "VFX",
+      ],
+      skills: [
+        "Graphic Design",
+        "Animation",
+        "Video Editing",
+        "3D Modeling",
+        "Digital Illustration",
+      ],
+    },
+    "B.Des (Bachelor of Design)": {
+      interests: [
+        "Design",
+        "Graphic Design",
+        "Interior Design",
+        "Fashion",
+        "UX Design",
+      ],
+      skills: [
+        "UI/UX",
+        "Graphic Design",
+        "Typography",
+        "Interior Design",
+        "Digital Illustration",
+      ],
+    },
+    default: {
+      interests: interestSuggestions,
+      skills: skillSuggestions,
+    },
+  };
+
+  // Get filtered course suggestions based on input
+  const getCourseSuggestions = () => {
+    const query = courseQuery.toLowerCase();
+    if (!query) return courseOptions.slice(0, 5); // Show top 5 courses when query is empty
+    return courseOptions.filter((option) =>
+      option.toLowerCase().includes(query)
+    ).slice(0, 5); // Limit to 5 suggestions
+  };
+
+  // Get single interest suggestion based on input
+  const getSingleInterestSuggestion = () => {
+    const query = interestQuery.toLowerCase();
+    if (!query) return "";
+    const courseInterests =
+      courseInterestsSkillsMap[course]?.interests ||
+      courseInterestsSkillsMap.default.interests;
+    const match = courseInterests.find((interest) =>
+      interest.toLowerCase().startsWith(query)
+    );
+    return match || "";
+  };
+
+  // Get single skill suggestion based on input
+  const getSingleSkillSuggestion = () => {
+    const query = skillQuery.toLowerCase();
+    if (!query) return "";
+    const courseSkills =
+      courseInterestsSkillsMap[course]?.skills ||
+      courseInterestsSkillsMap.default.skills;
+    const match = courseSkills.find((skill) =>
+      skill.toLowerCase().startsWith(query)
+    );
+    return match || "";
+  };
+
+  // Update suggestions when query changes
+  useEffect(() => {
+    setInterestSuggestion(getSingleInterestSuggestion());
+  }, [interestQuery, course]);
+
+  useEffect(() => {
+    setSkillSuggestion(getSingleSkillSuggestion());
+  }, [skillQuery, course]);
 
   useEffect(() => {
     console.log("username state:", username);
@@ -80,6 +393,9 @@ function AfterOtpSection1() {
       }
       if (skillRef.current && !skillRef.current.contains(event.target)) {
         setIsSkillDropdownOpen(false);
+      }
+      if (courseRef.current && !courseRef.current.contains(event.target)) {
+        setIsCourseDropdownOpen(false);
       }
     };
 
@@ -137,11 +453,21 @@ function AfterOtpSection1() {
     if (isSubmitting) return;
     setIsSubmitting(true);
     if (!token) {
-      setError("Authentication token is missing. Please go back to the login page and try again.");
+      setError(
+        "Authentication token is missing. Please go back to the login page and try again."
+      );
       setIsSubmitting(false);
       return;
     }
-    if (!username || !Gender || !userLocation || !college || !semester || !course || !profilePhoto) {
+    if (
+      !username ||
+      !Gender ||
+      !userLocation ||
+      !college ||
+      !semester ||
+      !course ||
+      !profilePhoto
+    ) {
       setError("All required fields must be filled, including profile photo");
       setIsSubmitting(false);
       return;
@@ -206,6 +532,7 @@ function AfterOtpSection1() {
     if (selectedInterests.includes(value)) return;
     setSelectedInterests([...selectedInterests, value]);
     setInterestQuery("");
+    setInterestSuggestion("");
     setIsInterestDropdownOpen(false);
   };
 
@@ -214,6 +541,7 @@ function AfterOtpSection1() {
     if (selectedSkills.includes(value)) return;
     setSelectedSkills([...selectedSkills, value]);
     setSkillQuery("");
+    setSkillSuggestion("");
     setIsSkillDropdownOpen(false);
   };
 
@@ -225,96 +553,14 @@ function AfterOtpSection1() {
     setSelectedSkills(selectedSkills.filter((item) => item !== value));
   };
 
-  const getFilteredInterests = () => {
-    const query = interestQuery.toLowerCase();
-    if (!query) return interestSuggestions;
-    return interestSuggestions.filter((interest) => interest.toLowerCase().includes(query));
+  // Course Selection Handler
+  const handleCourseSelect = (value) => {
+    setCourse(value);
+    setCourseQuery(value); // Set input field to show selected course
+    setIsCourseDropdownOpen(false);
+    setSelectedInterests([]);
+    setSelectedSkills([]);
   };
-
-  const getFilteredSkills = () => {
-    const query = skillQuery.toLowerCase();
-    if (!query) return skillSuggestions;
-    return skillSuggestions.filter((skill) => skill.toLowerCase().includes(query));
-  };
-
-  const interestSuggestions = [
-    "Acting", "Activism", "Advertising", "Aerospace", "Agriculture", "AI", "Algebra", "Algorithms",
-    "Anatomy", "Animation", "Anthropology", "App-Development", "Archaeology", "Architecture", "Art",
-    "Artificial-Intelligence", "Astronomy", "Athletics", "Audio-Engineering", "Automation", "Aviation",
-    "Baking", "Banking", "Basketball", "Bioengineering", "Bioinformatics", "Biology", "Biomechanics",
-    "Biophysics", "Blogging", "Blockchain", "Board-Games", "Book-Club", "Botany", "Boxing", "Branding",
-    "Broadcasting", "Business", "Calligraphy", "Camping", "Career-Development", "Carpentry", "Chemistry",
-    "Chess", "Choir", "Cinematography", "Civil-Engineering", "Classical-Music", "Climate-Change", "Coding",
-    "Comedy", "Communication", "Community-Service", "Computer-Graphics", "Computer-Science", "Construction",
-    "Content-Creation", "Cooking", "Copywriting", "Counseling", "Creative-Writing", "Cricket", "Culinary-Arts",
-    "Cultural-Studies", "Cycling", "Dance", "Data-Analytics", "Data-Science", "Debate", "Design", "Digital-Art",
-    "Digital-Marketing", "Digital-Painting", "Diplomacy", "DIY", "Drama", "Drawing", "E-commerce", "Economics",
-    "Education", "Electrical-Engineering", "Electronics", "Embroidery", "Emergency-Medicine", "Engineering",
-    "English-Literature", "Entrepreneurship", "Environmentalism", "Esports", "Event-Planning", "Fashion",
-    "Fencing", "Film", "Finance", "Fine-Arts", "Fitness", "Flute", "Folk-Music", "Football", "Foreign-Languages",
-    "Forensics", "Forestry", "Gardening", "Gaming", "Genetics", "Geology", "Geography", "Graphic-Design",
-    "Gymnastics", "Handball", "Health", "Hiking", "History", "Hockey", "Home-Decor", "Hospitality", "Human-Rights",
-    "Illustration", "Improv", "Industrial-Design", "Information-Technology", "Innovation", "Instrumental-Music",
-    "Interior-Design", "International-Relations", "Investing", "Journalism", "Judo", "Karate", "Kickboxing",
-    "Knitting", "Law", "Leadership", "Literature", "Logistics", "Machine-Learning", "Magic", "Management",
-    "Manufacturing", "Marketing", "Martial-Arts", "Mathematics", "Mechanical-Engineering", "Media-Studies",
-    "Medicine", "Meditation", "Mentorship", "Metallurgy", "Meteorology", "Microbiology", "Military-Science",
-    "Mobile-App-Development", "Modeling", "Modern-Art", "Molecular-Biology", "Motorsport", "Mountaineering",
-    "Movie-Critique", "Multimedia", "Music", "Mythology", "Nanotechnology", "Networking", "Neuroscience",
-    "Nutrition", "Opera", "Painting", "Paleontology", "Paragliding", "Parkour", "Performing-Arts",
-    "Personal-Finance", "Personal-Training", "Philosophy", "Photography", "Physics", "Pilates", "Podcasting",
-    "Poetry", "Political-Science", "Pottery", "Programming", "Project-Management", "Psychology", "Public-Health",
-    "Public-Relations", "Public-Speaking", "Quantum-Computing", "Quantum-Physics", "Radio-Hosting", "Reading",
-    "Real-Estate", "Recycling", "Renewable-Energy", "Research", "Robotics", "Rocketry", "Rowing", "Rugby",
-    "Running", "Salsa", "Sculpture", "Self-Defense", "Sewing", "Singing", "Skateboarding", "Skating",
-    "Social-Media", "Social-Work", "Sociology", "Software-Development", "Sound-Engineering", "Space-Exploration",
-    "Spanish", "Speechwriting", "Spirituality", "Sports", "Stand-Up-Comedy", "Startups", "Stock-Trading",
-    "Storytelling", "Strategy-Games", "Street-Art", "Student-Government", "Sustainability", "Swimming",
-    "Table-Tennis", "Taekwondo", "Taxation", "Teaching", "Technical-Writing", "Technology", "Tennis", "Theater",
-    "Theology", "Tourism", "Trading", "Traditional-Dance", "Travel", "Urban-Planning", "UX-Design", "VFX",
-    "Video-Editing", "Videography", "Violin", "Virtual-Reality", "Volleyball", "Volunteering", "Web-Development",
-    "Weightlifting", "Wildlife-Conservation", "Windsurfing", "Woodworking", "Wrestling", "Writing", "Yoga",
-    "Zoology", "3D-Modeling", "3D-Printing", "Acoustic-Guitar", "Acting-Coaching", "Anime", "Aquaponics",
-    "Archery", "Astronomy-Photography", "Auto-Racing", "Ballet", "Barista-Skills", "Bartending", "Beer-Brewing",
-    "Birdwatching", "Blacksmithing", "Bodybuilding", "Bouldering", "Candle-Making", "Car-Restoration",
-    "Chess-Strategy"
-  ];
-
-  const skillSuggestions = [
-    "HTML", "CSS", "JavaScript", "React", "Vue.js", "Angular", "Bootstrap", "Tailwind CSS", "TypeScript",
-    "UI/UX", "Graphic Design", "Logo Design", "Typography", "Infographics", "Digital Illustration",
-    "Resume Designing", "Node.js", "Express.js", "Java", "Spring Boot", "Python", "Django", "Flask", "PHP",
-    "Laravel", "C#", ".NET", "C++", "API Development", "REST APIs", "GraphQL", "Web Scraping", "SQL",
-    "MySQL", "PostgreSQL", "MongoDB", "Oracle", "Data Visualization", "Git", "GitHub", "Docker", "Jenkins",
-    "CI/CD", "AWS", "Azure", "Firebase", "Cloud Computing", "Linux", "VS Code", "Agile/Scrum",
-    "Data Structures & Algorithms", "Smart Home Setup", "Jest", "Mocha", "Cypress", "Selenium", "JUnit",
-    "Software Testing", "Web Development", "WordPress", "App Development", "Game Development",
-    "Chatbot Development", "AR/VR", "IoT", "Automation", "Blockchain", "AI/ML", "Cybersecurity",
-    "Ethical Hacking", "Cloud Security", "App Monetization", "Animation", "Video Editing", "3D Modeling",
-    "NFT Art", "Interior Design", "Photography", "Stock Photography", "Virtual Reality Content",
-    "3D Printing", "Handmade Crafts", "DIY Home Decor", "Content Writing", "Copywriting", "Technical Writing",
-    "Ghostwriting", "Resume Writing", "Scriptwriting", "Blogging", "Research Writing", "Translation",
-    "Transcription", "Speech Writing", "Freelance Writing", "Copyediting", "Proofreading",
-    "Email Copywriting", "Public Relations Writing", "Social Media", "SEO", "Email Marketing",
-    "Ads Management", "Affiliate Marketing", "Influencer Marketing", "PR", "Market Research",
-    "Lead Generation", "Growth Hacking", "Sales Funnels", "Video Marketing", "Social Media Ads",
-    "Google Analytics", "Digital Fundraising", "Accounting", "Financial Analysis", "Stock Trading",
-    "Cryptocurrency", "Tax Filing", "Budgeting", "Crowdfunding", "Business Valuation", "Investment Analysis",
-    "Risk Management", "Business Consulting", "HR Management", "Business Proposal", "E-commerce",
-    "Dropshipping", "Product Listing", "Print-on-Demand", "B2B Sales", "Customer Retention",
-    "Online Courses", "Subscription Business", "Retail Management", "Public Speaking", "Negotiation",
-    "Conflict Resolution", "Time Management", "Leadership", "Networking", "Emotional Intelligence",
-    "Personal Branding", "Interviewing", "Problem-Solving", "Personal Development", "Stress Management",
-    "Meditation", "Relationship Building", "Workplace Communication", "Professional Dressing", "Job Search",
-    "Legal Knowledge", "Debt Management", "Resume Optimization", "Personal Finance", "Online Tutoring",
-    "Language Teaching", "Music Lessons", "Fitness Training", "Life Coaching", "Career Counseling",
-    "Exam Coaching", "Yoga", "Skill Training", "Dance Choreography", "Virtual Assistance", "Data Entry",
-    "Email Management", "Customer Support", "Travel Planning", "Project Management", "Event Planning",
-    "Document Formatting", "CRM Management", "Customer Retention", "Podcasting", "Podcast Editing",
-    "Voiceover", "Voice Modulation", "Mobile Repair", "Car Maintenance", "Home Repair", "Cooking",
-    "Nutrition", "First Aid", "Emergency Preparedness", "Gardening", "Public Transport Navigation",
-    "Apartment Hunting"
-  ];
 
   // Render Steps
   const renderFirstStep = () => (
@@ -389,13 +635,96 @@ function AfterOtpSection1() {
       </Form.Group>
       <Form.Group controlId="course" className="mb-3">
         <Form.Label>Course*</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Enter your course (e.g., B.Tech in Computer Science)"
-          value={course}
-          onChange={(e) => setCourse(e.target.value)}
-          required
-        />
+        <div style={{ position: "relative" }} ref={courseRef}>
+          <Form.Control
+            type="text"
+            placeholder="Search courses"
+            value={courseQuery}
+            onChange={(e) => {
+              setCourseQuery(e.target.value);
+              setIsCourseDropdownOpen(true);
+              if (!e.target.value) setCourse(""); // Clear course if input is cleared
+            }}
+            onFocus={() => setIsCourseDropdownOpen(true)}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") setIsCourseDropdownOpen(false);
+              if (e.key === "Enter" && getCourseSuggestions().length > 0) {
+                e.preventDefault();
+                handleCourseSelect(getCourseSuggestions()[0]);
+              }
+            }}
+            style={{
+              width: "100%",
+              padding: "8px",
+              fontSize: "16px",
+              borderRadius: "4px",
+              border: "1px solid #ced4da",
+            }}
+            required
+          />
+          <span
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              fontSize: "16px",
+              color: "#6c757d",
+            }}
+          >
+            🔍
+          </span>
+          {isCourseDropdownOpen && (
+            <div
+              style={{
+                position: "absolute",
+                top: "100%",
+                left: "0",
+                right: "0",
+                backgroundColor: "#fff",
+                border: "1px solid #ced4da",
+                borderRadius: "4px",
+                maxHeight: "80px",
+                overflowY: "auto",
+                zIndex: 1000,
+                boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+              }}
+            >
+              {getCourseSuggestions().map((option, index) => (
+                <div
+                  key={`course-${index}`}
+                  onClick={() => handleCourseSelect(option)}
+                  style={{
+                    padding: "8px 12px",
+                    cursor: "pointer",
+                    backgroundColor:
+                      course === option ? "#e9ecef" : "transparent",
+                    transition: "background-color 0.2s",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#f8f9fa")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.backgroundColor =
+                      course === option ? "#e9ecef" : "transparent")
+                  }
+                >
+                  {option}
+                </div>
+              ))}
+              {getCourseSuggestions().length === 0 && (
+                <div
+                  style={{
+                    padding: "8px 12px",
+                    color: "#6c757d",
+                  }}
+                >
+                  No matching courses
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </Form.Group>
       {error && <p className="error-text">{error}</p>}
       <Button
@@ -410,14 +739,11 @@ function AfterOtpSection1() {
   );
 
   const renderThirdStep = () => {
-    const filteredInterests = getFilteredInterests();
-    const filteredSkills = getFilteredSkills();
-
     return (
       <Form onSubmit={handleThirdStepSubmit}>
         <Form.Group controlId="interests" className="mb-3">
           <Form.Label>Interests (Select up to 5)*</Form.Label>
-          <div className="interest-search relative" ref={interestRef}>
+          <div className="course-interest-search relative" ref={interestRef}>
             <Form.Control
               type="text"
               placeholder="Search interests"
@@ -429,27 +755,31 @@ function AfterOtpSection1() {
               onFocus={() => setIsInterestDropdownOpen(true)}
               onKeyDown={(e) => {
                 if (e.key === "Escape") setIsInterestDropdownOpen(false);
+                if (e.key === "Enter" && interestSuggestion) {
+                  e.preventDefault();
+                  handleInterestSelect(interestSuggestion);
+                }
               }}
               className="w-full"
             />
-            <span className="search-icon">🔍</span>
-            {isInterestDropdownOpen && filteredInterests.length > 0 && (
-              <div className="dropdown-list">
-                {filteredInterests.map((interest, index) => (
-                  <div
-                    key={`interest-${interest}-${index}`}
-                    className="dropdown-item"
-                    onClick={() => handleInterestSelect(interest)}
-                  >
-                    {interest}
-                  </div>
-                ))}
+            <span className="course-search-icon">🔍</span>
+            {isInterestDropdownOpen && interestSuggestion && (
+              <div className="course-interest-dropdown">
+                <div
+                  className="course-interest-item"
+                  onClick={() => handleInterestSelect(interestSuggestion)}
+                >
+                  {interestSuggestion}
+                </div>
               </div>
             )}
           </div>
-          <div className="selected-items">
+          <div className="course-selected-items">
             {selectedInterests.map((interest, index) => (
-              <span key={`selected-interest-${interest}-${index}`} className="selected-interest">
+              <span
+                key={`selected-interest-${interest}-${index}`}
+                className="course-selected-interest"
+              >
                 {interest}
                 <span onClick={() => handleInterestRemove(interest)}>×</span>
               </span>
@@ -459,7 +789,7 @@ function AfterOtpSection1() {
 
         <Form.Group controlId="skills" className="mb-3">
           <Form.Label>Skills (Select up to 5)*</Form.Label>
-          <div className="skill-search relative" ref={skillRef}>
+          <div className="course-skill-search relative" ref={skillRef}>
             <Form.Control
               type="text"
               placeholder="Search skills"
@@ -471,27 +801,31 @@ function AfterOtpSection1() {
               onFocus={() => setIsSkillDropdownOpen(true)}
               onKeyDown={(e) => {
                 if (e.key === "Escape") setIsSkillDropdownOpen(false);
+                if (e.key === "Enter" && skillSuggestion) {
+                  e.preventDefault();
+                  handleSkillSelect(skillSuggestion);
+                }
               }}
               className="w-full"
             />
-            <span className="search-icon">🔍</span>
-            {isSkillDropdownOpen && filteredSkills.length > 0 && (
-              <div className="dropdown-list">
-                {filteredSkills.map((skill, index) => (
-                  <div
-                    key={`skill-${skill}-${index}`}
-                    className="dropdown-item"
-                    onClick={() => handleSkillSelect(skill)}
-                  >
-                    {skill}
-                  </div>
-                ))}
+            <span className="course-skill-search">🔍</span>
+            {isSkillDropdownOpen && skillSuggestion && (
+              <div className="course-skill-dropdown">
+                <div
+                  className="course-skill-item"
+                  onClick={() => handleSkillSelect(skillSuggestion)}
+                >
+                  {skillSuggestion}
+                </div>
               </div>
             )}
           </div>
-          <div className="selected-items">
+          <div className="course-selected-items">
             {selectedSkills.map((skill, index) => (
-              <span key={`selected-skill-${skill}-${index}`} className="selected-skill">
+              <span
+                key={`selected-skill-${skill}-${index}`}
+                className="course-selected-skill"
+              >
                 {skill}
                 <span onClick={() => handleSkillRemove(skill)}>×</span>
               </span>
@@ -499,7 +833,9 @@ function AfterOtpSection1() {
           </div>
         </Form.Group>
 
-        <p className="text-sm text-gray-600 mt-2">Select at least 2 interests and 2 skills, up to 5 each.</p>
+        <p className="text-sm text-gray-600 mt-2">
+          Select at least 2 interests and 2 skills, up to 5 each.
+        </p>
         {error && <p className="error-text">{error}</p>}
         <Button
           variant="primary"
@@ -515,8 +851,11 @@ function AfterOtpSection1() {
 
   const renderFourthStep = () => (
     <Form onSubmit={handleFinalStepSubmit}>
-      <Form.Group controlId="profilePhoto" className=" Profile-phot-main-conmmtainer mb-3">
-        <Form.Label  className="Profile-photo-heading" >Profile Photo*</Form.Label>
+      <Form.Group
+        controlId="profilePhoto"
+        className="Profile-phot-main-conmmtainer mb-3"
+      >
+        <Form.Label className="Profile-photo-heading">Profile Photo*</Form.Label>
         <div className="profile-photo-container" onClick={handleImageClick}>
           {profilePhotoPreview ? (
             <img
@@ -539,7 +878,9 @@ function AfterOtpSection1() {
           required
         />
       </Form.Group>
-      <p className="Profileimage-desc">Please upload a profile picture to make your connections faster and easier.</p>
+      <p className="Profileimage-desc">
+        Please upload a profile picture to make your connections faster and easier.
+      </p>
       {error && <p className="error-text">{error}</p>}
       <Button
         variant="primary"
@@ -588,7 +929,7 @@ function AfterOtpSection1() {
           </div>
           {step === 1
             ? renderFirstStep()
-            : step === 2
+            : step == 2
             ? renderSecondStep()
             : step === 3
             ? renderThirdStep()

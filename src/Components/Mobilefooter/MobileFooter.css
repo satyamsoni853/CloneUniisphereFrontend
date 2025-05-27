@@ -59,7 +59,7 @@
   padding: 20px; /* Internal padding */
   width: 200px; /* Constrain width for better layout */
   height: 250px;
-  right: 7%;
+  left: 0;
   bottom: 55px;
   display: flex;
   align-items: center;

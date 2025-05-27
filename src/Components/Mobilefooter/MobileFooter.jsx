@@ -1,11 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import "./MobileFooter.css"; // Import CSS for styling
-
-import { IoMdNotificationsOutline } from "react-icons/io";
-import { IoNotifications } from "react-icons/io5";
- 
+import "./MobileFooter.css";
 
 import AddBlack from "./AddBlackIcon.svg";
 import AddWhite from "./AddWhiteIcon.svg";
@@ -17,6 +13,8 @@ import HomeWhite from "./HomewhiteIcon.svg";
 import HomeBlack from "./HomeblackIcon.svg";
 import NotificationWhite from "./NotificationWhiteIcon.svg";
 import NotificationBlack from "./NotificationBlackIcon.svg";
+import UserIconBlack from "./UserIcon.svg"; 
+import UserIconWhite from "./UserIcon.svg"; // Add white version
 
 function MobileFooter() {
   const [showNetwork, setShowNetwork] = useState(false);
@@ -36,61 +34,30 @@ function MobileFooter() {
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
-  // Separate useState hooks for each icon
+  // Icon states
   const [homeActive, setHomeActive] = useState(true);
   const [notificationActive, setNotificationActive] = useState(false);
   const [addActive, setAddActive] = useState(false);
   const [calendarActive, setCalendarActive] = useState(false);
   const [networkActive, setNetworkActive] = useState(false);
+  const [userActive, setUserActive] = useState(false);
 
-  // Function to toggle an icon and set others to false
+  const userId = localStorage.getItem("userId");
+
+  // Toggle icon states
   const toggleIcon = (iconName) => {
-    switch (iconName) {
-      case "home":
-        setHomeActive(!homeActive);
-        setNotificationActive(false);
-        setAddActive(false);
-        setCalendarActive(false);
-        setNetworkActive(false);
-        break;
-      case "notification":
-        setNotificationActive(!notificationActive);
-        setHomeActive(false);
-        setAddActive(false);
-        setCalendarActive(false);
-        setNetworkActive(false);
-        break;
-      case "add":
-        setAddActive(!addActive);
-        setHomeActive(false);
-        setNotificationActive(false);
-        setCalendarActive(false);
-        setNetworkActive(false);
-        break;
-      case "calendar":
-        setCalendarActive(!calendarActive);
-        setHomeActive(false);
-        setNotificationActive(false);
-        setAddActive(false);
-        setNetworkActive(false);
-        break;
-      case "network":
-        setNetworkActive(!networkActive);
-        setHomeActive(false);
-        setNotificationActive(false);
-        setAddActive(false);
-        setCalendarActive(false);
-        break;
-      default:
-        break;
-    }
+    setHomeActive(iconName === "home");
+    setNotificationActive(iconName === "notification");
+    setAddActive(iconName === "add");
+    setCalendarActive(iconName === "calendar");
+    setNetworkActive(iconName === "network");
+    setUserActive(iconName === "user");
   };
 
-  // Fetch user profile data (username and profile image)
+  // Fetch user profile data
   useEffect(() => {
     const fetchUserProfile = async () => {
       const authToken = localStorage.getItem("authToken");
-      const userId = localStorage.getItem("userId");
       if (!authToken || !userId) {
         setError("Authentication required");
         return;
@@ -105,7 +72,6 @@ function MobileFooter() {
             },
           }
         );
-        // Defensive check for response data
         if (
           response.data?.totalPosts &&
           Array.isArray(response.data.totalPosts) &&
@@ -129,9 +95,9 @@ function MobileFooter() {
       }
     };
     fetchUserProfile();
-  }, []);
+  }, [userId]);
 
-  // Clean up media URLs on component unmount or mediaList change
+  // Clean up media URLs
   useEffect(() => {
     return () => {
       mediaList.forEach((media) => URL.revokeObjectURL(media.previewURL));
@@ -186,18 +152,15 @@ function MobileFooter() {
     });
   };
 
-  // Optional: Basic mentions handler (expand as needed)
   const handleAddMention = () => {
-    // Placeholder for mentions functionality
     console.log("Add mention clicked");
   };
 
   const handlePostSubmit = async () => {
     try {
       setIsLoading(true);
-      setError(null);
+      setError("");
       const authToken = localStorage.getItem("authToken");
-      const userId = localStorage.getItem("userId");
       if (!authToken || !userId) {
         throw new Error("User not authenticated. Please log in.");
       }
@@ -217,14 +180,10 @@ function MobileFooter() {
         "https://uniisphere-backend-latest.onrender.com/api/posts",
         formData,
         {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
+          headers: { Authorization: `Bearer ${authToken}` },
         }
       );
       console.log("Post created:", postResponse.data);
-
-      // Reset form state
       handleCloseUpload();
       navigate("/");
     } catch (error) {
@@ -239,49 +198,74 @@ function MobileFooter() {
     }
   };
 
+  const handleLogoClick = () => {
+    if (!userId) {
+      setError("Please log in to access your profile");
+      navigate("/login"); // Redirect to login page
+      return;
+    }
+    toggleIcon("user");
+    navigate(`/ProfileEditSection/${userId}`);
+  };
+
   return (
     <div className="mobile-footer">
+      {error && <div className="error-message-footer"></div>}
       <div className="mobile-footer-container">
         <Link to="/View">
           <img
             src={homeActive ? HomeBlack : HomeWhite}
-            style={homeActive ? { width: "30px", height: "30px" } : null}
             alt="Home"
-            className="mobile-footer-icon"
+            className={`mobile-footer-icon ${homeActive ? "active" : ""}`}
             onClick={() => toggleIcon("home")}
           />
         </Link>
-     
+        <Link to="/NetworkPage">
+          <img
+            src={networkActive ? NetworkBlack : NetworkWhite}
+            alt="Network"
+            className={`mobile-footer-icon ${networkActive ? "active" : ""}`}
+            onClick={() => {
+              toggleIcon("network");
+              setShowNetwork(!showNetwork);
+            }}
+          />
+        </Link>
         <img
           src={addActive ? AddBlack : AddWhite}
           alt="Add"
-          style={addActive ? { width: "33px", height: "33px" } : null}
-          className="mobile-footer-add-icon"
+          className={`mobile-footer-icon mobile-footer-add-icon ${
+            addActive ? "active" : ""
+          }`}
           onClick={() => {
             toggleIcon("add");
             setShowUploadSection(true);
           }}
         />
-        <Link to="/coming-soon">
+        <Link to="/Notifications">
+          <img
+            src={notificationActive ? NotificationBlack : NotificationWhite}
+            alt="Notification"
+            className={`mobile-footer-icon ${notificationActive ? "active" : ""}`}
+            onClick={() => toggleIcon("notification")}
+          />
+        </Link>
+        {/* <Link to="/Calendar">
           <img
             src={calendarActive ? ClenderBlack : ClenderWhite}
             alt="Calendar"
-            style={calendarActive ? { width: "33px", height: "33px" } : null}
-            className="mobile-footer-icon"
+            className={`mobile-footer-icon ${calendarActive ? "active" : ""}`}
             onClick={() => toggleIcon("calendar")}
-            aria-disabled="true"
           />
-        </Link>
-        <img
-          src={networkActive ? NetworkBlack : NetworkWhite}
-          alt="Network"
-          style={networkActive ? { width: "40px", height: "40px" } : null}
-          className="mobile-footer-icon"
-          onClick={() => {
-            toggleIcon("network");
-            setShowNetwork(!showNetwork);
-          }}
-        />
+        </Link> */}
+        <div>
+          <img
+            src={userActive ? UserIconBlack : UserIconWhite}
+            alt="User"
+            className={`mobile-footer-icon ${userActive ? "active" : ""}`}
+            onClick={handleLogoClick}
+          />
+        </div>
       </div>
       {showNetwork && (
         <div className="mobile-connections-card">
@@ -290,55 +274,46 @@ function MobileFooter() {
               Connection
             </Link>
           </div>
-
           <div className="mobile-connections-item">
             <Link to="/Books" className="connection-link">
               Eduvault
             </Link>
           </div>
-
           <div className="mobile-connections-item active">
             <Link to="/HumanLib" className="connection-link">
               Human Library
             </Link>
           </div>
-
           <div className="mobile-connections-item">
             <Link to="/libblog" className="connection-link">
               Blog
             </Link>
           </div>
-
           <div className="mobile-connections-item">
             <Link to="/MentorshipComingSoon" className="connection-link">
               MentorShip
             </Link>
           </div>
-
           <div className="mobile-connections-item">
             <Link to="/SkillupComingSoon" className="connection-link">
               Skillup
             </Link>
           </div>
-
           <div className="mobile-connections-item">
             <Link to="/FreelancingComingSoon" className="connection-link">
               Freelancing
             </Link>
           </div>
-
           <div className="mobile-connections-item">
             <Link to="/InternzoneComingSoon" className="connection-link">
               Intern Zone
             </Link>
           </div>
-
           <div className="mobile-connections-item">
             <Link to="/CommunityComingSoon" className="connection-link">
               Community
             </Link>
           </div>
-
           <div className="mobile-connections-item">
             <Link to="/EventsComingSoon" className="connection-link">
               Events
@@ -387,7 +362,7 @@ function MobileFooter() {
                       setShowAddMore(false);
                     }}
                     style={{
-                      marginRight: "50px", // uniform margin on all sides
+                      marginRight: "50px",
                       cursor: "pointer",
                       fontSize: "22px",
                     }}
