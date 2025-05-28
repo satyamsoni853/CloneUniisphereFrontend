@@ -67,6 +67,9 @@
 .Followers-middle-section-2-top-nav-Icon {
   display: flex;
   align-items: center;
+  position: relative;
+  right: 20px;
+  bottom: 50px;
 }
 
 .Followers-middle-section-2-backLogo {
@@ -134,6 +137,12 @@
   font-size: 18px;
   font-weight: bold;
   color: #333;
+}
+.section-heading{
+  font-size: 12px;
+}
+.Followers-middle-section-2-collabsDetails-public span{
+  font-size: 12px;
 }
 
 /* Profile info */
@@ -228,7 +237,7 @@
 }
 
 .ProfileEdit_section-section-heading {
-  font-size: 28px;
+  font-size: 25px;
   font-weight: bold;
   color: #333;
 }
@@ -406,7 +415,7 @@
   /* Main Container */
   .ProfileEditSection-main-container {
     flex-direction: column;
-    padding: 10px;
+    /* padding: 10px; */
     height: auto;
     width: 100%;
     box-sizing: border-box;

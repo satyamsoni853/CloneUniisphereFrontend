@@ -630,39 +630,6 @@ function MobileMiddleSection() {
 
   return (
     <div className="mobile-middle-middle-card">
-      {/* Stories Section */}
-      <div className="mobile-stories-container">
-        <div className="mobile-stories-scroll">
-          <div className="mobile-story-item" onClick={handleAddStory}>
-            <div className="mobile-story-image-container">
-              <img
-                src={userData.profilePicture || Profileimage}
-                alt="Your Story"
-                className="mobile-story-image"
-              />
-              <div className="mobile-story-add-icon">+</div>
-            </div>
-            <span className="mobile-story-username">Your Story</span>
-          </div>
-          {dummyStories.map((story) => (
-            <div
-              key={story.id}
-              className="mobile-story-item"
-              onClick={() => handleStoryClick(story)}
-            >
-              <div className="mobile-story-image-container">
-                <img
-                  src={story.image}
-                  alt={story.username}
-                  className="mobile-story-image"
-                />
-              </div>
-              <span className="mobile-story-username">{story.username}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {error && <div className="mobile-error-message">{error}</div>}
 
       {imageLoading ? (
@@ -673,7 +640,6 @@ function MobileMiddleSection() {
           const isSelf = authData && post.authorId === authData.userId;
           const isConnected = connections.some((conn) => conn.id === post.authorId);
           const isRequestSent = connectionStatuses[post.authorId] === "requested";
-          const showConnectIcon = !isSelf && !isConnected && !isRequestSent;
           const images = Array.isArray(post.mediaUrl) ? post.mediaUrl : [post.mediaUrl];
           const currentSlide = currentSlides[post._id] || 0;
 
@@ -715,32 +681,9 @@ function MobileMiddleSection() {
                   )}
                 </div>
 
-                {/* Profile Section with Border */}
+                {/* Profile Section without Connect Container */}
                 <div className="mobile-middle-profile-details-wrapper">
-                  <div className={`mobile-image-and-name-holder ${!showConnectIcon ? "no-connect-icon" : ""}`}>
-                    <div className="mobile-middle-connect-container">
-                      {isSelf ? (
-                        <div className="mobile-connection-status-message">
-                          {/* You cannot send a connection request to yourself. */}
-                        </div>
-                      ) : isConnected ? (
-                        <div className="mobile-connection-status-message">
-                          Connection already exists.
-                        </div>
-                      ) : isRequestSent ? (
-                        <div className="mobile-connection-status-message">
-                          Request Sent!
-                        </div>
-                      ) : (
-                        <img
-                          src={ConnectMiddleImage}
-                          alt="Connect"
-                          className="mobile-middle-connect-image"
-                          onClick={() => sendConnectionRequest(post.authorId)}
-                          style={{ cursor: "pointer" }}
-                        />
-                      )}
-                    </div>
+                  <div className="mobile-image-and-name-holder">
                     <div className="mobile-middle-profile-info">
                       <div className="mobile-middle-profile-top">
                         <span className="mobile-middle-profile-name">{post.authorName}</span>
@@ -810,13 +753,37 @@ function MobileMiddleSection() {
               </div>
 
               <div className="mobile-middle-action-bar">
-                <span className="mobile-middle-icon-count">{post.likes} Likes</span>
+                {/* <span className="mobile-middle-icon-count">{post.likes} Likes</span> */}
+                {/* Moved Connect Container Here */}
+                <div className="mobile-middle-connect-container">
+                  {isSelf ? (
+                    <div className="mobile-connection-status-message">
+                      {/* You cannot send a connection request to yourself. */}
+                    </div>
+                  ) : isConnected ? (
+                    <div className="mobile-connection-status-message">
+                      Connection already exists.
+                    </div>
+                  ) : isRequestSent ? (
+                    <div className="mobile-connection-status-message">
+                      Request Sent!
+                    </div>
+                  ) : (
+                    <img
+                      src={ConnectMiddleImage}
+                      alt="Connect"
+                      className="mobile-middle-connect-image"
+                      onClick={() => sendConnectionRequest(post.authorId)}
+                      style={{ cursor: "pointer" }}
+                      aria-label={`Send connection request to ${post.authorName}`}
+                    />
+                  )}
+                </div>
                 <div className="mobile-middle-action-icons">
                   <div
                     className="mobile-middle-icon-container"
                     onClick={() => handleLike(index)}
                   >
-                    
                     {post.isLiked ? (
                       <FcLike
                         className="mobile-middle-icon liked"

@@ -13,8 +13,8 @@ import HomeWhite from "./HomewhiteIcon.svg";
 import HomeBlack from "./HomeblackIcon.svg";
 import NotificationWhite from "./NotificationWhiteIcon.svg";
 import NotificationBlack from "./NotificationBlackIcon.svg";
-import UserIconBlack from "./UserIcon.svg"; 
-import UserIconWhite from "./UserIcon.svg"; // Add white version
+import UserIconBlack from "./UserIcon.svg";
+import UserIconWhite from "./UserIcon.svg";
 
 function MobileFooter() {
   const [showNetwork, setShowNetwork] = useState(false);
@@ -34,7 +34,6 @@ function MobileFooter() {
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
-  // Icon states
   const [homeActive, setHomeActive] = useState(true);
   const [notificationActive, setNotificationActive] = useState(false);
   const [addActive, setAddActive] = useState(false);
@@ -103,6 +102,13 @@ function MobileFooter() {
       mediaList.forEach((media) => URL.revokeObjectURL(media.previewURL));
     };
   }, [mediaList]);
+
+  // Reset showNetwork on component unmount
+  useEffect(() => {
+    return () => {
+      setShowNetwork(false);
+    };
+  }, []);
 
   const handleCloseUpload = () => {
     setShowUploadSection(false);
@@ -201,7 +207,7 @@ function MobileFooter() {
   const handleLogoClick = () => {
     if (!userId) {
       setError("Please log in to access your profile");
-      navigate("/login"); // Redirect to login page
+      navigate("/login");
       return;
     }
     toggleIcon("user");
@@ -220,17 +226,18 @@ function MobileFooter() {
             onClick={() => toggleIcon("home")}
           />
         </Link>
-        <Link to="/NetworkPage">
+        <div>
           <img
             src={networkActive ? NetworkBlack : NetworkWhite}
             alt="Network"
             className={`mobile-footer-icon ${networkActive ? "active" : ""}`}
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               toggleIcon("network");
               setShowNetwork(!showNetwork);
             }}
           />
-        </Link>
+        </div>
         <img
           src={addActive ? AddBlack : AddWhite}
           alt="Add"
@@ -250,14 +257,6 @@ function MobileFooter() {
             onClick={() => toggleIcon("notification")}
           />
         </Link>
-        {/* <Link to="/Calendar">
-          <img
-            src={calendarActive ? ClenderBlack : ClenderWhite}
-            alt="Calendar"
-            className={`mobile-footer-icon ${calendarActive ? "active" : ""}`}
-            onClick={() => toggleIcon("calendar")}
-          />
-        </Link> */}
         <div>
           <img
             src={userActive ? UserIconBlack : UserIconWhite}
@@ -270,52 +269,52 @@ function MobileFooter() {
       {showNetwork && (
         <div className="mobile-connections-card">
           <div className="mobile-connections-item mobile-connection-connection">
-            <Link to="/NetworkPage" className="connection-link">
+            <Link to="/NetworkPage" className="connection-link" onClick={() => setShowNetwork(false)}>
               Connection
             </Link>
           </div>
           <div className="mobile-connections-item">
-            <Link to="/Books" className="connection-link">
+            <Link to="/Books" className="connection-link" onClick={() => setShowNetwork(false)}>
               Eduvault
             </Link>
           </div>
           <div className="mobile-connections-item active">
-            <Link to="/HumanLib" className="connection-link">
+            <Link to="/HumanLib" className="connection-link" onClick={() => setShowNetwork(false)}>
               Human Library
             </Link>
           </div>
           <div className="mobile-connections-item">
-            <Link to="/libblog" className="connection-link">
+            <Link to="/libblog" className="connection-link" onClick={() => setShowNetwork(false)}>
               Blog
             </Link>
           </div>
           <div className="mobile-connections-item">
-            <Link to="/MentorshipComingSoon" className="connection-link">
+            <Link to="/MentorshipComingSoon" className="connection-link" onClick={() => setShowNetwork(false)}>
               MentorShip
             </Link>
           </div>
           <div className="mobile-connections-item">
-            <Link to="/SkillupComingSoon" className="connection-link">
+            <Link to="/SkillupComingSoon" className="connection-link" onClick={() => setShowNetwork(false)}>
               Skillup
             </Link>
           </div>
           <div className="mobile-connections-item">
-            <Link to="/FreelancingComingSoon" className="connection-link">
+            <Link to="/FreelancingComingSoon" className="connection-link" onClick={() => setShowNetwork(false)}>
               Freelancing
             </Link>
           </div>
           <div className="mobile-connections-item">
-            <Link to="/InternzoneComingSoon" className="connection-link">
+            <Link to="/InternzoneComingSoon" className="connection-link" onClick={() => setShowNetwork(false)}>
               Intern Zone
             </Link>
           </div>
           <div className="mobile-connections-item">
-            <Link to="/CommunityComingSoon" className="connection-link">
+            <Link to="/CommunityComingSoon" className="connection-link" onClick={() => setShowNetwork(false)}>
               Community
             </Link>
           </div>
           <div className="mobile-connections-item">
-            <Link to="/EventsComingSoon" className="connection-link">
+            <Link to="/EventsComingSoon" className="connection-link" onClick={() => setShowNetwork(false)}>
               Events
             </Link>
           </div>

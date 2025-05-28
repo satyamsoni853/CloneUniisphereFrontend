@@ -10,17 +10,21 @@ function AfterOtpSection1() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { username: passedUsername, token: passedToken } = location.state || {};
+  // Extract email, password, username, and token from location.state
+  const { email, password, username: passedUsername, token: passedToken } = location.state || {};
 
   useEffect(() => {
+    // Log all relevant data
     console.log("location.state:", location.state);
+    console.log("email:", email);
+    console.log("password:", password);
+    console.log("passedUsername:", passedUsername);
     if (!passedToken) {
       console.warn("Warning: No token received from previous page");
     } else {
       console.log("Token received successfully:", passedToken);
     }
-    console.log("passedUsername:", passedUsername);
-  }, [passedToken, passedUsername]);
+  }, [email, password, passedUsername, passedToken]);
 
   const [step, setStep] = useState(1);
   const [error, setError] = useState("");
@@ -403,6 +407,14 @@ function AfterOtpSection1() {
     };
   }, []);
 
+  // Redirect if critical fields are missing
+  useEffect(() => {
+    if (!email || !passedToken) {
+      setError("Missing required data. Please complete the signup process.");
+      navigate("/");
+    }
+  }, [email, passedToken, navigate]);
+
   // Step Handlers
   const handleFirstStepSubmit = (e) => {
     e.preventDefault();
@@ -446,10 +458,14 @@ function AfterOtpSection1() {
     setIsSubmitting(false);
   };
 
+  const authToken = localStorage.getItem("authToken");
+
   const handleFinalStepSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
     setIsSubmitting(true);
+
+    // Validate required fields
     if (!token) {
       setError(
         "Authentication token is missing. Please go back to the login page and try again."
@@ -458,42 +474,80 @@ function AfterOtpSection1() {
       return;
     }
     if (
+      !email ||
+      !password ||
       !username ||
       !Gender ||
       !userLocation ||
       !college ||
       !semester ||
       !course ||
-      !profilePhoto
+      !profilePhoto ||
+      selectedInterests.length < 2 ||
+      selectedSkills.length < 2
     ) {
-      setError("All required fields must be filled, including profile photo");
+      setError(
+        "All required fields must be filled, including profile photo, at least 2 interests, and 2 skills"
+      );
+      setIsSubmitting(false);
+      return;
+    }
+    if (!authToken) {
+      setError(
+        "Authorization token is missing from localStorage. Please log in again."
+      );
       setIsSubmitting(false);
       return;
     }
 
     try {
       const formData = new FormData();
+      // Append all fields
+      formData.append("email", email);
+      formData.append("password", password);
       formData.append("username", username);
       formData.append("Gender", Gender);
       formData.append("location", userLocation);
+      formData.append("college", college);
+      formData.append("semester", semester);
+      formData.append("degree", course);
       formData.append("Skills", JSON.stringify(selectedSkills));
       formData.append("Interests", JSON.stringify(selectedInterests));
-      formData.append("college", college);
-      formData.append("degree", course);
-      formData.append("semester", semester);
       formData.append("profilePhoto", profilePhoto);
+
+      // Log formData values with date/time
+      console.group(`FormData Submission - ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}`);
+      console.log("email:", email);
+      console.log("password:", "********"); // Masked for security
+      console.log("username:", username);
+      console.log("Gender:", Gender);
+      console.log("location:", userLocation);
+      console.log("college:", college);
+      console.log("semester:", semester);
+      console.log("degree:", course);
+      console.log("Skills:", JSON.stringify(selectedSkills));
+      console.log("Interests:", JSON.stringify(selectedInterests));
+      console.log("profilePhoto:", profilePhoto ? profilePhoto.name : "No file selected");
+      console.groupEnd();
 
       const response = await axios.post(
         "https://uniisphere-backend-latest.onrender.com/api/auth/completeProfile",
         formData,
         {
           headers: {
+            Authorization: `Bearer ${authToken}`,
             "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token.trim()}`,
           },
           timeout: 30000,
         }
       );
+
+      // Log API response with date/time
+      console.group(`API Response - ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}`);
+      console.log("Response Data:", response.data);
+      console.log("Status Code:", response.status);
+      console.groupEnd();
+
       setUserId(response.data.userId || response.data.id || username);
       alert("Profile completed successfully!");
       navigate("/view", {
@@ -504,6 +558,12 @@ function AfterOtpSection1() {
       });
     } catch (err) {
       console.error("Error details:", err);
+      // Log API error response with date/time
+      console.group(`API Error - ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}`);
+      console.log("Error Message:", err.message);
+      console.log("Response Data:", err.response?.data || "No response data");
+      console.log("Status Code:", err.response?.status || "N/A");
+      console.groupEnd();
       setError(err.response?.data?.error || err.message || "Profile completion failed");
     } finally {
       setIsSubmitting(false);

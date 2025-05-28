@@ -66,8 +66,8 @@ function UserSignupWithEmailAndPass() {
       }
 
       console.log("Token received successfully:", token.substring(0, 10) + "...");
-      navigate("/AfterOtpSection1", {
-        state: { email, token },
+      navigate("/afterotpsection1", {
+        state: { email, password, token },
       });
     } catch (err) {
       console.error("OTP verification error:", err);

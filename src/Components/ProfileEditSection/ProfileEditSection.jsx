@@ -322,16 +322,11 @@ function ProfileEditSection() {
             <div className="Followers-middle-section-2-mainParent-public">
               <div className="Followers-middle-section-2-middle-container-public">
                 <div className="Followers-middle-section-2-middle-section-public">
-                  <div className="Followers-middle-section-2-top-nav-Icon">
-                    <IoArrowBackCircleOutline
-                      className="Followers-middle-section-2-backLogo"
-                      onClick={() => navigate(-1)}
-                      aria-label="Go back"
-                    />
-                  </div>
+                  
 
                   {/* Profile Details */}
                   <div className="Followers-middle-section-2-profile-header-public">
+                    
                     <div className="Followers-middle-section-2-imageContainer-public">
                       <img
                         src={profilePic}
@@ -354,6 +349,13 @@ function ProfileEditSection() {
                     <div className="Followers-middle-section-2-connectionsDetails-public">
                       <p className="section-heading">Connections</p> <span>{connections}</span>
                     </div>
+                    <div className="Followers-middle-section-2-top-nav-Icon">
+                    <IoArrowBackCircleOutline
+                      className="Followers-middle-section-2-backLogo"
+                      onClick={() => navigate(-1)}
+                      aria-label="Go back"
+                    />
+                  </div>
                   </div>
 
                   {/* Name and Details */}
