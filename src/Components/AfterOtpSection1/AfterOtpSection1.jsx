@@ -984,7 +984,7 @@ function AfterOtpSection1() {
         Gender,
         Skills: selectedSkills,
         Interests: selectedInterests,
-        headline: "", // Empty as not collected
+        headline: [""], // Changed to array to match Prisma schema
         location: userLocation,
         About: "", // Empty as not collected
         college,

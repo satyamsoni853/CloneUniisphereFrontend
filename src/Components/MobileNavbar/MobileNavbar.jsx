@@ -5,7 +5,7 @@ import "./MobileNavbar.css";
 import { FiSearch } from "react-icons/fi";
 import { IoIosArrowForward } from "react-icons/io";
 import SendMsg from './send.svg';
-import Vector from './vector.svg';
+import Vector from './Vector.svg';
 import UserIcon from "./Usericon.png";
 import axios from "axios";
 import debounce from "lodash/debounce";
@@ -91,12 +91,12 @@ const MobileNavbar = memo(() => {
   );
   const combinedRecentResults = searchQuery
     ? [
-        ...filteredRecentSearches,
-        ...searchResults.filter(
-          (result) =>
-            !filteredRecentSearches.some((search) => search.id === result.id)
-        ),
-      ]
+      ...filteredRecentSearches,
+      ...searchResults.filter(
+        (result) =>
+          !filteredRecentSearches.some((search) => search.id === result.id)
+      ),
+    ]
     : recentSearches;
 
   // Handle clicks outside to close search results
@@ -417,9 +417,8 @@ const MobileNavbar = memo(() => {
           {stories.map((story) => (
             <div
               key={story.id}
-              className={`mobile-story-item ${
-                clickedStories.includes(story.id) ? "mobile-story-item--clicked" : ""
-              }`}
+              className={`mobile-story-item ${clickedStories.includes(story.id) ? "mobile-story-item--clicked" : ""
+                }`}
               // onClick={() => !clickedStories.includes(story.id) && handleProfileClick(story.id)}
               onKeyDown={(e) => handleKeyDown(e, story.id)}
               tabIndex={clickedStories.includes(story.id) ? -1 : 0} // Disable tab focus for clicked stories
