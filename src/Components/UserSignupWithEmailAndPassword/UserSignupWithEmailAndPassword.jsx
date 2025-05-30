@@ -24,6 +24,13 @@ function UserSignupWithEmailAndPass() {
     setError("");
     setSuccessMessage("");
 
+    // Validate password length
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return;
+    }
+
+    // Check if passwords match
     if (password !== repassword) {
       setError("Passwords do not match.");
       return;
@@ -214,7 +221,7 @@ function UserSignupWithEmailAndPass() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  placeholder="Enter your password"
+                  placeholder="Enter your password (6+ characters)"
                 />
               </div>
               <div>
