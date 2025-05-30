@@ -1,5 +1,7 @@
+
 // Imports
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Added for navigation
 import "./Resources.css";
 import ForYou from "./ForYou.jpg";
 import { IoIosArrowForward } from "react-icons/io";
@@ -10,6 +12,9 @@ import { IoReorderThreeOutline } from "react-icons/io5";
 
 // Resources Component
 function Resources() {
+  // Navigation hook
+  const navigate = useNavigate();
+
   // Data Arrays
   const books = [
     { title: "The Dark Deception", author: "Student eBooks" },
@@ -137,6 +142,11 @@ function Resources() {
     });
   };
 
+  // Navigation Handler for For You Cards
+  const handleCardClick = () => {
+    navigate("/books");
+  };
+
   // Data Slicing for Display
   const visibleBooks = explorationBooks.slice(startIndex, startIndex + 4);
   const visibleNotes = notesItems.slice(notesStartIndex, notesStartIndex + 4);
@@ -216,6 +226,7 @@ function Resources() {
             <div
               className="for-you-card ebooks-card"
               style={{ backgroundImage: `url(${ForYou})` }}
+              onClick={handleCardClick}
             >
               <div className="for-you-card-content">
                 <div className="for-you-card-details">
@@ -232,6 +243,7 @@ function Resources() {
             <div
               className="for-you-card notes-card"
               style={{ backgroundImage: `url(${ForYou})` }}
+              onClick={handleCardClick}
             >
               <div className="for-you-card-content">
                 <div className="for-you-card-details">
@@ -244,6 +256,7 @@ function Resources() {
             <div
               className="for-you-card preferences-card"
               style={{ backgroundImage: `url(${ForYou})` }}
+              onClick={handleCardClick}
             >
               <div className="for-you-card-content">
                 <div className="for-you-card-details">
@@ -260,6 +273,7 @@ function Resources() {
             <div
               className="for-you-card preferences-card"
               style={{ backgroundImage: `url(${ForYou})` }}
+              onClick={handleCardClick}
             >
               <div className="for-you-card-content">
                 <div className="for-you-card-details">
@@ -278,9 +292,7 @@ function Resources() {
 
         {/* Exploration Section */}
         <div className="exploration-section">
-          
           <h2 className="section-title-Exploration">Exploration</h2>
-         
           <div className="timer-container">
             <div>
               <p className="Reading-Time">Reading Time</p>
@@ -330,7 +342,7 @@ function Resources() {
             </button>
             {visibleNotes.map((note, index) => (
               <div className="notes-item-section">
-                <div key={index} className="notes-item-container" >
+                <div key={index} className="notes-item-container">
                   <div className="notes-item">
                     <img
                       src={ForYou}

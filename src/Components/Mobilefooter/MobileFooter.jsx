@@ -274,7 +274,7 @@ function MobileFooter() {
             </Link>
           </div>
           <div className="mobile-connections-item">
-            <Link to="/Books" className="connection-link" onClick={() => setShowNetwork(false)}>
+            <Link to="/Resources" className="connection-link" onClick={() => setShowNetwork(false)}>
               Eduvault
             </Link>
           </div>

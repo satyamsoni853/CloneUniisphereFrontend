@@ -1,39 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./Books.css";
-import { IoIosArrowForward } from "react-icons/io";
-import { IoArrowBackCircleOutline, IoChevronBack } from "react-icons/io5";
 import DesktopNavbar from "../DesktopNavbar/DesktopNavbar";
 import Background from "../Background/Background";
 import { useNavigate } from "react-router-dom";
 
 const Books = () => {
+  const navigate = useNavigate();
 
-const navigate = useNavigate()
-
-  // State for API books, loading, and error
+  // State for books, loading, error, and selected semester
   const [apiBooks, setApiBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedSemester, setSelectedSemester] = useState(null); // null = show all
+
+  // Ref for eBooks list to enable scrolling
+  const eBooksListRef = useRef(null);
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        // Retrieve token and userId from localStorage
-        const token =
-          localStorage.getItem("token") || localStorage.getItem("authToken");
+        const token = localStorage.getItem("token") || localStorage.getItem("authToken");
         const userId = localStorage.getItem("userId");
 
-        // Log all localStorage contents for debugging
-        console.log("LocalStorage Contents:", {
-          token,
-          userId,
-          allItems: Object.entries(localStorage),
-        });
-
         if (!token || !userId) {
-          console.warn("Token or userId not found in localStorage");
-          setError("Authentication details missing. Please log in.");
+          setError("Please log in to view books.");
           setLoading(false);
           return;
         }
@@ -50,44 +41,27 @@ const navigate = useNavigate()
           }
         );
 
-        // Log the full API response
-        console.log("Books API Response:", {
-          data: response.data,
-          status: response.status,
-          statusText: response.statusText,
-          headers: response.headers,
-        });
-
-        // Handle different response structures
         const bookData = response.data.data || response.data || [];
         if (!Array.isArray(bookData)) {
-          throw new Error("API response is not an array of books");
+          throw new Error("Invalid API response format.");
         }
 
-        // Transform API response
+        // Transform books and extract semester
         const transformedBooks = bookData.map((book) => {
-          const imageUrl = book.url || "https://via.placeholder.com/150";
-          // console.log(`Book Image URL: ${imageUrl}`); // Debug image URLs
+          const semesterMatch = book.key.match(/sem (\d)/i);
+          const semester = semesterMatch ? `S${semesterMatch[1]}` : "Unknown";
           return {
             title: book.name || "Untitled Book",
-            url: imageUrl,
+            url: book.url || "https://via.placeholder.com/150",
+            semester,
+            key: book.key,
           };
         });
 
         setApiBooks(transformedBooks);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching books:", error.message);
-        if (error.response) {
-          console.error("Response data:", error.response.data);
-          console.error("Response status:", error.response.status);
-          console.error("Response headers:", error.response.headers);
-        } else if (error.request) {
-          console.error("No response received:", error.request);
-        } else {
-          console.error("Error setting up request:", error.message);
-        }
-        setError("Failed to load books. Please try again later.");
+        setError("Failed to load books. Please try again.");
         setLoading(false);
       }
     };
@@ -95,253 +69,330 @@ const navigate = useNavigate()
     fetchBooks();
   }, []);
 
-  // Click handler for e-books
+  // Filter books by selected semester
+  const filteredBooks = selectedSemester
+    ? apiBooks.filter((book) => book.semester === selectedSemester)
+    : apiBooks;
+
+  // Handle book click
   const handleBookClick = (book) => {
-    console.log("Selected Book:", {
-      name: book.title,
-      url: book.url,
-    });
     window.open(book.url, "_blank");
   };
 
-  // State for carousel navigation
-  const [startIndex, setStartIndex] = useState(0);
-
-  // Data slicing for display
-  const visibleBooks = apiBooks.slice(startIndex, startIndex + 4);
-
-  const handleNext = () => {
-    setStartIndex((prevIndex) => {
-      const newIndex = prevIndex + 4;
-      return newIndex >= apiBooks.length ? 0 : newIndex;
-    });
+  // Handle semester button click
+  const handleSemesterClick = (semester) => {
+    setSelectedSemester(semester === selectedSemester ? null : semester);
   };
 
-  const handlePrev = () => {
-    setStartIndex((prevIndex) => {
-      const newIndex = prevIndex - 4;
-      return newIndex < 0 ? Math.max(0, apiBooks.length - 4) : newIndex;
-    });
+  // Handle scrolling for eBooks
+  const scrollLeft = () => {
+    if (eBooksListRef.current) {
+      console.log(
+        "Scrolling left",
+        eBooksListRef.current.scrollWidth,
+        eBooksListRef.current.clientWidth
+      );
+      eBooksListRef.current.scrollBy({ left: -200, behavior: "smooth" });
+      // Fallback
+      eBooksListRef.current.scrollLeft -= 200;
+    } else {
+      console.log("eBooksListRef is not set");
+    }
   };
 
-  // JSX
+  const scrollRight = () => {
+    if (eBooksListRef.current) {
+      console.log(
+        "Scrolling right",
+        eBooksListRef.current.scrollWidth,
+        eBooksListRef.current.clientWidth
+      );
+      eBooksListRef.current.scrollBy({ left: 200, behavior: "smooth" });
+      // Fallback
+      eBooksListRef.current.scrollLeft += 200;
+    } else {
+      console.log("eBooksListRef is not set");
+    }
+  };
+
+  // Render books
+  const renderBooks = (books, isMobile = false) => {
+    const containerClass = isMobile ? "mobile-eBooks-content" : "main-original-book-eBooks-content";
+    const itemClass = isMobile ? "mobile-eBooks-item" : "eBooks-item";
+    const imageClass = isMobile ? "mobile-eBooks-image" : "eBooks-image";
+    const titleClass = isMobile ? "mobile-eBooks-title" : "eBooks-title";
+
+    return (
+      <div className={containerClass}>
+        <div
+          className={isMobile ? "mobile-eBooks-items-list" : "eBooks-items-list"}
+          ref={eBooksListRef}
+        >
+          {books.length > 0 ? (
+            books.map((book, index) => (
+              <div
+                key={`${book.key}-${index}`}
+                className={isMobile ? "" : "eBooks-item-section"}
+                onClick={() => handleBookClick(book)}
+                style={{ cursor: "pointer" }}
+              >
+                <div className={itemClass}>
+                  <img
+                    src="https://via.placeholder.com/150" // Placeholder for PDF
+                    alt={book.title}
+                    className={imageClass}
+                    onError={(e) => (e.target.src = "https://via.placeholder.com/150")}
+                  />
+                  <div className={isMobile ? "mobile-eBooks-details" : "eBooks-details"}>
+                    <h3 className={titleClass}>{book.title}</h3>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No books available{selectedSemester ? ` for ${selectedSemester}` : ""}</p>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <DesktopNavbar />
       <Background />
-      <div className="main-books-main-wrapper">
-        <h1 className="main-books-main-title">
+      <div className="main-original-book-main-wrapper">
+        <h1 className="main-original-book-main-title">
           All you need at one place to be successful in your Student Life.
         </h1>
-        {/* Search Bar */}
-        <div className="main-books-search-container">
-          <input
-            type="text"
-            placeholder="Search"
-            className="main-books-search-input"
-          />
-          <div className="main-books-search-options">
-            <button className="main-books-option-button main-books-option-button-1">
-              S1
-            </button>
-            <button className="main-books-option-button main-books-option-button-2">
-              S2
-            </button>
-            <button className="main-books-option-button main-books-option-button-3">
-              S3
-            </button>
-            <button className="main-books-option-button main-books-option-button-4">
-              S4
-            </button>
-            <button className="main-books-option-button main-books-option-button-5">
-              S5
-            </button>
-            <button className="main-books-option-button main-books-option-button-6">
-              S6
-            </button>
+        <div className="main-original-book-search-container">
+          <input type="text" placeholder="Search" className="main-original-book-search-input" />
+          <div className="main-original-book-search-options">
+            {["S1", "S2", "S3", "S4", "S5", "S6"].map((sem, index) => (
+              <button
+                key={sem}
+                className={`main-original-book-option-button main-original-book-option-button-${
+                  index + 1
+                } ${selectedSemester === sem ? "selected" : ""}`}
+                onClick={() => handleSemesterClick(sem)}
+              >
+                {sem}
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Ebooks Section */}
-        <div className="main-books-eBooks-section">
-          <h2 className="main-books-section-title-eBooks">Ebooks</h2>
-          <div className="main-books-eBooks-content">
-            <button className="nav-arrow left-arrow" onClick={handlePrev}>
-              <IoChevronBack className="Forword-backword-book-btn" />
-            </button>
-            {loading ? (
-              <p>Loading books...</p>
-            ) : error ? (
-              <p>{error}</p>
-            ) : visibleBooks.length > 0 ? (
-              visibleBooks.map((book, index) => (
-                <div
-                  className="eBooks-item-section"
-                  key={index}
-                  onClick={() => handleBookClick(book)}
-                  style={{ cursor: "pointer" }}
+        <div className="main-original-book-eBooks-section">
+          <div className="eBooks-header">
+            <h2 className="main-original-book-section-title-eBooks">
+              {selectedSemester ? `${selectedSemester} eBooks` : "eBooks"}
+            </h2>
+            <div className="eBooks-nav">
+              <button
+                className="main-original-book-nav-arrow prev"
+                onClick={() => {
+                  console.log("Prev button clicked");
+                  scrollLeft();
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#1f2937"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  <div className="eBooks-item">
-                    <img
-                      // src={book.url}
-                      // alt={book.title}
-                      className="eBooks-image"
-                      onError={(e) => {
-                        // console.warn(`Failed to load image: ${book.url}`);
-                        e.target.src = "https://via.placeholder.com/150";
-                      }}
-                    />
-                    <div className="eBooks-details">
-                      <h3 className="eBooks-title">{book.title}</h3>
-                    </div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p>No books available</p>
-            )}
-            <button
-              className="main-books-nav-arrow main-books-right-arrow"
-              onClick={handleNext}
-            >
-              {/* <IoIosArrowForward className="Forword-backword-book-btn" /> */}
-            </button>
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button
+                className="main-original-book-nav-arrow next"
+                onClick={() => {
+                  console.log("Next button clicked");
+                  scrollRight();
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#1f2937"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
           </div>
+          {loading ? (
+            <div className="loading-spinner">Loading books...</div>
+          ) : error ? (
+            <p className="error-message">{error}</p>
+          ) : (
+            renderBooks(filteredBooks)
+          )}
         </div>
 
-        {/* Notes Section */}
-        <div className="main-books-notes-section">
-          <h2 className="main-books-section-title-notes">Notes</h2>
-          <div className="main-books-notes-content">
+        <div className="main-original-book-notes-section">
+          <h2 className="main-original-book-section-title-notes">Notes</h2>
+          <div className="main-original-book-notes-content">
             <p>Coming Soon</p>
           </div>
         </div>
 
-        {/* Preferred by top Universities */}
-        <div className="main-books-university-section">
-          <h2 className="main-books-section-title-university">
+        <div className="main-original-book-university-section">
+          <h2 className="main-original-book-section-title-university">
             Preferred by top Universities
           </h2>
-          <div className="main-books-university-content">
+          <div className="main-original-book-university-content">
             <p>Coming Soon</p>
           </div>
         </div>
 
-        {/* Life Lesson */}
-        <div className="main-books-lifeLesson-section">
-          <h2 className="main-books-section-title-lifeLesson">Life Lesson</h2>
-          <div className="main-books-lifeLesson-content">
+        <div className="main-original-book-lifeLesson-section">
+          <h2 className="main-original-book-section-title-lifeLesson">Life Lesson</h2>
+          <div className="main-original-book-lifeLesson-content">
             <p>Coming Soon</p>
           </div>
         </div>
       </div>
 
-      {/* Mobile View */}
       <div className="mobile-section-view-parent">
-        <div className="mobile-main-books-main-wrapper">
-          <div className="mobile-main-books-parent">
-            <div className="mobile-books-main-heading">
-              <IoArrowBackCircleOutline className="mobile-books-backIcon"
-              onClick={()=>{
-                navigate(-1)
-              }}
-              />
-              <h1 className="mobile-main-books-main-title">
+        <div className="mobile-main-original-book-main-wrapper">
+          <div className="mobile-main-original-book-parent">
+            <div className="mobile-original-book-main-heading">
+              <span
+                className="mobile-original-book-backIcon"
+                onClick={() => {
+                  console.log("Back button clicked");
+                  navigate(-1);
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#1f2937"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </span>
+              <h1 className="mobile-main-original-book-main-title">
                 All you need at one place to be successful in your Student Life.
               </h1>
             </div>
-            {/* Search Bar */}
-            <div className="mobile-main-books-search-container">
+            <div className="mobile-main-original-book-search-container">
               <input
                 type="text"
                 placeholder="Search"
-                className="mobile-main-books-search-input"
+                className="mobile-main-original-book-search-input"
               />
-              <div className="mobile-main-books-search-options">
-                <button className="mobile-main-books-option-button main-books-option-button-1">
-                  S1
-                </button>
-                <button className="mobile-main-books-option-button main-books-option-button-2">
-                  S2
-                </button>
-                <button className="mobile-main-books-option-button main-books-option-button-3">
-                  S3
-                </button>
-                <button className="mobile-main-books-option-button main-books-option-button-4">
-                  S4
-                </button>
-                <button className="mobile-main-books-option-button main-books-option-button-5">
-                  S5
-                </button>
-                <button className="mobile-main-books-option-button main-books-option-button-6">
-                  S6
-                </button>
+              <div className="mobile-main-original-book-search-options">
+                {["S1", "S2", "S3", "S4", "S5", "S6"].map((sem, index) => (
+                  <button
+                    key={sem}
+                    className={`mobile-main-original-book-option-button main-original-book-option-button-${
+                      index + 1
+                    } ${selectedSemester === sem ? "selected" : ""}`}
+                    onClick={() => handleSemesterClick(sem)}
+                  >
+                    {sem}
+                  </button>
+                ))}
               </div>
             </div>
 
-            {/* Ebooks Section */}
             <div className="mobile-eBooks-section">
-              <h2 className="mobile-main-books-section-title-notes">Ebooks</h2>
-              <div className="mobile-eBooks-content">
-                <div className="mobile-eBooks-items-list">
-                  {loading ? (
-                    <p>Loading books...</p>
-                  ) : error ? (
-                    <p>{error}</p>
-                  ) : visibleBooks.length > 0 ? (
-                    visibleBooks.map((book, index) => (
-                      <div
-                        key={index}
-                        onClick={() => handleBookClick(book)}
-                        style={{ cursor: "pointer" }}
-                      >
-                        <div className="mobile-eBooks-item">
-                          <img
-                            src={book.url}
-                            alt={book.title}
-                            className="mobile-eBooks-image"
-                            onError={(e) => {
-                              console.warn(`Failed to load image: ${book.url}`);
-                              e.target.src = "https://via.placeholder.com/150";
-                            }}
-                          />
-                        </div>
-                        <div className="mobile-eBooks-details">
-                          <h3 className="mobile-eBooks-title">{book.title}</h3>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <p>No books available</p>
-                  )}
+              <div className="mobile-eBooks-header">
+                <h2 className="mobile-main-original-book-section-title-eBooks">
+                  {selectedSemester ? `${selectedSemester} eBooks` : "eBooks"}
+                </h2>
+                <div className="mobile-eBooks-nav">
+                  <button
+                    className="mobile-eBooks-nav-arrow prev"
+                    onClick={() => {
+                      console.log("Mobile prev button clicked");
+                      scrollLeft();
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#1f2937"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                  </button>
+                  <button
+                    className="mobile-eBooks-nav-arrow next"
+                    onClick={() => {
+                      console.log("Mobile next button clicked");
+                      scrollRight();
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#1f2937"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M9 18l6-6-6-6" />
+                    </svg>
+                  </button>
                 </div>
               </div>
+              {loading ? (
+                <div className="loading-spinner">Loading books...</div>
+              ) : error ? (
+                <p className="error-message">{error}</p>
+              ) : (
+                renderBooks(filteredBooks, true)
+              )}
             </div>
 
-            {/* Notes Section */}
-            <div className="mobile-main-books-notes-section">
-              <h2 className="mobile-main-books-section-title-notes">Notes</h2>
-              <div className="mobile-main-books-notes-content">
+            <div className="mobile-main-original-book-notes-section">
+              <h2 className="mobile-main-original-book-section-title-notes">Notes</h2>
+              <div className="mobile-main-original-book-notes-content">
                 <p>Coming Soon</p>
               </div>
             </div>
 
-            {/* Preferred by top Universities */}
-            <div className="mobile-main-books-university-section">
-              <h2 className="mobile-main-books-section-title-university">
+            <div className="mobile-main-original-book-university-section">
+              <h2 className="mobile-main-original-book-section-title-university">
                 Preferred by top Universities
               </h2>
-              <div className="mobile-main-books-university-content">
+              <div className="mobile-main-original-book-university-content">
                 <p>Coming Soon</p>
               </div>
             </div>
 
-            {/* Life Lesson */}
-            <div className="mobile-main-books-lifeLesson-section">
-              <h2 className="mobile-main-books-section-title-lifeLesson">
-                Life Lesson
-              </h2>
-              <div className="main-books-lifeLesson-content">
+            <div className="mobile-main-original-book-lifeLesson-section">
+              <h2 className="mobile-main-original-book-section-title-lifeLesson">Life Lesson</h2>
+              <div className="mobile-main-original-book-lifeLesson-content">
                 <p>Coming Soon</p>
               </div>
             </div>

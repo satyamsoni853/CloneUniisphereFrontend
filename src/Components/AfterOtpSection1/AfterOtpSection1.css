@@ -335,3 +335,7 @@
     /* border-right: 20px solid white; */
     background-color: transparent;
 }
+
+.phonenumber-option{
+  height: 20px;
+}

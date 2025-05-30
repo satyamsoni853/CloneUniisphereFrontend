@@ -251,11 +251,11 @@ function UserSignupWithEmailAndPass() {
                   />
                 ))}
               </div>
-              <button className="login-singup-button" type="submit">
+              <button className="login-singup-button-2" type="submit">
                 Continue
               </button>
               <button
-                className="login-singup-button"
+                className="login-singup-button-2"
                 onClick={handleResendOtp}
                 disabled={isResendDisabled}
                 style={{ marginTop: "10px" }}

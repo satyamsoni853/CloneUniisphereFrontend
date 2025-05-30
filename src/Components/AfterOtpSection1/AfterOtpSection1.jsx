@@ -11,7 +11,12 @@ function AfterOtpSection1() {
   const navigate = useNavigate();
 
   // Extract email, password, username, and token from location.state
-  const { email, password, username: passedUsername, token: passedToken } = location.state || {};
+  const {
+    email,
+    password,
+    username: passedUsername,
+    token: passedToken,
+  } = location.state || {};
 
   useEffect(() => {
     // Log all relevant data
@@ -43,11 +48,13 @@ function AfterOtpSection1() {
   const [course, setCourse] = useState("");
   const [courseQuery, setCourseQuery] = useState("");
   const [isCourseDropdownOpen, setIsCourseDropdownOpen] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   // State for Step 3 (Interests & Skills)
   const [interestQuery, setInterestQuery] = useState("");
   const [skillQuery, setSkillQuery] = useState("");
-  const [interestSuggestionsFiltered, setInterestSuggestionsFiltered] = useState([]);
+  const [interestSuggestionsFiltered, setInterestSuggestionsFiltered] =
+    useState([]);
   const [skillSuggestionsFiltered, setSkillSuggestionsFiltered] = useState([]);
   const [selectedInterests, setSelectedInterests] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
@@ -120,81 +127,476 @@ function AfterOtpSection1() {
 
   // Interest and Skill Suggestions
   const interestSuggestions = [
-    "Acting", "Activism", "Advertising", "Aerospace", "Agriculture", "AI", "Algebra", "Algorithms",
-    "Anatomy", "Animation", "Anthropology", "App-Development", "Archaeology", "Architecture", "Art",
-    "Artificial Intelligence", "Astronomy", "Athletics", "Audio-Engineering", "Automation", "Aviation",
-    "Baking", "Banking", "Basketball", "Bioengineering", "Bioinformatics", "Biology", "Biomechanics",
-    "Biophysics", "Blogging", "Blockchain", "Board-Games", "Book-Club", "Botany", "Boxing", "Branding",
-    "Broadcasting", "Business", "Calligraphy", "Camping", "Career-Development", "Carpentry", "Chemistry",
-    "Chess", "Choir", "Cinematography", "Civil-Engineering", "Classical-Music", "Climate-Change", "Coding",
-    "Comedy", "Communication", "Community-Service", "Computer-Graphics", "Computer-Science", "Construction",
-    "Content-Creation", "Cooking", "Copywriting", "Counseling", "Creative-Writing", "Cricket", "Culinary-Arts",
-    "Cultural-Studies", "Cycling", "Dance", "Data-Analytics", "Data-Science", "Debate", "Design", "Digital-Art",
-    "Digital-Marketing", "Digital-Painting", "Diplomacy", "DIY", "Drama", "Drawing", "E-commerce", "Economics",
-    "Education", "Electrical-Engineering", "Electronics", "Embroidery", "Emergency-Medicine", "Engineering",
-    "English-Literature", "Entrepreneurship", "Environmentalism", "Esports", "Event-Planning", "Fashion",
-    "Fencing", "Film", "Finance", "Fine-Arts", "Fitness", "Flute", "Folk-Music", "Football", "Foreign-Languages",
-    "Forensics", "Forestry", "Gardening", "Gaming", "Genetics", "Geology", "Geography", "Graphic-Design",
-    "Gymnastics", "Handball", "Health", "Hiking", "History", "Hockey", "Home-Decor", "Hospitality", "Human-Rights",
-    "Illustration", "Improv", "Industrial-Design", "Information-Technology", "Innovation", "Instrumental-Music",
-    "Interior-Design", "International-Relations", "Investing", "Journalism", "Judo", "Karate", "Kickboxing",
-    "Knitting", "Law", "Leadership", "Literature", "Logistics", "Machine-Learning", "Magic", "Management",
-    "Manufacturing", "Marketing", "Martial-Arts", "Mathematics", "Mechanical-Engineering", "Media-Studies",
-    "Medicine", "Meditation", "Mentorship", "Metallurgy", "Meteorology", "Microbiology", "Military-Science",
-    "Mobile-App-Development", "Modeling", "Modern-Art", "Molecular-Biology", "Motorsport", "Mountaineering",
-    "Movie-Critique", "Multimedia", "Music", "Mythology", "Nanotechnology", "Networking", "Neuroscience",
-    "Nutrition", "Opera", "Painting", "Paleontology", "Paragliding", "Parkour", "Performing-Arts",
-    "Personal-Finance", "Personal-Training", "Philosophy", "Photography", "Physics", "Pilates", "Podcasting",
-    "Poetry", "Political-Science", "Pottery", "Programming", "Project-Management", "Psychology", "Public-Health",
-    "Public-Relations", "Public-Speaking", "Quantum-Computing", "Quantum-Physics", "Radio-Hosting", "Reading",
-    "Real-Estate", "Recycling", "Renewable-Energy", "Research", "Robotics", "Rocketry", "Rowing", "Rugby",
-    "Running", "Salsa", "Sculpture", "Self-Defense", "Sewing", "Singing", "Skateboarding", "Skating",
-    "Social-Media", "Social-Work", "Sociology", "Software-Development", "Sound-Engineering", "Space-Exploration",
-    "Spanish", "Speechwriting", "Spirituality", "Sports", "Stand-Up-Comedy", "Startups", "Stock-Trading",
-    "Storytelling", "Strategy-Games", "Street-Art", "Student-Government", "Sustainability", "Swimming",
-    "Table-Tennis", "Taekwondo", "Taxation", "Teaching", "Technical-Writing", "Technology", "Tennis", "Theater",
-    "Theology", "Tourism", "Trading", "Traditional-Dance", "Travel", "Urban-Planning", "UX-Design", "VFX",
-    "Video-Editing", "Videography", "Violin", "Virtual-Reality", "Volleyball", "Volunteering", "Web-Development",
-    "Weightlifting", "Wildlife-Conservation", "Windsurfing", "Woodworking", "Wrestling", "Writing", "Yoga",
-    "Zoology", "3D-Modeling", "3D-Printing", "Acoustic-Guitar", "Acting-Coaching", "Anime", "Aquaponics",
-    "Archery", "Astronomy-Photography", "Auto-Racing", "Ballet", "Barista-Skills", "Bartending", "Beer-Brewing",
-    "Birdwatching", "Blacksmithing", "Bodybuilding", "Bouldering", "Candle-Making", "Car-Restoration",
+    "Acting",
+    "Activism",
+    "Advertising",
+    "Aerospace",
+    "Agriculture",
+    "AI",
+    "Algebra",
+    "Algorithms",
+    "Anatomy",
+    "Animation",
+    "Anthropology",
+    "App-Development",
+    "Archaeology",
+    "Architecture",
+    "Art",
+    "Artificial Intelligence",
+    "Astronomy",
+    "Athletics",
+    "Audio-Engineering",
+    "Automation",
+    "Aviation",
+    "Baking",
+    "Banking",
+    "Basketball",
+    "Bioengineering",
+    "Bioinformatics",
+    "Biology",
+    "Biomechanics",
+    "Biophysics",
+    "Blogging",
+    "Blockchain",
+    "Board-Games",
+    "Book-Club",
+    "Botany",
+    "Boxing",
+    "Branding",
+    "Broadcasting",
+    "Business",
+    "Calligraphy",
+    "Camping",
+    "Career-Development",
+    "Carpentry",
+    "Chemistry",
+    "Chess",
+    "Choir",
+    "Cinematography",
+    "Civil-Engineering",
+    "Classical-Music",
+    "Climate-Change",
+    "Coding",
+    "Comedy",
+    "Communication",
+    "Community-Service",
+    "Computer-Graphics",
+    "Computer-Science",
+    "Construction",
+    "Content-Creation",
+    "Cooking",
+    "Copywriting",
+    "Counseling",
+    "Creative-Writing",
+    "Cricket",
+    "Culinary-Arts",
+    "Cultural-Studies",
+    "Cycling",
+    "Dance",
+    "Data-Analytics",
+    "Data-Science",
+    "Debate",
+    "Design",
+    "Digital-Art",
+    "Digital-Marketing",
+    "Digital-Painting",
+    "Diplomacy",
+    "DIY",
+    "Drama",
+    "Drawing",
+    "E-commerce",
+    "Economics",
+    "Education",
+    "Electrical-Engineering",
+    "Electronics",
+    "Embroidery",
+    "Emergency-Medicine",
+    "Engineering",
+    "English-Literature",
+    "Entrepreneurship",
+    "Environmentalism",
+    "Esports",
+    "Event-Planning",
+    "Fashion",
+    "Fencing",
+    "Film",
+    "Finance",
+    "Fine-Arts",
+    "Fitness",
+    "Flute",
+    "Folk-Music",
+    "Football",
+    "Foreign-Languages",
+    "Forensics",
+    "Forestry",
+    "Gardening",
+    "Gaming",
+    "Genetics",
+    "Geology",
+    "Geography",
+    "Graphic-Design",
+    "Gymnastics",
+    "Handball",
+    "Health",
+    "Hiking",
+    "History",
+    "Hockey",
+    "Home-Decor",
+    "Hospitality",
+    "Human-Rights",
+    "Illustration",
+    "Improv",
+    "Industrial-Design",
+    "Information-Technology",
+    "Innovation",
+    "Instrumental-Music",
+    "Interior-Design",
+    "International-Relations",
+    "Investing",
+    "Journalism",
+    "Judo",
+    "Karate",
+    "Kickboxing",
+    "Knitting",
+    "Law",
+    "Leadership",
+    "Literature",
+    "Logistics",
+    "Machine-Learning",
+    "Magic",
+    "Management",
+    "Manufacturing",
+    "Marketing",
+    "Martial-Arts",
+    "Mathematics",
+    "Mechanical-Engineering",
+    "Media-Studies",
+    "Medicine",
+    "Meditation",
+    "Mentorship",
+    "Metallurgy",
+    "Meteorology",
+    "Microbiology",
+    "Military-Science",
+    "Mobile-App-Development",
+    "Modeling",
+    "Modern-Art",
+    "Molecular-Biology",
+    "Motorsport",
+    "Mountaineering",
+    "Movie-Critique",
+    "Multimedia",
+    "Music",
+    "Mythology",
+    "Nanotechnology",
+    "Networking",
+    "Neuroscience",
+    "Nutrition",
+    "Opera",
+    "Painting",
+    "Paleontology",
+    "Paragliding",
+    "Parkour",
+    "Performing-Arts",
+    "Personal-Finance",
+    "Personal-Training",
+    "Philosophy",
+    "Photography",
+    "Physics",
+    "Pilates",
+    "Podcasting",
+    "Poetry",
+    "Political-Science",
+    "Pottery",
+    "Programming",
+    "Project-Management",
+    "Psychology",
+    "Public-Health",
+    "Public-Relations",
+    "Public-Speaking",
+    "Quantum-Computing",
+    "Quantum-Physics",
+    "Radio-Hosting",
+    "Reading",
+    "Real-Estate",
+    "Recycling",
+    "Renewable-Energy",
+    "Research",
+    "Robotics",
+    "Rocketry",
+    "Rowing",
+    "Rugby",
+    "Running",
+    "Salsa",
+    "Sculpture",
+    "Self-Defense",
+    "Sewing",
+    "Singing",
+    "Skateboarding",
+    "Skating",
+    "Social-Media",
+    "Social-Work",
+    "Sociology",
+    "Software-Development",
+    "Sound-Engineering",
+    "Space-Exploration",
+    "Spanish",
+    "Speechwriting",
+    "Spirituality",
+    "Sports",
+    "Stand-Up-Comedy",
+    "Startups",
+    "Stock-Trading",
+    "Storytelling",
+    "Strategy-Games",
+    "Street-Art",
+    "Student-Government",
+    "Sustainability",
+    "Swimming",
+    "Table-Tennis",
+    "Taekwondo",
+    "Taxation",
+    "Teaching",
+    "Technical-Writing",
+    "Technology",
+    "Tennis",
+    "Theater",
+    "Theology",
+    "Tourism",
+    "Trading",
+    "Traditional-Dance",
+    "Travel",
+    "Urban-Planning",
+    "UX-Design",
+    "VFX",
+    "Video-Editing",
+    "Videography",
+    "Violin",
+    "Virtual-Reality",
+    "Volleyball",
+    "Volunteering",
+    "Web-Development",
+    "Weightlifting",
+    "Wildlife-Conservation",
+    "Windsurfing",
+    "Woodworking",
+    "Wrestling",
+    "Writing",
+    "Yoga",
+    "Zoology",
+    "3D-Modeling",
+    "3D-Printing",
+    "Acoustic-Guitar",
+    "Acting-Coaching",
+    "Anime",
+    "Aquaponics",
+    "Archery",
+    "Astronomy-Photography",
+    "Auto-Racing",
+    "Ballet",
+    "Barista-Skills",
+    "Bartending",
+    "Beer-Brewing",
+    "Birdwatching",
+    "Blacksmithing",
+    "Bodybuilding",
+    "Bouldering",
+    "Candle-Making",
+    "Car-Restoration",
     "Chess-Strategy",
   ];
 
   const skillSuggestions = [
-    "HTML", "CSS", "JavaScript", "React", "Vue.js", "Angular", "Bootstrap", "Tailwind CSS", "TypeScript",
-    "UI/UX", "Graphic Design", "Logo Design", "Typography", "Infographics", "Digital Illustration",
-    "Resume Designing", "Node.js", "Express.js", "Java", "Spring Boot", "Python", "Django", "Flask", "PHP",
-    "Laravel", "C#", ".NET", "C++", "API Development", "REST APIs", "GraphQL", "Web Scraping", "SQL",
-    "MySQL", "PostgreSQL", "MongoDB", "Oracle", "Data Visualization", "Git", "GitHub", "Docker", "Jenkins",
-    "CI/CD", "AWS", "Azure", "Firebase", "Cloud Computing", "Linux", "VS Code", "Agile/Scrum",
-    "Data Structures & Algorithms", "Smart Home Setup", "Jest", "Mocha", "Cypress", "Selenium", "JUnit",
-    "Software Testing", "Web Development", "WordPress", "App Development", "Game Development",
-    "Chatbot Development", "AR/VR", "IoT", "Automation", "Blockchain", "AI/ML", "Cybersecurity",
-    "Ethical Hacking", "Cloud Security", "App Monetization", "Animation", "Video Editing", "3D Modeling",
-    "NFT Art", "Interior Design", "Photography", "Stock Photography", "Virtual Reality Content",
-    "3D Printing", "Handmade Crafts", "DIY Home Decor", "Content Writing", "Copywriting", "Technical Writing",
-    "Ghostwriting", "Resume Writing", "Scriptwriting", "Blogging", "Research Writing", "Translation",
-    "Transcription", "Speech Writing", "Freelance Writing", "Copyediting", "Proofreading",
-    "Email Copywriting", "Public Relations Writing", "Social Media", "SEO", "Email Marketing",
-    "Ads Management", "Affiliate Marketing", "Influencer Marketing", "PR", "Market Research",
-    "Lead Generation", "Growth Hacking", "Sales Funnels", "Video Marketing", "Social Media Ads",
-    "Google Analytics", "Digital Fundraising", "Accounting", "Financial Analysis",
-    "Stock Trading", "Cryptocurrency", "Tax Filing", "Budgeting", "Crowdfunding", "Business Valuation",
-    "Investment Analysis", "Risk Management", "Business Consulting", "HR Management", "Business Proposal",
-    "E-commerce", "Dropshipping", "Product Listing", "Print-on-Demand", "B2B Sales", "Customer Retention",
-    "Online Courses", "Subscription Business", "Retail Management", "Public Speaking", "Negotiation",
-    "Conflict Resolution", "Time Management", "Leadership", "Networking", "Emotional Intelligence",
-    "Personal Branding", "Interviewing", "Problem-Solving", "Personal Development", "Stress Management",
-    "Meditation", "Relationship Building", "Workplace Communication", "Professional Dressing", "Job Search",
-    "Legal Knowledge", "Debt Management", "Resume Optimization", "Personal Finance", "Online Tutoring",
-    "Language Teaching", "Music Lessons", "Fitness Training", "Life Coaching", "Career Counseling",
-    "Exam Coaching", "Yoga", "Skill Training", "Dance Choreography", "Virtual Assistance", "Data Entry",
-    "Email Management", "Customer Support", "Travel Planning", "Project Management", "Event Planning",
-    "Document Formatting", "CRM Management", "Customer Retention", "Podcasting", "Podcast Editing",
-    "Voiceover", "Voice Modulation", "Mobile Repair", "Car Maintenance", "Home Repair", "Cooking",
-    "Nutrition", "First Aid", "Emergency Preparedness", "Gardening", "Public Transport Navigation",
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "React",
+    "Vue.js",
+    "Angular",
+    "Bootstrap",
+    "Tailwind CSS",
+    "TypeScript",
+    "UI/UX",
+    "Graphic Design",
+    "Logo Design",
+    "Typography",
+    "Infographics",
+    "Digital Illustration",
+    "Resume Designing",
+    "Node.js",
+    "Express.js",
+    "Java",
+    "Spring Boot",
+    "Python",
+    "Django",
+    "Flask",
+    "PHP",
+    "Laravel",
+    "C#",
+    ".NET",
+    "C++",
+    "API Development",
+    "REST APIs",
+    "GraphQL",
+    "Web Scraping",
+    "SQL",
+    "MySQL",
+    "PostgreSQL",
+    "MongoDB",
+    "Oracle",
+    "Data Visualization",
+    "Git",
+    "GitHub",
+    "Docker",
+    "Jenkins",
+    "CI/CD",
+    "AWS",
+    "Azure",
+    "Firebase",
+    "Cloud Computing",
+    "Linux",
+    "VS Code",
+    "Agile/Scrum",
+    "Data Structures & Algorithms",
+    "Smart Home Setup",
+    "Jest",
+    "Mocha",
+    "Cypress",
+    "Selenium",
+    "JUnit",
+    "Software Testing",
+    "Web Development",
+    "WordPress",
+    "App Development",
+    "Game Development",
+    "Chatbot Development",
+    "AR/VR",
+    "IoT",
+    "Automation",
+    "Blockchain",
+    "AI/ML",
+    "Cybersecurity",
+    "Ethical Hacking",
+    "Cloud Security",
+    "App Monetization",
+    "Animation",
+    "Video Editing",
+    "3D Modeling",
+    "NFT Art",
+    "Interior Design",
+    "Photography",
+    "Stock Photography",
+    "Virtual Reality Content",
+    "3D Printing",
+    "Handmade Crafts",
+    "DIY Home Decor",
+    "Content Writing",
+    "Copywriting",
+    "Technical Writing",
+    "Ghostwriting",
+    "Resume Writing",
+    "Scriptwriting",
+    "Blogging",
+    "Research Writing",
+    "Translation",
+    "Transcription",
+    "Speech Writing",
+    "Freelance Writing",
+    "Copyediting",
+    "Proofreading",
+    "Email Copywriting",
+    "Public Relations Writing",
+    "Social Media",
+    "SEO",
+    "Email Marketing",
+    "Ads Management",
+    "Affiliate Marketing",
+    "Influencer Marketing",
+    "PR",
+    "Market Research",
+    "Lead Generation",
+    "Growth Hacking",
+    "Sales Funnels",
+    "Video Marketing",
+    "Social Media Ads",
+    "Google Analytics",
+    "Digital Fundraising",
+    "Accounting",
+    "Financial Analysis",
+    "Stock Trading",
+    "Cryptocurrency",
+    "Tax Filing",
+    "Budgeting",
+    "Crowdfunding",
+    "Business Valuation",
+    "Investment Analysis",
+    "Risk Management",
+    "Business Consulting",
+    "HR Management",
+    "Business Proposal",
+    "E-commerce",
+    "Dropshipping",
+    "Product Listing",
+    "Print-on-Demand",
+    "B2B Sales",
+    "Customer Retention",
+    "Online Courses",
+    "Subscription Business",
+    "Retail Management",
+    "Public Speaking",
+    "Negotiation",
+    "Conflict Resolution",
+    "Time Management",
+    "Leadership",
+    "Networking",
+    "Emotional Intelligence",
+    "Personal Branding",
+    "Interviewing",
+    "Problem-Solving",
+    "Personal Development",
+    "Stress Management",
+    "Meditation",
+    "Relationship Building",
+    "Workplace Communication",
+    "Professional Dressing",
+    "Job Search",
+    "Legal Knowledge",
+    "Debt Management",
+    "Resume Optimization",
+    "Personal Finance",
+    "Online Tutoring",
+    "Language Teaching",
+    "Music Lessons",
+    "Fitness Training",
+    "Life Coaching",
+    "Career Counseling",
+    "Exam Coaching",
+    "Yoga",
+    "Skill Training",
+    "Dance Choreography",
+    "Virtual Assistance",
+    "Data Entry",
+    "Email Management",
+    "Customer Support",
+    "Travel Planning",
+    "Project Management",
+    "Event Planning",
+    "Document Formatting",
+    "CRM Management",
+    "Customer Retention",
+    "Podcasting",
+    "Podcast Editing",
+    "Voiceover",
+    "Voice Modulation",
+    "Mobile Repair",
+    "Car Maintenance",
+    "Home Repair",
+    "Cooking",
+    "Nutrition",
+    "First Aid",
+    "Emergency Preparedness",
+    "Gardening",
+    "Public Transport Navigation",
     "Apartment Hunting",
   ];
 
@@ -276,13 +678,7 @@ function AfterOtpSection1() {
       ],
     },
     "B.Com (Bachelor of Commerce)": {
-      interests: [
-        "Accounting",
-        "Finance",
-        "Business",
-        "Economics",
-        "Taxation",
-      ],
+      interests: ["Accounting", "Finance", "Business", "Economics", "Taxation"],
       skills: [
         "Accounting",
         "Tax Filing",
@@ -332,9 +728,9 @@ function AfterOtpSection1() {
   const getCourseSuggestions = () => {
     const query = courseQuery.toLowerCase();
     if (!query) return courseOptions.slice(0, 5); // Show top 5 courses when query is empty
-    return courseOptions.filter((option) =>
-      option.toLowerCase().includes(query)
-    ).slice(0, 5); // Limit to 5 suggestions
+    return courseOptions
+      .filter((option) => option.toLowerCase().includes(query))
+      .slice(0, 5); // Limit to 5 suggestions
   };
 
   // Get filtered interest suggestions based on input
@@ -415,6 +811,42 @@ function AfterOtpSection1() {
     }
   }, [email, passedToken, navigate]);
 
+  // Handle geolocation
+  const handleTrackLocation = () => {
+    if (navigator.geolocation) {
+      setIsSubmitting(true);
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          try {
+            const { latitude, longitude } = position.coords;
+            // Use a reverse geocoding API (e.g., OpenStreetMap Nominatim)
+            const response = await axios.get(
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+            );
+            const { address } = response.data;
+            const locationString = `${
+              address.city || address.town || address.village || ""
+            }, ${address.country || ""}`;
+            setUserLocation(locationString);
+            setError("");
+          } catch (err) {
+            console.error("Geolocation error:", err);
+            setError("Failed to fetch location. Please enter manually.");
+          } finally {
+            setIsSubmitting(false);
+          }
+        },
+        (err) => {
+          console.error("Geolocation permission denied:", err);
+          setError("Location access denied. Please enter manually.");
+          setIsSubmitting(false);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by your browser.");
+    }
+  };
+
   // Step Handlers
   const handleFirstStepSubmit = (e) => {
     e.preventDefault();
@@ -434,8 +866,14 @@ function AfterOtpSection1() {
     e.preventDefault();
     if (isSubmitting) return;
     setIsSubmitting(true);
-    if (!college || !semester || !course) {
+    if (!college || !semester || !course || !phoneNumber) {
       setError("All required fields must be filled");
+      setIsSubmitting(false);
+      return;
+    }
+    // Basic phone number validation
+    if (!/^\d{10}$/.test(phoneNumber)) {
+      setError("Please enter a valid 10-digit phone number");
       setIsSubmitting(false);
       return;
     }
@@ -458,7 +896,43 @@ function AfterOtpSection1() {
     setIsSubmitting(false);
   };
 
-  const authToken = localStorage.getItem("authToken");
+  const resizeAndCompressImage = (file) => {
+    return new Promise((resolve, reject) => {
+      const maxWidth = 500;
+      const maxHeight = 500;
+      const quality = 0.7;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          let width = img.width;
+          let height = img.height;
+          if (width > height) {
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+          } else {
+            if (height > maxHeight) {
+              width = Math.round((width * maxHeight) / height);
+              height = maxHeight;
+            }
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+          const resizedBase64 = canvas.toDataURL("image/jpeg", quality);
+          resolve(resizedBase64);
+        };
+        img.onerror = (error) => reject(error);
+        img.src = event.target.result;
+      };
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
+  };
 
   const handleFinalStepSubmit = async (e) => {
     e.preventDefault();
@@ -482,68 +956,88 @@ function AfterOtpSection1() {
       !college ||
       !semester ||
       !course ||
-      !profilePhoto ||
+      !phoneNumber ||
       selectedInterests.length < 2 ||
       selectedSkills.length < 2
     ) {
       setError(
-        "All required fields must be filled, including profile photo, at least 2 interests, and 2 skills"
-      );
-      setIsSubmitting(false);
-      return;
-    }
-    if (!authToken) {
-      setError(
-        "Authorization token is missing from localStorage. Please log in again."
+        "All required fields must be filled, including at least 2 interests and 2 skills"
       );
       setIsSubmitting(false);
       return;
     }
 
     try {
-      const formData = new FormData();
-      // Append all fields
-      formData.append("email", email);
-      formData.append("password", password);
-      formData.append("username", username);
-      formData.append("Gender", Gender);
-      formData.append("location", userLocation);
-      formData.append("college", college);
-      formData.append("semester", semester);
-      formData.append("degree", course);
-      formData.append("Skills", JSON.stringify(selectedSkills));
-      formData.append("Interests", JSON.stringify(selectedInterests));
-      formData.append("profilePhoto", profilePhoto);
+      let profilePictureBase64 = "";
+      if (profilePhoto) {
+        profilePictureBase64 = await resizeAndCompressImage(profilePhoto);
+        console.log("Profile picture compressed and resized successfully");
+      }
 
-      // Log formData values with date/time
-      console.group(`FormData Submission - ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}`);
-      console.log("email:", email);
+      const userData = {
+        email,
+        password,
+        username,
+        firstName: username, // Default to username as fallback
+        lastName: "", // Empty as not collected
+        PhoneNumber: phoneNumber, // Use phone number directly
+        Gender,
+        Skills: selectedSkills,
+        Interests: selectedInterests,
+        headline: "", // Empty as not collected
+        location: userLocation,
+        About: "", // Empty as not collected
+        college,
+        degree: course,
+        workorProject: semester, // Map semester to workorProject
+        startYear: null,
+        endYear: null,
+        profilePictureBase64,
+      };
+
+      // Log userData (equivalent to formData) with date/time
+      console.group(
+        `UserData Submission - ${new Date().toLocaleString("en-IN", {
+          timeZone: "Asia/Kolkata",
+        })}`
+      );
+      console.log("email:", userData.email);
       console.log("password:", "********"); // Masked for security
-      console.log("username:", username);
-      console.log("Gender:", Gender);
-      console.log("location:", userLocation);
-      console.log("college:", college);
-      console.log("semester:", semester);
-      console.log("degree:", course);
-      console.log("Skills:", JSON.stringify(selectedSkills));
-      console.log("Interests:", JSON.stringify(selectedInterests));
-      console.log("profilePhoto:", profilePhoto ? profilePhoto.name : "No file selected");
+      console.log("username:", userData.username);
+      console.log("Gender:", userData.Gender);
+      console.log("PhoneNumber:", userData.PhoneNumber);
+      console.log("location:", userData.location);
+      console.log("college:", userData.college);
+      console.log("semester:", userData.workorProject);
+      console.log("degree:", userData.degree);
+      console.log("Skills:", JSON.stringify(userData.Skills));
+      console.log("Interests:", JSON.stringify(userData.Interests));
+      console.log(
+        "profilePhoto:",
+        profilePictureBase64
+          ? profilePictureBase64.substring(0, 50) + "..."
+          : "No file selected"
+      );
       console.groupEnd();
 
       const response = await axios.post(
         "https://uniisphere-backend-latest.onrender.com/api/auth/completeProfile",
-        formData,
+        userData,
         {
           headers: {
-            Authorization: `Bearer ${authToken}`,
-            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token.trim()}`,
+            "Content-Type": "application/json",
           },
           timeout: 30000,
         }
       );
 
       // Log API response with date/time
-      console.group(`API Response - ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}`);
+      console.group(
+        `API Response - ${new Date().toLocaleString("en-IN", {
+          timeZone: "Asia/Kolkata",
+        })}`
+      );
       console.log("Response Data:", response.data);
       console.log("Status Code:", response.status);
       console.groupEnd();
@@ -559,12 +1053,18 @@ function AfterOtpSection1() {
     } catch (err) {
       console.error("Error details:", err);
       // Log API error response with date/time
-      console.group(`API Error - ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}`);
+      console.group(
+        `API Error - ${new Date().toLocaleString("en-IN", {
+          timeZone: "Asia/Kolkata",
+        })}`
+      );
       console.log("Error Message:", err.message);
       console.log("Response Data:", err.response?.data || "No response data");
       console.log("Status Code:", err.response?.status || "N/A");
       console.groupEnd();
-      setError(err.response?.data?.error || err.message || "Profile completion failed");
+      setError(
+        err.response?.data?.error || err.message || "Profile completion failed"
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -647,13 +1147,24 @@ function AfterOtpSection1() {
       </Form.Group>
       <Form.Group controlId="location" className="mb-3">
         <Form.Label>Location*</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Enter your location (e.g., New York, NY)"
-          value={userLocation}
-          onChange={(e) => setUserLocation(e.target.value)}
-          required
-        />
+        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+          <Form.Control
+            type="text"
+            placeholder="Enter your location (e.g., New York, NY)"
+            value={userLocation}
+            onChange={(e) => setUserLocation(e.target.value)}
+            required
+            style={{ flex: 1 }}
+          />
+          <Button
+            variant="outline-primary"
+            onClick={handleTrackLocation}
+            disabled={isSubmitting}
+            style={{ whiteSpace: "nowrap" }}
+          >
+            {isSubmitting ? "Tracking..." : "Track Location"}
+          </Button>
+        </div>
       </Form.Group>
       {error && <p className="error-text">{error}</p>}
       <Button
@@ -782,13 +1293,18 @@ function AfterOtpSection1() {
           )}
         </div>
       </Form.Group>
+      <Form.Group controlId="phoneNumber" className="mb-3">
+        <Form.Label>Phone Number*</Form.Label>
+        <Form.Control
+          type="tel"
+          placeholder="Enter 10-digit phone number"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ""))}
+          required
+        />
+      </Form.Group>
       {error && <p className="error-text">{error}</p>}
-      <Button
-        variant="primary"
-        type="submit"
-        className="otp-btn"
-        disabled={isSubmitting}
-      >
+      <Button type="submit" className="otp-btn" disabled={isSubmitting}>
         {isSubmitting ? "Processing..." : "Next"}
       </Button>
     </Form>
@@ -817,7 +1333,10 @@ function AfterOtpSection1() {
               onFocus={() => setIsInterestDropdownOpen(true)}
               onKeyDown={(e) => {
                 if (e.key === "Escape") setIsInterestDropdownOpen(false);
-                if (e.key === "Enter" && interestSuggestionsFiltered.length > 0) {
+                if (
+                  e.key === "Enter" &&
+                  interestSuggestionsFiltered.length > 0
+                ) {
                   e.preventDefault();
                   handleInterestSelect(interestSuggestionsFiltered[0]);
                 }
@@ -1089,7 +1608,9 @@ function AfterOtpSection1() {
         controlId="profilePhoto"
         className="Profile-phot-main-conmmtainer mb-3"
       >
-        <Form.Label className="Profile-photo-heading">Profile Photo*</Form.Label>
+        <Form.Label className="Profile-photo-heading">
+          Profile Photo*
+        </Form.Label>
         <div className="profile-photo-container" onClick={handleImageClick}>
           {profilePhotoPreview ? (
             <img
@@ -1113,7 +1634,8 @@ function AfterOtpSection1() {
         />
       </Form.Group>
       <p className="Profileimage-desc">
-        Please upload a profile picture to make your connections faster and easier.
+        Please upload a profile picture to make your connections faster and
+        easier.
       </p>
       {error && <p className="error-text">{error}</p>}
       <Button
@@ -1130,7 +1652,11 @@ function AfterOtpSection1() {
   return (
     <div>
       <div className="title-section-signup">
-        <img src={Unispherelogo} alt="Unisphere Logo" className="top-left-logo" />
+        <img
+          src={Unispherelogo}
+          alt="Unisphere Logo"
+          className="top-left-logo"
+        />
         <h1 className="unisphere-title-signup">
           <span className="u">U</span>
           <span className="n">N</span>
@@ -1157,7 +1683,9 @@ function AfterOtpSection1() {
               <div
                 key={s}
                 className={`step ${step >= s ? "completed" : ""}`}
-                aria-label={`Step ${s} ${step >= s ? "completed" : "not completed"}`}
+                aria-label={`Step ${s} ${
+                  step >= s ? "completed" : "not completed"
+                }`}
               ></div>
             ))}
           </div>
